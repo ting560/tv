@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Positiva TV</title>
+<link href="Untitled1.css" rel="stylesheet">
+<link href="index.css" rel="stylesheet">
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function()
+{
+   $(".SlideMenu1-folder a").click(function()
+   {
+      var $popup = $(this).parent().find('ul');
+      if ($popup.is(':hidden'))
+      {
+         $popup.slideDown();
+         $popup.attr('aria-expanded', 'true');
+      }
+      else
+      {
+         $popup.slideUp();
+         $popup.attr('aria-expanded', 'false');
+      }
+   });
+});
+</script>
+</head>
+<body>
+<div id="SlideMenu1" style="position:absolute;left:0px;top:0px;width:260px;height:662px;z-index:0;">
+<ul role="menu">
+<li class="SlideMenu1-folder" aria-haspopup="true"><a>CANAIS ABERTOS</a>
+<ul role="menu" aria-expanded="true">
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=globorj-tvriosul" target="frame">Globo</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=recordsp" target="frame">Record</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=sbt" target="frame">SBT</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=band" target="frame">BAND</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=redetv" target="frame">Rede TV</a></li>
+</ul>
+</li>
+<li class="SlideMenu1-folder" aria-haspopup="true"><a>ESPORTES</a>
+<ul role="menu" aria-expanded="true">
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=sportv" target="frame">sport tv</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=premiereclubes" target="frame">Premiere</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=premiere2" target="frame">Premiere 2</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=espn" target="frame">ESPN</a></li>
+</ul>
+</li>
+<li class="SlideMenu1-folder" aria-haspopup="true"><a>NOTICIAS</a>
+<ul role="menu" aria-expanded="true">
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=globonews" target="frame">Globo News</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=jpnews" target="frame">JP News</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=cnnbrasil" target="frame">CNN BR</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=bandnews" target="frame">Band News</a></li>
+</ul>
+</li>
+<li class="SlideMenu1-folder" aria-haspopup="true"><a>CANAIS FILMES</a>
+<ul role="menu" aria-expanded="true">
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=telecinepipoca" target="frame">TC Pipoca</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=telecineaction" target="frame">TC Action</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=telecinepremium" target="frame">TC Premium</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=hbo" target="frame">HBO</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=fx" target="frame">FX</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=cinemax" target="frame">Cinemax</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=tnt" target="frame">TNT</a></li>
+</ul>
+</li>
+<li class="SlideMenu1-folder" aria-haspopup="true"><a>VARIADOS</a>
+<ul role="menu" aria-expanded="true">
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=viva" target="frame">Viva</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=gnt" target="frame">GNT</a></li>
+<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=canaloff" target="frame">Off</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<iframe name="frame" id="InlineFrame1" style="position:absolute;left:274px;top:0px;width:503px;height:341px;z-index:1;" src="./page2.html"></iframe>
+</body>
+</html>
