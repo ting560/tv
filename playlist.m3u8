@@ -13,5 +13,19 @@ https://iptv.vivatele.com:443/live/viva_padrao/viva2384/3.m3u8
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/2.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", RecordTV RJ
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/13.m3u8
-#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", test
-https://cr7v.short.gy/manoiTV/sptvextra/75991634025/index.m3u8
+
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", CNN
+https://super-cdn.link/cnnbrasil/index.m3u8
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", GLOBO NEWS
+https://super-cdn.link/globonews/index.m3u8
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", JP NEWS
+https://super-cdn.link/jpnews/index.m3u8
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", BAND NEWS
+https://super-cdn.link/bandnews/index.m3u8
+
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", GNT
+https://super-cdn.link/gnt/index.m3u8
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", VIVA
+https://super-cdn.link/viva/index.m3u8
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", MULTISHOW
+https://super-cdn.link/multishow/index.m3u8
