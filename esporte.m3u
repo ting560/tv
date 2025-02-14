@@ -1,0 +1,56 @@
+#EXTINF:-1 tvg-id="Combate.HD.br" tvg-name="" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/combate.png",Combate
+https://super-cdn.link/combate/index.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/mavtvbr.webp",MAVTV Brasil
+https://cc-panvcqnzkgrdl.akamaized.net/Sports7/Sports7_BR/Sports7.m3u8
+
+#EXTINF:-1 tvg-id="ESPN.br" tvg-name="ESPN" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/espn.webp",ESPN
+http://hzcdn.vood.top:80/hls/309458_.m3u8
+
+#EXTINF:-1 tvg-id="ESPN.2.br" tvg-name="ESPN 2" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/espn.webp",ESPN 2
+https://super-cdn.link/espn2/index.m3u8
+
+#EXTINF:-1 tvg-id="ESPN.3.br" tvg-name="ESPN 3" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/espn.webp",ESPN 3
+https://super-cdn.link/espn3/index.m3u8
+
+#EXTINF:-1 tvg-id="ESPN.4.br" tvg-name="ESPN 4" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/espn.webp",ESPN 4
+https://super-cdn.link/espn4/index.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="ESPN 5" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/espn.webp",ESPN 5
+https://super-cdn.link/espn5/index.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="ESPN 6" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/espn.webp",ESPN 6
+https://super-cdn.link/espn6/index.m3u8
+
+#EXTINF:-1 tvg-id="Bandsports.HD.br" tvg-name="Band Sports" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/bandsports.png",Band Sports
+http://dzcdn.vood.top/hls/232_.m3u8
+
+#EXTINF:-1 tvg-id="Sportv.br" tvg-name="Sportv" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/sportv.png",Sportv
+https://super-cdn.link/sportv/index.m3u8
+
+#EXTINF:-1 tvg-id="SporTV.2.br" tvg-name="SporTV 2" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/sportv2.png",Sportv 2
+https://super-cdn.link/sportv2/index.m3u8
+
+#EXTINF:-1 tvg-id="SporTV.3.br" tvg-name="SporTV 3" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/sportv3.png",Sportv 3
+https://super-cdn.link/sportv3/index.m3u8
+
+#EXTINF:-1 tvg-id="Premiere.HD.br" tvg-name="Premiere" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/pfc.png",Premiere Clubes
+https://super-cdn.link/premiereclubes/index.m3u8
+
+#EXTINF:-1 tvg-id="Premiere.HD2.br" tvg-name="Premiere 2" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/pfc.png",Premiere 2
+https://super-cdn.link/premiere2/index.m3u8
+
+#EXTINF:-1 tvg-id="Premiere.HD.3.br" tvg-name="Premiere 3" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/pfc.png",Premiere 3
+https://super-cdn.link/premiere3/index.m3u8
+
+#EXTINF:-1 tvg-id="Premiere.HD.4.br" tvg-name="Premiere 4" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/pfc.png",Premiere 4
+https://super-cdn.link/premiere4/index.m3u8
+
+#EXTINF:-1 tvg-id="Premiere.HD.5.br" tvg-name="Premiere 5" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/pfc.png",Premiere 5
+https://super-cdn.link/premiere5/index.m3u8
+
+#EXTINF:-1 tvg-id="Premiere.HD6.br" tvg-name="Premiere 6" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/pfc.png",Premiere 6
+https://super-cdn.link/premiere6/index.m3u8
+
+#EXTINF:-1 tvg-id="Premiere.HD7.br" tvg-name="Premiere 7" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/pfc.png",Premiere 7
+https://super-cdn.link/premiere7/index.m3u8
