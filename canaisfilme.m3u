@@ -1,5 +1,5 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="Telecine.Action" tvg-name="Telecine Action" group-title="Filmes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/tca.png",Telecine Action
+#EXTINF:-1 tvg-id="Telecine.HD.br" tvg-name="Telecine Action" group-title="Filmes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/tcpre.png",Telecine Action
 http://play.1list.vip/live/7x0WyDB6Ys/factoryiptv/37040.m3u8
 
 #EXTINF:-1 tvg-id="Telecine.HD.br" tvg-name="Telecine Premium" group-title="Filmes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/tcpre.png",Telecine Premium
