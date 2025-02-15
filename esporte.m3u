@@ -51,5 +51,5 @@ https://super-cdn.link/espn5/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="ESPN 6" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/espn.webp",ESPN 6
 https://super-cdn.link/espn6/index.m3u8
 
-#EXTINF:-1 tvg-id="Bandsports.HD.br" tvg-name="Band Sports" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/bandsports.png",Band Sports
-http://dzcdn.vood.top/hls/232_.m3u8
+#EXTINF:-1 tvg-id="tnt.HD.br" tvg-name="tnt" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/tnt.png",TNT
+https://super-cdn.link/tnt/index.m3u8
