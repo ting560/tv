@@ -34,7 +34,7 @@ https://super-cdn.link/combate/index.m3u8
 https://cc-panvcqnzkgrdl.akamaized.net/Sports7/Sports7_BR/Sports7.m3u8
 
 #EXTINF:-1 tvg-id="ESPN.br" tvg-name="ESPN" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/espn.webp",ESPN
-https://tx2.nexgen.bz:4000//ESPN/index.m3u8
+https://super-cdn.link/espn/index.m3u8
 
 #EXTINF:-1 tvg-id="ESPN.2.br" tvg-name="ESPN 2" group-title="Esportes" tvg-logo="https://raw.githubusercontent.com/JamesBoumd007/baselist/refs/heads/main/logos/espn.webp",ESPN 2
 https://super-cdn.link/espn2/index.m3u8
