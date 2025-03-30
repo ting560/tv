@@ -1,6 +1,6 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="BR - A&E" tvg-name="A&E [FHD]" tvg-logo="http://jrj11.com/APQ" group-title="Canais | Filmes e Séries",A&E [FHD]
-http://pfsv.io:80/live/epg/epg/293.ts
+#EXTINF:-1 tvg-id="BR - A&E" tvg-name="Positiva FM" tvg-logo="http://jrj11.com/APQ" group-title="Canais | Filmes e Séries",Positiva FM
+https://stm37.srvstm.com:6888/stream
 #EXTINF:-1 tvg-id="BR - A&E" tvg-name="A&E [FHD][H265]" tvg-logo="http://jrj11.com/WHI" group-title="Canais | Filmes e Séries",A&E [FHD][H265]
 http://pfsv.io:80/live/epg/epg/30227.ts
 #EXTINF:-1 tvg-id="BR - A&E" tvg-name="A&E [HD]" tvg-logo="http://jrj11.com/APV" group-title="Canais | Filmes e Séries",A&E [HD]
