@@ -17,11 +17,11 @@ https://iptv.vivatele.com:443/live/viva_padrao/viva2384/13.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", CNN
 https://d25usgadhphvwi.cloudfront.net/hls/main.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", GLOBO NEWS
-https://super-cdn.link/globonews/index.m3u8
+https://d25usgadhphvwi.cloudfront.net/hls/main.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", JP NEWS
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/57.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", BAND NEWS
-https://super-cdn.link/bandnews/index.m3u8
+http://zutufo.in:80/live/781487031/K788a6763d/469_.m3u8
 
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", GNT
 https://super-cdn.link/gnt/index.m3u8
