@@ -15,13 +15,14 @@ https://iptv.vivatele.com:443/live/viva_padrao/viva2384/2.m3u8
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/13.m3u8
 
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", CNN
-https://d25usgadhphvwi.cloudfront.net/hls/main.m3u8
+"https://iptv.vivatele.com:443/live/viva_padrao/viva2384/74.m3u8",  # URL principal
+            "https://iptv.vivatele.com:443/live/viva_padrao/viva2384/74.m3u8"  # URL fallba
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", GLOBO NEWS
 http://pfsv.io/live/epg/epg/516.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", JP NEWS
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/57.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", BAND NEWS
-https://aovivo.doozytv.com.br/31025556/10160454/chunks.m3u8
+https://iptv.vivatele.com:443/live/viva_padrao/viva2384/21.m3u8
 
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", GNT
 http://pfsv.io/live/epg/epg/111.m3u8
