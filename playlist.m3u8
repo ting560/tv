@@ -25,8 +25,8 @@ https://iptv.vivatele.com:443/live/viva_padrao/viva2384/57.m3u8
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/21.m3u8
 
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", GNT
-http://pfsv.io/live/epg/epg/111.m3u8
+https://maxtorrents.net/gnt/tracks-v1a1/mono.ts.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", VIVA
-http://pfsv.io/live/epg/epg/114.m3u8
+https://maxtorrents.net/viva/tracks-v1a1/mono.ts.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", MULTISHOW
 http://pfsv.io/live/epg/epg/3.m3u8
