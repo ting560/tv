@@ -30,3 +30,12 @@ https://maxtorrents.net/gnt/tracks-v1a1/mono.ts.m3u8
 https://maxtorrents.net/viva/tracks-v1a1/mono.ts.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", MULTISHOW
 http://pfsv.io/live/epg/epg/3.m3u8
+
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", GNT
+https://maxtorrents.net/espn/tracks-v1a1/mono.ts.m3u8
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", GNT
+https://maxtorrents.net/espn4/tracks-v1a1/mono.ts.m3u8
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", GNT
+https://maxtorrents.net/sportv/tracks-v1a1/mono.ts.m3u8
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", GNT
+https://maxtorrents.net/prime/tracks-v1a1/mono.ts.m3u8
