@@ -40,5 +40,7 @@ https://maxtorrents.net/sportv/tracks-v1a1/mono.ts.m3u8
 https://maxtorrents.net/premiereclubes/tracks-v1a1/mono.ts.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", PREMIERE 2
 https://maxtorrents.net/premiere2/tracks-v1a1/mono.ts.m3u8
-
-
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", SPORTv
+https://aipapai.shop/_temp/sportv.m3u8
+#EXTINF:0 tvg-logo="" group-title="futebol", sportv 
+https://dglvz29s.fubohd.com/sportv/mono.m3u8?token=b6c575421a906074c7efb1ebae3d5f51e65dbb46-67-1750011691-1749993691
