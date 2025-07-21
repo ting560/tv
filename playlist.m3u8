@@ -1,14 +1,12 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="Globo" tvg-name="Globo" tvg-logo="https://example.com/logo.png" group-title="Canais Abertos",Globo
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/1.m3u8
-
-#EXTINF:-1 tvg-id="SBT" tvg-name="SBT" tvg-logo="https://example.com/logo.png" group-title="Canais Abertos",SBT
-https://video05.logicahost.com.br/tvguajara/tvguajara/playlist.m3u8
-
 #EXTINF:-1 tvg-id="tv.rio.sul.br" tvg-name="GLOBO TV RIO SUL SD¹" tvg-logo="https://prostore.app/logos/globo.png" group-title="CANAIS | GLOBO",GLOBO TV RIO SUL SD¹
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/1.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://logodownload.org/wp-content/uploads/2014/02/band-logo-tv.png", BAND RJ
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/3.m3u8
+#EXTINF:-1 tvg-id="SBT" tvg-name="SBT" tvg-logo="https://example.com/logo.png" group-title="Canais Abertos",SBT
+https://video05.logicahost.com.br/tvguajara/tvguajara/playlist.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://i.imgur.com/RzxWGrz.png", SBT RJ
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/2.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", RecordTV RJ
@@ -17,7 +15,7 @@ https://iptv.vivatele.com:443/live/viva_padrao/viva2384/13.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", CNN
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/74.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", GLOBO NEWS
-http://pfsv.io/live/epg/epg/516.m3u8
+http://pfsv.io/live/FzzQitUFQE/JRSMHYRSlT/516.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", JP NEWS
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/57.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", BAND NEWS
