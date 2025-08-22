@@ -1,5 +1,4 @@
-#EXTINF:-1 tvg-id="SinalPrivado" group-title="Outros",Sinal Privado
-http://sinalprivado.info:80/live/01ordu/t6Mv8sw2GP/20001.ts
+
 #EXTINF:-1 tvg-id="Canal1" group-title="Viva",Canal 1
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/1.m3u8
 #EXTINF:-1 tvg-id="Canal2" group-title="Viva",Canal 2
@@ -146,3 +145,4 @@ https://iptv.vivatele.com:443/live/viva_padrao/viva2384/124.m3u8
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/125.m3u8
 #EXTINF:-1 tvg-id="Canal126" group-title="Viva",Canal 126
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/126.m3u8
+
