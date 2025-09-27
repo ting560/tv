@@ -1,79 +1,330 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html class="csstransforms csstransforms3d csstransitions" lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<title>Positiva TV</title>
-<link href="Untitled1.css" rel="stylesheet">
-<link href="index.css" rel="stylesheet">
-<script src="jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function()
-{
-   $(".SlideMenu1-folder a").click(function()
-   {
-      var $popup = $(this).parent().find('ul');
-      if ($popup.is(':hidden'))
-      {
-         $popup.slideDown();
-         $popup.attr('aria-expanded', 'true');
-      }
-      else
-      {
-         $popup.slideUp();
-         $popup.attr('aria-expanded', 'false');
-      }
-   });
-});
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player de Vídeo com Lista</title>
+
+        <!-- Script do AdSense (OBRIGATÓRIO) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3462701549865118" crossorigin="anonymous"></script>
+    <!-- Google Tag Manager (opcional) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBXDJDXGE2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WBXDJDXGE2');
+    </script>
+
+    <style>
+        /* Estilos Gerais */
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #333;
+            overflow-x: hidden;
+        }
+        h1, p {
+            margin: 0;
+        }
+
+        /* Espaço para AdSense */
+        #adsense-container {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        /* Formulário para Links Manuais */
+        #custom-link-form {
+            width: 100%;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        #custom-link-input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+        #custom-link-input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        #custom-link-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #custom-link-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Conteúdo Principal */
+        #content {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 150px); /* Ajuste para caber na tela */
+        }
+
+        /* Playlist */
+        #playlist {
+            width: 100%;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: 30vh; /* Altura máxima para telas pequenas */
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            padding: 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s ease;
+            border-radius: 4px;
+        }
+        li:hover {
+            background-color: #f0f4ff;
+        }
+        .active {
+            background-color: #e0f3ff;
+            font-weight: bold;
+        }
+
+        /* Player Container */
+        #player-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            color: #fff;
+            position: relative;
+        }
+        #video-player, #iframe-player {
+            width: 95%;
+            height: 80%;
+            border: none;
+            border-radius: 8px;
+            display: none; /* Ambos ocultos inicialmente */
+        }
+        #info-panel {
+            width: 95%;
+            height: 20%;
+            background-color: #333;
+            padding: 15px;
+            overflow: hidden;
+            text-align: left;
+            font-size: 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        #stream-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        #stream-description {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        /* Estilos para Telas Grandes */
+        @media (min-width: 768px) {
+            #content {
+                flex-direction: row;
+            }
+            #playlist {
+                width: 25%;
+                max-height: 100%; /* Altura total para telas grandes */
+            }
+            #player-container {
+                width: 75%;
+                height: 100%;
+            }
+            #video-player, #iframe-player {
+                height: 90%;
+            }
+            #info-panel {
+                height: 10%;
+            }
+        }
+
+        /* Estilos para Telas Pequenas */
+        @media (max-width: 768px) {
+            #playlist {
+                max-height: 20vh; /* Reduz a altura da lista */
+            }
+            #video-player, #iframe-player {
+                height: 60%; /* Aumenta a altura do player */
+            }
+            #info-panel {
+                height: 15%; /* Reduz a altura do painel de informações */
+            }
+        }
+    </style>
 </head>
 <body>
-<div id="SlideMenu1" style="position:absolute;left:0px;top:0px;width:260px;height:662px;z-index:0;">
-<ul role="menu">
-<li class="SlideMenu1-folder" aria-haspopup="true"><a>CANAIS ABERTOS</a>
-<ul role="menu" aria-expanded="true">
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=globorj-tvriosul" target="frame">Globo</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=recordsp" target="frame">Record</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=sbt" target="frame">SBT</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=band" target="frame">BAND</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=redetv" target="frame">Rede TV</a></li>
-</ul>
-</li>
-<li class="SlideMenu1-folder" aria-haspopup="true"><a>ESPORTES</a>
-<ul role="menu" aria-expanded="true">
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=sportv" target="frame">sport tv</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=premiereclubes" target="frame">Premiere</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=premiere2" target="frame">Premiere 2</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=espn" target="frame">ESPN</a></li>
-</ul>
-</li>
-<li class="SlideMenu1-folder" aria-haspopup="true"><a>NOTICIAS</a>
-<ul role="menu" aria-expanded="true">
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=globonews" target="frame">Globo News</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=jpnews" target="frame">JP News</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=cnnbrasil" target="frame">CNN BR</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=bandnews" target="frame">Band News</a></li>
-</ul>
-</li>
-<li class="SlideMenu1-folder" aria-haspopup="true"><a>CANAIS FILMES</a>
-<ul role="menu" aria-expanded="true">
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=telecinepipoca" target="frame">TC Pipoca</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=telecineaction" target="frame">TC Action</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=telecinepremium" target="frame">TC Premium</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=hbo" target="frame">HBO</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=fx" target="frame">FX</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=cinemax" target="frame">Cinemax</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=tnt" target="frame">TNT</a></li>
-</ul>
-</li>
-<li class="SlideMenu1-folder" aria-haspopup="true"><a>VARIADOS</a>
-<ul role="menu" aria-expanded="true">
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=viva" target="frame">Viva</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=gnt" target="frame">GNT</a></li>
-<li><a role="menuitem" href="https://reidoscanais.tv/embed/?id=canaloff" target="frame">Off</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<iframe name="frame" id="InlineFrame1" style="position:absolute;left:274px;top:0px;width:503px;height:341px;z-index:1;" src="./page2.html"></iframe>
+
+    <!-- Formulário para Inserir Links Manuais -->
+    <div id="custom-link-form">
+        <input type="text" id="custom-link-input" placeholder="Cole o link do canal aqui">
+        <button id="custom-link-button">Reproduzir</button>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div id="content">
+        <div id="playlist">
+            <ul id="playlist-items">
+                <!-- Itens da playlist serão carregados aqui -->
+            </ul>
+        </div>
+        <div id="player-container">
+            <video id="video-player" controls autoplay></video>
+            <iframe id="iframe-player" allowfullscreen></iframe>
+            <div id="info-panel">
+                <h1 id="stream-title">Selecione um stream</h1>
+                <p id="stream-description">Descrição do stream aparecerá aqui.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script HLS.js -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        const playlistUrl = 'https://raw.githubusercontent.com/ting560/tv/refs/heads/main/playlist.m3u8';
+        const playlistItems = document.getElementById('playlist-items');
+        const videoPlayer = document.getElementById('video-player');
+        const iframePlayer = document.getElementById('iframe-player');
+        const streamTitle = document.getElementById('stream-title');
+        const streamDescription = document.getElementById('stream-description');
+        const customLinkInput = document.getElementById('custom-link-input');
+        const customLinkButton = document.getElementById('custom-link-button');
+
+        // Função para carregar a playlist
+        async function loadPlaylist() {
+            try {
+                const response = await fetch(playlistUrl);
+                const data = await response.text();
+                const lines = data.split('\n');
+                let currentTitle = '';
+                let currentDescription = '';
+                lines.forEach(line => {
+                    if (line.startsWith('#EXTINF')) {
+                        const match = line.match(/tvg-name="(.*?)" tvg-logo="(.*?)" group-title="(.*?)",(.*)/);
+                        if (match) {
+                            currentTitle = match[4].trim();
+                            currentDescription = `Grupo: ${match[3]}, Logo: ${match[2]}`;
+                        } else {
+                            currentTitle = line.split(',')[1].trim();
+                            currentDescription = 'Sem descrição disponível.';
+                        }
+                    } else if (line.startsWith('http')) {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = currentTitle;
+                        listItem.dataset.url = line;
+                        listItem.dataset.description = currentDescription;
+                        listItem.addEventListener('click', () => playVideo(line, listItem));
+                        playlistItems.appendChild(listItem);
+                    }
+                });
+
+                // Adicionar canais personalizados
+                addCustomChannel('MAX', 'https://reidoscanais.tv/embed/?id=max');
+                addCustomChannel('PRIME VIDEO', 'https://reidoscanais.tv/embed/?id=primevideo');
+            } catch (error) {
+                console.error('Erro ao carregar a playlist:', error);
+            }
+        }
+
+        // Função para adicionar canais personalizados
+        function addCustomChannel(title, url) {
+            const listItem = document.createElement('li');
+            listItem.textContent = title;
+            listItem.dataset.url = url;
+            listItem.addEventListener('click', () => playIframe(url));
+            playlistItems.appendChild(listItem);
+        }
+
+        // Função para reproduzir streams HLS ou outros formatos de vídeo
+        function playVideo(url, clickedItem = null) {
+            videoPlayer.style.display = 'block';
+            iframePlayer.style.display = 'none';
+            iframePlayer.src = '';
+
+            if (clickedItem) {
+                document.querySelectorAll('#playlist-items li').forEach(item => item.classList.remove('active'));
+                clickedItem.classList.add('active');
+            }
+
+            streamTitle.textContent = clickedItem ? clickedItem.textContent : 'Canal personalizado';
+            streamDescription.textContent = clickedItem ? clickedItem.dataset.description : 'Link inserido manualmente';
+
+            if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                videoPlayer.src = url;
+                videoPlayer.play();
+            } else if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(videoPlayer);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => videoPlayer.play());
+            } else {
+                console.error('Seu navegador não suporta HLS e hls.js não está disponível.');
+            }
+        }
+
+        // Função para reproduzir links incorporados (iframe)
+        function playIframe(url) {
+            videoPlayer.style.display = 'none';
+            iframePlayer.style.display = 'block';
+            videoPlayer.pause();
+            videoPlayer.src = '';
+            iframePlayer.src = url;
+
+            streamTitle.textContent = 'Canal Incorporado';
+            streamDescription.textContent = 'Este é um canal incorporado via iframe.';
+        }
+
+        // Evento para reproduzir links manuais
+        customLinkButton.addEventListener('click', () => {
+            const customUrl = customLinkInput.value.trim();
+            if (customUrl) {
+                if (customUrl.includes('.m3u8')) {
+                    playVideo(customUrl);
+                } else {
+                    playIframe(customUrl);
+                }
+                customLinkInput.value = '';
+            } else {
+                alert('Por favor, insira um link válido.');
+            }
+        });
+
+        // Carregar a playlist ao iniciar
+        loadPlaylist();
+    </script>
+    <iframe data-aa='2369505' src='//acceptable.a-ads.com/2369505' style='border:0px; padding:0; width:100%; height:100%; overflow:hidden; background-color: transparent;'></iframe>
 </body>
 </html>
