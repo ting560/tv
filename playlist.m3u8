@@ -28,6 +28,16 @@ https://maxtorrents.net/viva/tracks-v1a1/mono.ts.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", MULTISHOW
 http://pfsv.io/live/epg/epg/3.m3u8
 
+
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", HBO
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/7f1d9963f667a5795a6b3b1818adc5bf/hbo.m3u8
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", HBO 2
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/3e7818fe0ce917e282028b32ecddbc54/hbo2.m3u8
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", Megapix
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/3615f22d95064a25d78d4b8dc03558a2/megapix.m3u8
+
+
+
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", ESPN
 https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/8dd18fc2127ec4da86bc85fed0f2c0e1/espn.m3u8
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", ESPN 4
@@ -39,3 +49,11 @@ https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/e5
 #EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", PREMIERE 2
 https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/058fc7d416e7d74f0bee5d305ec44556/premiere2.m3u8
 
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", Disney Plus
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/1df0f9cff8057db8dd45fafa12f8e6d8/disneyplus1.m3u8
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", MAX
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/2ff866486dc98845fbee0dbf411858e7/max1.m3u8
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", Paramount Plus
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/f67492f63bfa4c87c7f3067053e59709/paramountplus.m3u8
+#EXTINF:0 type="stream" group-title="TV AO VIVO" logo="https://listaiptv.gratis/logos/imagens/recordtv.png", Prime Video
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/81fce2dcfeb86c7cbe9b686c0708f7f4/primevideo.m3u8
