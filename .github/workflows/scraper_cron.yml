@@ -25,12 +25,12 @@ jobs:
         with:
           python-version: '3.10' 
 
-      # Passo 3: Instala as dependências (Selenium, PyGithub e o essencial webdriver-manager)
+      # Passo 3: Instala as dependências e o navegador Chromium
       - name: Install dependencies and browser
         run: |
           # 1. Instala as libs Python
           pip install selenium PyGithub webdriver-manager
-          # 2. Instala o navegador Chromium (o binário que o servidor do GitHub usa)
+          # 2. Instala o navegador Chromium (o binário que o servidor do GitHub Actions usa)
           sudo apt-get update 
           sudo apt-get install -y chromium-browser
 
