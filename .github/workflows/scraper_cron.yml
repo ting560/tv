@@ -1,11 +1,11 @@
 name: Executar Scraper a Cada Hora
 
 on:
-  # O agendamento cron: No minuto 30 de TODA hora.
+  # O agendamento cron: No minuto 30 de TODA hora (a cada 60 minutos).
   schedule:
     - cron: '30 * * * *'
   
-  # Permite disparar o workflow manualmente
+  # Permite disparar o workflow manualmente pela aba Actions do GitHub
   workflow_dispatch:
 
 jobs:
@@ -13,31 +13,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Passo 1: Clona o repositório
+      # Passo 1: Clona o repositório. O token é essencial para o commit de volta.
       - name: Checkout code
         uses: actions/checkout@v4
-        # Garante que o Checkout tenha permissão para fazer o commit de volta
         with:
           token: ${{ secrets.CRON_GITHUB_TOKEN }}
 
-      # Passo 2: Configura o ambiente Python
+      # Passo 2: Configura o ambiente Python 3.10
       - name: Setup Python environment
         uses: actions/setup-python@v5
         with:
           python-version: '3.10' 
 
-      # Passo 3: Instala as dependências e o navegador Chromium
-      - name: Install dependencies and Chromium
+      # Passo 3: Instala as dependências (Selenium, PyGithub e o essencial webdriver-manager)
+      - name: Install dependencies and browser
         run: |
           # 1. Instala as libs Python
-          pip install selenium PyGithub
-          # 2. Instala o navegador Chromium (que o Selenium usará)
+          pip install selenium PyGithub webdriver-manager
+          # 2. Instala o navegador Chromium (o binário que o servidor do GitHub usa)
           sudo apt-get update 
           sudo apt-get install -y chromium-browser
 
       # Passo 4: Executa o script Python
       - name: Run Python Scraper
-        # 'env' injeta o Token do GitHub que você salvou como Secret
+        # 'env' injeta o Token que você salvou no Secret do GitHub
         env:
           CRON_GITHUB_TOKEN: ${{ secrets.CRON_GITHUB_TOKEN }}
         run: python scraper_canais.py
