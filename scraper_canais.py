@@ -1,23 +1,25 @@
 import os
 import time
+import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.common.exceptions import WebDriverException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from concurrent.futures import ThreadPoolExecutor
 from github import Github
-# NÃO PRECISAMOS MAIS DE: from webdriver_manager.chrome import ChromeDriverManager
-# NÃO PRECISAMOS MAIS DE: from selenium.webdriver.chrome.service import Service as ChromeService
 
-# --- CONFIGURAÇÃO DE AMBIENTE ---
+# ==============================================================================
+# 1. CONFIGURAÇÕES DE AMBIENTE E GITHUB
+# ==============================================================================
+
+# O Token é lido do Secret do GitHub Actions
 GITHUB_TOKEN = os.getenv("CRON_GITHUB_TOKEN", None) 
-REPO_NAME = "ting560/tv"
+REPO_NAME = "ting560/tv"  # <--- VERIFIQUE SE SEU REPO É ESTE!
 ARQUIVO_SAIDA = "minha_lista_canais.m3u"
-# Mantemos o limite de 2 threads para evitar o erro DevToolsActivePort/concorrência.
-MAX_THREADS = 2 
 
-# Sua lista de URLs
+# Lista de URLs
 URLS_CANAIS = [
     "https://embedtv-4.icu/sportv",
     "https://embedtv-4.icu/premiere",
@@ -39,10 +41,17 @@ URLS_CANAIS = [
     "https://embedtv-4.icu/band"
 ]
 
-# --- FUNÇÕES DE SETUP E INICIALIZAÇÃO DO CHROME (SIMPLIFICADA) ---
+# Expressão regular para encontrar links .m3u8 no código-fonte
+M3U8_PATTERN = r'https?:\/\/[^\s"\']+\.m3u8(?:\?[^\s"\']*)?'
+# Mantemos o limite de 2 threads para evitar o erro DevToolsActivePort/concorrência.
+MAX_THREADS = 2 
+
+# ==============================================================================
+# 2. FUNÇÕES DE SUPORTE E INFRAESTRUTURA
+# ==============================================================================
 
 def inicializar_driver():
-    """Inicializa e retorna um driver Chrome configurado para ambiente headless."""
+    """Inicializa o driver Chrome com opções otimizadas para o GitHub Actions."""
     try:
         chrome_options = Options()
         
@@ -50,60 +59,21 @@ def inicializar_driver():
         chrome_options.add_argument('--headless') 
         chrome_options.add_argument('--no-sandbox') 
         chrome_options.add_argument('--disable-dev-shm-usage') 
+        chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+        chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
         
         # O ChromeDriver está no PATH graças ao browser-actions/setup-chrome
-        # Não precisamos de binary_location ou ChromeDriverManager
         driver = webdriver.Chrome(options=chrome_options)
         return driver
     except Exception as e:
         print(f"❌ ERRO AO INICIAR O CHROME DRIVER: {e}")
         return None
 
-# --- FUNÇÃO DE SCRAPING (MANTIDA) ---
-
-def extrair_m3u8(url):
-    driver = inicializar_driver()
-    if not driver:
-        return None 
-        
+def get_channel_name(url):
+    """Extrai o nome do canal do final da URL."""
     nome_canal_raw = url.split('/')[-1]
-    nome_canal = nome_canal_raw.replace(' ', '').title()
+    return nome_canal_raw.replace(' ', '').title()
 
-    try:
-        print(f"⚙️ Tentando acessar: {nome_canal} ({url})")
-        driver.get(url)
-        
-        # Aumentamos o tempo de espera (timeout) para 20 segundos
-        WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.TAG_NAME, "body")) 
-        )
-
-        # ------------------------------------------------------------------------
-        # *** SUA LÓGICA DE EXTRAÇÃO DE M3U8 VAI AQUI ***
-        link_m3u8_real = None 
-        
-        # EXECUTANDO TESTE: Remova esta condição quando tiver sua lógica real!
-        if nome_canal == "Sportv":
-             link_m3u8_real = f"http://exemplo.com/link-de-teste-para-{nome_canal.lower()}/stream.m3u8"
-        
-        # ------------------------------------------------------------------------
-        
-        if link_m3u8_real:
-            resultado_m3u = f"#EXTINF:-1 group-title=\"Canais TV\",{nome_canal}\n{link_m3u8_real}"
-            print(f"✅ SUCESSO: Link extraído para {nome_canal}")
-            return resultado_m3u
-        else:
-            print(f"❌ FALHA: Link M3U8 não encontrado. Verifique sua lógica de extração para {nome_canal}")
-            return None
-
-    except Exception as e:
-        print(f"❌ ERRO de Scraping em {nome_canal}: {e}")
-        return None
-    finally:
-        if driver:
-            driver.quit()
-
-# --- FUNÇÃO DE COMMIT NO GITHUB (MANTIDA) ---
 
 def salvar_no_github(lista_m3u_final):
     """Faz o commit do arquivo m3u atualizado no repositório do GitHub."""
@@ -112,13 +82,16 @@ def salvar_no_github(lista_m3u_final):
         return
 
     try:
+        # Nota: O uso de login_or_token está depreciado, mas funciona com o token
         g = Github(GITHUB_TOKEN)
         repo = g.get_repo(REPO_NAME)
         
         novo_conteudo = "\n".join(lista_m3u_final)
 
         try:
+            # Tenta buscar o arquivo existente
             conteudo_arquivo = repo.get_contents(ARQUIVO_SAIDA, ref="main")
+            # Atualiza o arquivo
             repo.update_file(conteudo_arquivo.path, 
                              f"Atualização automática da lista de canais - {time.strftime('%Y-%m-%d %H:%M:%S')}", 
                              novo_conteudo, 
@@ -127,6 +100,7 @@ def salvar_no_github(lista_m3u_final):
             print(f"✅ Arquivo '{ARQUIVO_SAIDA}' ATUALIZADO com sucesso no GitHub!")
 
         except Exception as e:
+            # Cria o arquivo se ele não existir
             if "Not Found" in str(e) or "404" in str(e):
                 repo.create_file(ARQUIVO_SAIDA, 
                                  f"Criação automática da lista de canais - {time.strftime('%Y-%m-%d %H:%M:%S')}", 
@@ -139,22 +113,76 @@ def salvar_no_github(lista_m3u_final):
     except Exception as e:
         print(f"❌ ERRO geral no GitHub: {e}")
 
-# --- EXECUÇÃO PRINCIPAL (MANTIDA) ---
+# ==============================================================================
+# 3. FUNÇÃO PRINCIPAL DE SCRAPING (COM LÓGICA DE EXTRAÇÃO ATUALIZADA)
+# ==============================================================================
 
-def processar_lista_canais_paralelo(urls):
-    """Processa todas as URLs em paralelo usando ThreadPoolExecutor."""
+def extrair_m3u8(url):
+    driver = inicializar_driver()
+    if not driver:
+        return None 
+        
+    nome_canal = get_channel_name(url)
+    link_m3u8_real = None
+
+    try:
+        print(f"🔎 [Canal {nome_canal}] Escaneando: {url}")
+        driver.get(url)
+        
+        # Espera que o corpo da página esteja carregado (Timeout de 20s)
+        WebDriverWait(driver, 20).until(
+            EC.presence_of_element_located((By.TAG_NAME, "body")) 
+        )
+
+        # LÓGICA DE EXTRAÇÃO: Procurar link M3U8 no código-fonte
+        page_source = driver.page_source
+        match = re.search(M3U8_PATTERN, page_source, re.IGNORECASE)
+        
+        if match:
+            link_m3u8_real = match.group(0)
+
+        # Se não encontrar no código-fonte, tente o log de rede ou outros elementos (muito complexo para um script simples)
+        # Manteremos apenas a busca no código-fonte (page_source)
+
+        if link_m3u8_real:
+            print(f"    ✅ [Canal {nome_canal}] SUCESSO: Link extraído.")
+            # Formato M3U que seu player precisa
+            resultado_m3u = f'#EXTINF:-1 tvg-name="{nome_canal}" group-title="CANAIS TV",{nome_canal}\n{link_m3u8_real}'
+            return resultado_m3u
+        else:
+            print(f"    ❌ [Canal {nome_canal}] FALHA: Link M3U8 não encontrado no código-fonte.")
+            return None
+
+    except TimeoutException:
+        print(f"    ❌ [Canal {nome_canal}] TIMEOUT: A página demorou muito para carregar (20s).")
+        return None
+    except Exception as e:
+        print(f"    ❌ [Canal {nome_canal}] ERRO GERAL: {e}")
+        return None
+    finally:
+        if driver:
+            driver.quit()
+
+# ==============================================================================
+# 4. ROTINA PRINCIPAL DE EXECUÇÃO
+# ==============================================================================
+
+def processar_lista_canais_paralelo():
+    """Gerencia a execução paralela das URLs e salva o resultado."""
     
     print("=========================================================")
     print(f"🚀 INICIANDO O SCANNER PARALELO com {MAX_THREADS} threads")
     print("=========================================================")
 
-    # Executa com o limite de threads
+    # Executa a função extrair_m3u8 em paralelo
     with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
-        resultados = list(executor.map(extrair_m3u8, urls))
+        resultados = list(executor.map(extrair_m3u8, URLS_CANAIS))
     
-    lista_m3u_final = [r for r in resultados if r and r.startswith("#EXTINF")]
+    # Filtra apenas os resultados válidos (que não são None)
+    lista_m3u_final = [r for r in resultados if r and r.startswith('#EXTINF')]
 
-    print(f"\n🎉 FIM DO SCAN: {len(lista_m3u_final)} link(s) M3U8 extraído(s).")
+    print("\n=========================================================")
+    print(f"🎉 FIM DO SCAN: {len(lista_m3u_final)} link(s) M3U8 extraído(s).")
     
     # Salva o arquivo M3U8 e faz commit
     if lista_m3u_final:
@@ -174,5 +202,8 @@ def processar_lista_canais_paralelo(urls):
         print("Nenhum link M3U8 foi extraído. Nenhum commit será feito.")
 
 
+# ==============================================================================
+# EXECUÇÃO DO SCRIPT
+# ==============================================================================
 if __name__ == "__main__":
-    processar_lista_canais_paralelo(URLS_CANAIS)
+    processar_lista_canais_paralelo()
