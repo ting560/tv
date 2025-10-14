@@ -1,37 +1,3 @@
 #EXTM3U
-#EXTINF:-1 tvg-name="SPORTV" group-title="TV ABERTA/PREMIUM",SPORTV
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/8d3a501c98b4d5e723afc614433e5786/sportv.m3u8
-#EXTINF:-1 tvg-name="PREMIERE" group-title="TV ABERTA/PREMIUM",PREMIERE
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/0e6588a7b36edd7d7abde56befb77616/premiere.m3u8
-#EXTINF:-1 tvg-name="TNT" group-title="TV ABERTA/PREMIUM",TNT
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/78d2539e8f81041d2ef79d7951dae3de/tnt.m3u8
-#EXTINF:-1 tvg-name="PREMIERE2" group-title="TV ABERTA/PREMIUM",PREMIERE2
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/2b935b5319574cc79d5b58a95ca1916c/premiere2.m3u8
-#EXTINF:-1 tvg-name="SBT" group-title="TV ABERTA/PREMIUM",SBT
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/e70bef81527b68765dc4b777dad8d3cf/sbt.m3u8
-#EXTINF:-1 tvg-name="PRIMEVIDEO" group-title="TV ABERTA/PREMIUM",PRIMEVIDEO
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/38159eb0146a8ed6f20801e28bd88645/primevideo.m3u8
-#EXTINF:-1 tvg-name="MEGAPIX" group-title="TV ABERTA/PREMIUM",MEGAPIX
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/87cb06f03e5cf98d91863026a0148b0e/megapix.m3u8
-#EXTINF:-1 tvg-name="RECORD" group-title="TV ABERTA/PREMIUM",RECORD
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/36aeac7a9096e2b13cc6a7e7376c6792/record.m3u8
-#EXTINF:-1 tvg-name="MAX1" group-title="TV ABERTA/PREMIUM",MAX1
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/07384b2d82a4657692ffb749bb404572/max1.m3u8
-#EXTINF:-1 tvg-name="HBO" group-title="TV ABERTA/PREMIUM",HBO
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/164972bc40baa1630f4bfc8dfe8edad5/hbo.m3u8
-#EXTINF:-1 tvg-name="HBO2" group-title="TV ABERTA/PREMIUM",HBO2
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/e5920fb58d01bb6ceeccb4d420a8da5c/hbo2.m3u8
-#EXTINF:-1 tvg-name="GLOBORJ" group-title="TV ABERTA/PREMIUM",GLOBORJ
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/599ea94100ab0cff97a3889cb3b84181/globorj.m3u8
-#EXTINF:-1 tvg-name="GLOBONEWS" group-title="TV ABERTA/PREMIUM",GLOBONEWS
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/9163c268d95f2a8a95269500197658b3/globonews.m3u8
-#EXTINF:-1 tvg-name="FX" group-title="TV ABERTA/PREMIUM",FX
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/c97037358becf38836bef1cc303786f9/fx.m3u8
-#EXTINF:-1 tvg-name="ESPN" group-title="TV ABERTA/PREMIUM",ESPN
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/a3f256c5d5a8237c96b9978a713c5d7d/espn.m3u8
-#EXTINF:-1 tvg-name="ESPN4" group-title="TV ABERTA/PREMIUM",ESPN4
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/5d48532a6d29c1742c931019d1f6c9bc/espn4.m3u8
-#EXTINF:-1 tvg-name="BAND" group-title="TV ABERTA/PREMIUM",BAND
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/27b0b27c39a0d37363cc82fededc0674/band.m3u8
-#EXTINF:-1 tvg-name="DISNEYPLUS1" group-title="TV ABERTA/PREMIUM",DISNEYPLUS1
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/da98191c25dee69c252148265ab62f95/disneyplus1.m3u8
+#EXTINF:-1 group-title="Canais TV",Sportv
+http://exemplo.com/link-de-teste-para-sportv/stream.m3u8
