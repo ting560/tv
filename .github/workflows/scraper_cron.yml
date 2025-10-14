@@ -1,23 +1,24 @@
 name: Executar Scraper a Cada Hora
 
 on:
-  # Define o agendamento usando sintaxe cron.
-  # '30 * * * *' significa: No minuto 30 de TODA hora (a cada hora).
+  # O agendamento cron: No minuto 30 de TODA hora.
   schedule:
     - cron: '30 * * * *'
   
-  # Permite disparar o workflow manualmente pela aba Actions do GitHub
+  # Permite disparar o workflow manualmente
   workflow_dispatch:
 
 jobs:
   run_scraper:
-    # O servidor virtual Linux (Runner) onde o código será executado
     runs-on: ubuntu-latest
 
     steps:
-      # Passo 1: Clona o repositório para que o servidor tenha acesso ao seu código
+      # Passo 1: Clona o repositório
       - name: Checkout code
         uses: actions/checkout@v4
+        # Garante que o Checkout tenha permissão para fazer o commit de volta
+        with:
+          token: ${{ secrets.CRON_GITHUB_TOKEN }}
 
       # Passo 2: Configura o ambiente Python
       - name: Setup Python environment
@@ -25,19 +26,18 @@ jobs:
         with:
           python-version: '3.10' 
 
-      # Passo 3: Instala as dependências (Selenium, PyGithub) e o Chromedriver
-      - name: Install dependencies and WebDriver
+      # Passo 3: Instala as dependências e o navegador Chromium
+      - name: Install dependencies and Chromium
         run: |
-          # Instala as libs Python
+          # 1. Instala as libs Python
           pip install selenium PyGithub
-          # Instala o navegador Chromium e o ChromeDriver para o Selenium rodar em ambiente headless
+          # 2. Instala o navegador Chromium (que o Selenium usará)
           sudo apt-get update 
-          sudo apt-get install -y chromium-browser chromium-chromedriver
+          sudo apt-get install -y chromium-browser
 
       # Passo 4: Executa o script Python
       - name: Run Python Scraper
         # 'env' injeta o Token do GitHub que você salvou como Secret
         env:
-          # ATENÇÃO: O nome 'CRON_GITHUB_TOKEN' DEVE ser o mesmo que você usou no Passo 1 (Criar o Secret)
           CRON_GITHUB_TOKEN: ${{ secrets.CRON_GITHUB_TOKEN }}
         run: python scraper_canais.py
