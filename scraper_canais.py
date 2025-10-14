@@ -7,16 +7,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from concurrent.futures import ThreadPoolExecutor
 from github import Github
-# Importações necessárias para inicialização estável
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager 
+# NÃO PRECISAMOS MAIS DE: from webdriver_manager.chrome import ChromeDriverManager
+# NÃO PRECISAMOS MAIS DE: from selenium.webdriver.chrome.service import Service as ChromeService
 
 # --- CONFIGURAÇÃO DE AMBIENTE ---
-# O Token é lido do Secret do GitHub Actions
 GITHUB_TOKEN = os.getenv("CRON_GITHUB_TOKEN", None) 
 REPO_NAME = "ting560/tv"
 ARQUIVO_SAIDA = "minha_lista_canais.m3u"
-# Número máximo de processos paralelos (Limitado para evitar erros de DevToolsActivePort)
+# Mantemos o limite de 2 threads para evitar o erro DevToolsActivePort/concorrência.
 MAX_THREADS = 2 
 
 # Sua lista de URLs
@@ -41,10 +39,10 @@ URLS_CANAIS = [
     "https://embedtv-4.icu/band"
 ]
 
-# --- FUNÇÕES DE SETUP E INICIALIZAÇÃO DO CHROME (CORRIGIDO) ---
+# --- FUNÇÕES DE SETUP E INICIALIZAÇÃO DO CHROME (SIMPLIFICADA) ---
 
 def inicializar_driver():
-    """Inicializa e retorna um driver Chrome configurado para ambiente headless (Actions)."""
+    """Inicializa e retorna um driver Chrome configurado para ambiente headless."""
     try:
         chrome_options = Options()
         
@@ -53,25 +51,21 @@ def inicializar_driver():
         chrome_options.add_argument('--no-sandbox') 
         chrome_options.add_argument('--disable-dev-shm-usage') 
         
-        # Define o caminho do executável Chromium (instalado no Passo 3 do YAML)
-        chrome_options.binary_location = '/usr/bin/chromium-browser' 
-
-        # Inicializa o driver: O ChromeDriverManager baixa o chromedriver compatível
-        service = ChromeService(ChromeDriverManager().install())
-        driver = webdriver.Chrome(service=service, options=chrome_options)
+        # O ChromeDriver está no PATH graças ao browser-actions/setup-chrome
+        # Não precisamos de binary_location ou ChromeDriverManager
+        driver = webdriver.Chrome(options=chrome_options)
         return driver
     except Exception as e:
         print(f"❌ ERRO AO INICIAR O CHROME DRIVER: {e}")
         return None
 
-# --- FUNÇÃO DE SCRAPING (ADAPTE A LÓGICA DE EXTRAÇÃO AQUI) ---
+# --- FUNÇÃO DE SCRAPING (MANTIDA) ---
 
 def extrair_m3u8(url):
     driver = inicializar_driver()
     if not driver:
         return None 
         
-    # Extrai o nome do canal da URL (ex: 'sportv' -> 'Sportv')
     nome_canal_raw = url.split('/')[-1]
     nome_canal = nome_canal_raw.replace(' ', '').title()
 
@@ -86,13 +80,9 @@ def extrair_m3u8(url):
 
         # ------------------------------------------------------------------------
         # *** SUA LÓGICA DE EXTRAÇÃO DE M3U8 VAI AQUI ***
-        # Você precisa inspecionar o código-fonte ou os logs de rede para 
-        # encontrar o link M3U8 após o carregamento da página.
-        
         link_m3u8_real = None 
         
-        # EXECUTANDO TESTE: Se você não extrair nada, ele usará este link de exemplo.
-        # REMOVA A CONDIÇÃO IF ABAIXO QUANDO INSERIR SUA LÓGICA REAL!
+        # EXECUTANDO TESTE: Remova esta condição quando tiver sua lógica real!
         if nome_canal == "Sportv":
              link_m3u8_real = f"http://exemplo.com/link-de-teste-para-{nome_canal.lower()}/stream.m3u8"
         
@@ -113,7 +103,7 @@ def extrair_m3u8(url):
         if driver:
             driver.quit()
 
-# --- FUNÇÃO DE COMMIT NO GITHUB ---
+# --- FUNÇÃO DE COMMIT NO GITHUB (MANTIDA) ---
 
 def salvar_no_github(lista_m3u_final):
     """Faz o commit do arquivo m3u atualizado no repositório do GitHub."""
@@ -128,9 +118,7 @@ def salvar_no_github(lista_m3u_final):
         novo_conteudo = "\n".join(lista_m3u_final)
 
         try:
-            # Tenta buscar o arquivo existente
             conteudo_arquivo = repo.get_contents(ARQUIVO_SAIDA, ref="main")
-            # Atualiza o arquivo
             repo.update_file(conteudo_arquivo.path, 
                              f"Atualização automática da lista de canais - {time.strftime('%Y-%m-%d %H:%M:%S')}", 
                              novo_conteudo, 
@@ -139,7 +127,6 @@ def salvar_no_github(lista_m3u_final):
             print(f"✅ Arquivo '{ARQUIVO_SAIDA}' ATUALIZADO com sucesso no GitHub!")
 
         except Exception as e:
-            # Cria o arquivo se ele não existir
             if "Not Found" in str(e) or "404" in str(e):
                 repo.create_file(ARQUIVO_SAIDA, 
                                  f"Criação automática da lista de canais - {time.strftime('%Y-%m-%d %H:%M:%S')}", 
@@ -152,7 +139,7 @@ def salvar_no_github(lista_m3u_final):
     except Exception as e:
         print(f"❌ ERRO geral no GitHub: {e}")
 
-# --- EXECUÇÃO PRINCIPAL ---
+# --- EXECUÇÃO PRINCIPAL (MANTIDA) ---
 
 def processar_lista_canais_paralelo(urls):
     """Processa todas as URLs em paralelo usando ThreadPoolExecutor."""
@@ -161,7 +148,7 @@ def processar_lista_canais_paralelo(urls):
     print(f"🚀 INICIANDO O SCANNER PARALELO com {MAX_THREADS} threads")
     print("=========================================================")
 
-    # Executa com o limite de threads definido em MAX_THREADS (2)
+    # Executa com o limite de threads
     with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
         resultados = list(executor.map(extrair_m3u8, urls))
     
