@@ -7,7 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from concurrent.futures import ThreadPoolExecutor
 from github import Github
-# Importação NECESSÁRIA para o novo método de inicialização do Chrome
+# Importações necessárias para inicialização estável
+from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager 
 
 # --- CONFIGURAÇÃO DE AMBIENTE ---
@@ -15,6 +16,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 GITHUB_TOKEN = os.getenv("CRON_GITHUB_TOKEN", None) 
 REPO_NAME = "ting560/tv"
 ARQUIVO_SAIDA = "minha_lista_canais.m3u"
+# Número máximo de processos paralelos (Limitado para evitar erros de DevToolsActivePort)
+MAX_THREADS = 2 
 
 # Sua lista de URLs
 URLS_CANAIS = [
@@ -50,20 +53,18 @@ def inicializar_driver():
         chrome_options.add_argument('--no-sandbox') 
         chrome_options.add_argument('--disable-dev-shm-usage') 
         
-        # Define o caminho do executável Chromium
+        # Define o caminho do executável Chromium (instalado no Passo 3 do YAML)
         chrome_options.binary_location = '/usr/bin/chromium-browser' 
 
-        # Inicializa o driver: O ChromeDriverManager baixa o driver compatível
-        driver = webdriver.Chrome(
-            service=webdriver.ChromeService(ChromeDriverManager().install()),
-            options=chrome_options
-        )
+        # Inicializa o driver: O ChromeDriverManager baixa o chromedriver compatível
+        service = ChromeService(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service, options=chrome_options)
         return driver
     except Exception as e:
         print(f"❌ ERRO AO INICIAR O CHROME DRIVER: {e}")
         return None
 
-# --- FUNÇÃO DE SCRAPING ---
+# --- FUNÇÃO DE SCRAPING (ADAPTE A LÓGICA DE EXTRAÇÃO AQUI) ---
 
 def extrair_m3u8(url):
     driver = inicializar_driver()
@@ -78,20 +79,22 @@ def extrair_m3u8(url):
         print(f"⚙️ Tentando acessar: {nome_canal} ({url})")
         driver.get(url)
         
-        # Aumentamos o tempo de espera, já que o ambiente é lento
+        # Aumentamos o tempo de espera (timeout) para 20 segundos
         WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.TAG_NAME, "body")) 
         )
 
         # ------------------------------------------------------------------------
         # *** SUA LÓGICA DE EXTRAÇÃO DE M3U8 VAI AQUI ***
-        # Se você não tem certeza, insira um link de teste para ver o robô fazer o commit.
+        # Você precisa inspecionar o código-fonte ou os logs de rede para 
+        # encontrar o link M3U8 após o carregamento da página.
         
         link_m3u8_real = None 
         
-        # Exemplo de link de teste (APAGUE ISSO QUANDO TIVER SEU CÓDIGO REAL)
+        # EXECUTANDO TESTE: Se você não extrair nada, ele usará este link de exemplo.
+        # REMOVA A CONDIÇÃO IF ABAIXO QUANDO INSERIR SUA LÓGICA REAL!
         if nome_canal == "Sportv":
-             link_m3u8_real = f"http://sua-url-de-teste.com/{nome_canal.lower()}/stream.m3u8"
+             link_m3u8_real = f"http://exemplo.com/link-de-teste-para-{nome_canal.lower()}/stream.m3u8"
         
         # ------------------------------------------------------------------------
         
@@ -154,14 +157,17 @@ def salvar_no_github(lista_m3u_final):
 def processar_lista_canais_paralelo(urls):
     """Processa todas as URLs em paralelo usando ThreadPoolExecutor."""
     
-    # ... (código de inicialização e ThreadPoolExecutor)
-    
-    with ThreadPoolExecutor(max_workers=os.cpu_count() or 4) as executor:
+    print("=========================================================")
+    print(f"🚀 INICIANDO O SCANNER PARALELO com {MAX_THREADS} threads")
+    print("=========================================================")
+
+    # Executa com o limite de threads definido em MAX_THREADS (2)
+    with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
         resultados = list(executor.map(extrair_m3u8, urls))
     
     lista_m3u_final = [r for r in resultados if r and r.startswith("#EXTINF")]
 
-    print(f"🎉 FIM DO SCAN: {len(lista_m3u_final)} link(s) M3U8 extraído(s).")
+    print(f"\n🎉 FIM DO SCAN: {len(lista_m3u_final)} link(s) M3U8 extraído(s).")
     
     # Salva o arquivo M3U8 e faz commit
     if lista_m3u_final:
