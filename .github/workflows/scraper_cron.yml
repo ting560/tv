@@ -1,0 +1,43 @@
+name: Executar Scraper a Cada Hora
+
+on:
+  # Define o agendamento usando sintaxe cron.
+  # '30 * * * *' significa: No minuto 30 de TODA hora (a cada hora).
+  schedule:
+    - cron: '30 * * * *'
+  
+  # Permite disparar o workflow manualmente pela aba Actions do GitHub
+  workflow_dispatch:
+
+jobs:
+  run_scraper:
+    # O servidor virtual Linux (Runner) onde o código será executado
+    runs-on: ubuntu-latest
+
+    steps:
+      # Passo 1: Clona o repositório para que o servidor tenha acesso ao seu código
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Passo 2: Configura o ambiente Python
+      - name: Setup Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' 
+
+      # Passo 3: Instala as dependências (Selenium, PyGithub) e o Chromedriver
+      - name: Install dependencies and WebDriver
+        run: |
+          # Instala as libs Python
+          pip install selenium PyGithub
+          # Instala o navegador Chromium e o ChromeDriver para o Selenium rodar em ambiente headless
+          sudo apt-get update 
+          sudo apt-get install -y chromium-browser chromium-chromedriver
+
+      # Passo 4: Executa o script Python
+      - name: Run Python Scraper
+        # 'env' injeta o Token do GitHub que você salvou como Secret
+        env:
+          # ATENÇÃO: O nome 'CRON_GITHUB_TOKEN' DEVE ser o mesmo que você usou no Passo 1 (Criar o Secret)
+          CRON_GITHUB_TOKEN: ${{ secrets.CRON_GITHUB_TOKEN }}
+        run: python scraper_canais.py
