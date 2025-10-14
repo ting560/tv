@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Passo 1: Clona o repositório. O token é essencial para o commit de volta.
+      # Passo 1: Clona o repositório.
       - name: Checkout code
         uses: actions/checkout@v4
         with:
@@ -25,16 +25,20 @@ jobs:
         with:
           python-version: '3.10' 
 
-      # Passo 3: Instala as dependências e o navegador Chromium
-      - name: Install dependencies and browser
-        run: |
-          # 1. Instala as libs Python
-          pip install selenium PyGithub webdriver-manager
-          # 2. Instala o navegador Chromium (o binário que o servidor do GitHub Actions usa)
-          sudo apt-get update 
-          sudo apt-get install -y chromium-browser
+      # PASSO 3 (NOVO): Instala o Chrome e o ChromeDriver (MAIS ESTÁVEL)
+      - name: Setup Google Chrome and ChromeDriver
+        uses: browser-actions/setup-chrome@v1 # Usa uma Action dedicada!
+        with:
+          # Versão 'stable' garantida
+          chrome-version: 'stable' 
 
-      # Passo 4: Executa o script Python
+      # Passo 4: Instala as dependências Python (apenas Selenium e PyGithub)
+      - name: Install Python dependencies
+        run: |
+          # Não precisa mais do webdriver-manager
+          pip install selenium PyGithub
+          
+      # Passo 5: Executa o script Python
       - name: Run Python Scraper
         # 'env' injeta o Token que você salvou no Secret do GitHub
         env:
