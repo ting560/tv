@@ -1,31 +1,33 @@
 #EXTM3U
+#EXTINF:-1 tvg-name="Sportv" group-title="CANAIS TV",Sportv
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/61d9b9c0ac2810eec678a51443f76049/sportv.m3u8
 #EXTINF:-1 tvg-name="Premiere" group-title="CANAIS TV",Premiere
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/9581b901e84a78974355b9357818f25d/premiere.m3u8
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/bd4c5d8e2b8fd892b80f922446540ce7/premiere.m3u8
 #EXTINF:-1 tvg-name="Premiere2" group-title="CANAIS TV",Premiere2
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/7beee682b02d746bf81523b49f3b43d8/premiere2.m3u8
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/3d4d7f5325fcb5f1bc25a6aac3d23d96/premiere2.m3u8
 #EXTINF:-1 tvg-name="Tnt" group-title="CANAIS TV",Tnt
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/7401f35d771acc7d171524de571514c8/tnt.m3u8
-#EXTINF:-1 tvg-name="Primevideo" group-title="CANAIS TV",Primevideo
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/68b59039ca4ff7f5f1da6a1aa4095edd/primevideo.m3u8
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/8ef5002346e51c37e76d102a5cb26d0e/tnt.m3u8
+#EXTINF:-1 tvg-name="Sbt" group-title="CANAIS TV",Sbt
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/ad13735812c7436503aef65b35cc647d/sbt.m3u8
 #EXTINF:-1 tvg-name="Record" group-title="CANAIS TV",Record
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/420eac90d9023af4866c7e06371b576f/record.m3u8
-#EXTINF:-1 tvg-name="Megapix" group-title="CANAIS TV",Megapix
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/228bdda9a56901c64ad5c904e5bfba26/megapix.m3u8
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/7d3d3966a2f2c1f3b55eb84afba5b7b3/record.m3u8
 #EXTINF:-1 tvg-name="Max1" group-title="CANAIS TV",Max1
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/59761ad8353a7919ef282c76ef249da7/max1.m3u8
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/491e5dfbf81f7d10cddb1fbf79796182/max1.m3u8
 #EXTINF:-1 tvg-name="Hbo" group-title="CANAIS TV",Hbo
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/2e4e4c1ab1139a0c39fee7ce902b482f/hbo.m3u8
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/52efc017c09f70e30b96476b65482aa5/hbo.m3u8
 #EXTINF:-1 tvg-name="Hbo2" group-title="CANAIS TV",Hbo2
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/a80003c25130db0f2ae6d55304808d6b/hbo2.m3u8
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/26f55c1a685cd11199df9c6dc42ff3e5/hbo2.m3u8
 #EXTINF:-1 tvg-name="Globorj" group-title="CANAIS TV",Globorj
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/ff4483ce08f2d0c079edbd092062cccd/globorj.m3u8
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/b8332a8e3748595f2767605023fda5ec/globorj.m3u8
+#EXTINF:-1 tvg-name="Globonews" group-title="CANAIS TV",Globonews
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/41a31126bf4f0346af43cfc7aaf05bed/globonews.m3u8
 #EXTINF:-1 tvg-name="Fx" group-title="CANAIS TV",Fx
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/4abcc7f4c240644db61be5bb9218497e/fx.m3u8
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/27e1d895711c3c7241922256db8b41fc/fx.m3u8
 #EXTINF:-1 tvg-name="Espn" group-title="CANAIS TV",Espn
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/c953aab15b928628fef8734eae03bb8c/espn.m3u8
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/8373b8e09cb1757aaa832f74f191e064/espn.m3u8
 #EXTINF:-1 tvg-name="Espn4" group-title="CANAIS TV",Espn4
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/e71343fdf93aa455e69d96d83d73c469/espn4.m3u8
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/ce3a1d2730345c5318c928c9334d0042/espn4.m3u8
 #EXTINF:-1 tvg-name="Disneyplus1" group-title="CANAIS TV",Disneyplus1
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/c7bef798fc329d021ae551f7e8cd4363/disneyplus1.m3u8
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/5cbd77a20c67251332b5534cd601a31e/disneyplus1.m3u8
 #EXTINF:-1 tvg-name="Band" group-title="CANAIS TV",Band
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/052fc1c15687c8415968ffb4f230171c/band.m3u8
+https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/db0d1983c673901655491837693eb367/band.m3u8
