@@ -24,6 +24,7 @@ URLS_CANAIS = [
     "https://embedtv-4.icu/sportv",
     "https://embedtv-4.icu/premiere",
     "https://embedtv-4.icu/premiere2",
+    "https://embedtv-4.icu/premiere7",
     "https://embedtv-4.icu/tnt",
     "https://embedtv-4.icu/primevideo",
     "https://embedtv-4.icu/sbt",
@@ -207,3 +208,4 @@ def processar_lista_canais_paralelo():
 # ==============================================================================
 if __name__ == "__main__":
     processar_lista_canais_paralelo()
+
