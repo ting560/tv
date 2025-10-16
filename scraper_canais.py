@@ -1,6 +1,7 @@
 import os
 import time
 import re
+import random
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import WebDriverException, TimeoutException
@@ -24,7 +25,12 @@ URLS_CANAIS = [
     "https://embedtv-4.icu/sportv",
     "https://embedtv-4.icu/premiere",
     "https://embedtv-4.icu/premiere2",
+    "https://embedtv-4.icu/premiere3",
+    "https://embedtv-4.icu/premiere4",
+    "https://embedtv-4.icu/premiere5",
+    "https://embedtv-4.icu/premiere6",
     "https://embedtv-4.icu/premiere7",
+    "https://embedtv-4.icu/premiere8",
     "https://embedtv-4.icu/tnt",
     "https://embedtv-4.icu/primevideo",
     "https://embedtv-4.icu/sbt",
@@ -61,9 +67,21 @@ def inicializar_driver():
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--disable-blink-features=AutomationControlled")
         chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
+        chrome_options.add_argument("--disable-extensions")
+        chrome_options.add_argument("--disable-plugins")
+        chrome_options.add_argument("--disable-images")
+        chrome_options.add_argument("--disable-javascript")  # Desabilitar JS pode ajudar a evitar detecção
+        chrome_options.add_argument("--disable-web-security")
+        chrome_options.add_argument("--allow-running-insecure-content")
+        chrome_options.add_argument("--ignore-certificate-errors")
+        chrome_options.add_argument("--ignore-ssl-errors")
+        chrome_options.add_argument("--disable-features=VizDisplayCompositor")
+        chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        chrome_options.add_experimental_option('useAutomationExtension', False)
         
         # O ChromeDriver está no PATH graças ao browser-actions/setup-chrome
         driver = webdriver.Chrome(options=chrome_options)
+        driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
         return driver
     except Exception as e:
         print(f"❌ ERRO AO INICIAR O CHROME DRIVER: {e}")
@@ -127,6 +145,10 @@ def extrair_m3u8(url):
 
     try:
         print(f"🔎 [Canal {nome_canal}] Escaneando: {url}")
+        
+        # Adicionar delay aleatório para evitar detecção de bot
+        time.sleep(random.uniform(1, 3))
+        
         driver.get(url)
         
         # Espera que o corpo da página esteja carregado (Timeout de 20s)
@@ -207,6 +229,3 @@ def processar_lista_canais_paralelo():
 # ==============================================================================
 if __name__ == "__main__":
     processar_lista_canais_paralelo()
-
-
-
