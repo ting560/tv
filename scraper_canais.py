@@ -15,37 +15,136 @@ from github import Github
 # ==============================================================================
 
 # O Token é lido do Secret do GitHub Actions
-GITHUB_TOKEN = os.getenv("CRON_GITHUB_TOKEN", None) 
+GITHUB_TOKEN = os.getenv("CRON_GITHUB_TOKEN", None)
 REPO_NAME = "ting560/tv"  # <--- VERIFIQUE SE SEU REPO É ESTE!
 ARQUIVO_SAIDA = "minha_lista_canais.m3u"
 
-# Lista de URLs
+# Lista de URLs ATUALIZADA
 URLS_CANAIS = [
-    "https://embedtv-4.icu/sportv",
-    "https://embedtv-4.icu/premiere",
-    "https://embedtv-4.icu/premiere2",
-    "https://embedtv-4.icu/premiere7",
-    "https://embedtv-4.icu/tnt",
-    "https://embedtv-4.icu/primevideo",
-    "https://embedtv-4.icu/sbt",
-    "https://embedtv-4.icu/record",
-    "https://embedtv-4.icu/megapix",
-    "https://embedtv-4.icu/max1",
+    "https://embedtv-4.icu/ae",
+    "https://embedtv-4.icu/axn",
+    "https://embedtv-4.icu/adultswim",
+    "https://embedtv-4.icu/animalplanet",
+    "https://embedtv-4.icu/aparecida",
+    "https://embedtv-4.icu/band",
+    "https://embedtv-4.icu/bandnews",
+    "https://embedtv-4.icu/bandsports",
+    "https://embedtv-4.icu/cancaonova",
+    "https://embedtv-4.icu/cartoonnetwork",
+    "https://embedtv-4.icu/cartoonito",
+    "https://embedtv-4.icu/caze1",
+    "https://embedtv-4.icu/caze2",
+    "https://embedtv-4.icu/caze3",
+    "https://embedtv-4.icu/cinemax",
+    "https://embedtv-4.icu/combate",
+    "https://embedtv-4.icu/comedycentral",
+    "https://embedtv-4.icu/cultura",
+    "https://embedtv-4.icu/discoverychannel",
+    "https://embedtv-4.icu/discoveryid",
+    "https://embedtv-4.icu/discoveryhh",
+    "https://embedtv-4.icu/discoverykids",
+    "https://embedtv-4.icu/discoveryscience",
+    "https://embedtv-4.icu/discoverytheather",
+    "https://embedtv-4.icu/discoveryturbo",
+    "https://embedtv-4.icu/discoveryword",
+    "https://embedtv-4.icu/disneyplus1",
+    "https://embedtv-4.icu/disneyplus2",
+    "https://embedtv-4.icu/disneyplus3",
+    "https://embedtv-4.icu/espn",
+    "https://embedtv-4.icu/espn2",
+    "https://embedtv-4.icu/espn3",
+    "https://embedtv-4.icu/espn4",
+    "https://embedtv-4.icu/espn5",
+    "https://embedtv-4.icu/espn6",
+    "https://embedtv-4.icu/nba1",
+    "https://embedtv-4.icu/nba2",
+    "https://embedtv-4.icu/24h_odeiachris",
+    "https://embedtv-4.icu/24h_simpsons",
+    "https://embedtv-4.icu/24h_dragonball",
+    "https://embedtv-4.icu/fx",
+    "https://embedtv-4.icu/fish",
+    "https://embedtv-4.icu/foodnetwork",
+    "https://embedtv-4.icu/gnt",
+    "https://embedtv-4.icu/globonews",
+    "https://embedtv-4.icu/globorj",
+    "https://embedtv-4.icu/globosp",
+    "https://embedtv-4.icu/gloob",
+    "https://embedtv-4.icu/cnnbrasil",
     "https://embedtv-4.icu/hbo",
     "https://embedtv-4.icu/hbo2",
-    "https://embedtv-4.icu/globorj",
-    "https://embedtv-4.icu/globonews",
-    "https://embedtv-4.icu/fx",
-    "https://embedtv-4.icu/espn",
-    "https://embedtv-4.icu/espn4",
-    "https://embedtv-4.icu/disneyplus1",
-    "https://embedtv-4.icu/band"
+    "https://embedtv-4.icu/hbofamily",
+    "https://embedtv-4.icu/hbomundi",
+    "https://embedtv-4.icu/hbopop",
+    "https://embedtv-4.icu/hboplus",
+    "https://embedtv-4.icu/hboxtreme",
+    "https://embedtv-4.icu/hgtv",
+    "https://embedtv-4.icu/history",
+    "https://embedtv-4.icu/history2",
+    "https://embedtv-4.icu/mtv",
+    "https://embedtv-4.icu/masterchef",
+    "https://embedtv-4.icu/goat1",
+    "https://embedtv-4.icu/goat2",
+    "https://embedtv-4.icu/goat3",
+    "https://embedtv-4.icu/max1",
+    "https://embedtv-4.icu/max2",
+    "https://embedtv-4.icu/max3",
+    "https://embedtv-4.icu/max4",
+    "https://embedtv-4.icu/max5",
+    "https://embedtv-4.icu/max6",
+    "https://embedtv-4.icu/megapix",
+    "https://embedtv-4.icu/multishow",
+    "https://embedtv-4.icu/nickjunior",
+    "https://embedtv-4.icu/nickelodeon",
+    "https://embedtv-4.icu/nossofutebol",
+    "https://embedtv-4.icu/nossofutebol2",
+    "https://embedtv-4.icu/nossofutebol3",
+    "https://embedtv-4.icu/paramountchannel",
+    "https://embedtv-4.icu/paramountplus",
+    "https://embedtv-4.icu/paramountplus2",
+    "https://embedtv-4.icu/playboy",
+    "https://embedtv-4.icu/premiere",
+    "https://embedtv-4.icu/premiere2",
+    "https://embedtv-4.icu/premiere3",
+    "https://embedtv-4.icu/premiere4",
+    "https://embedtv-4.icu/premiere5",
+    "https://embedtv-4.icu/premiere6",
+    "https://embedtv-4.icu/premiere7",
+    "https://embedtv-4.icu/premiere8",
+    "https://embedtv-4.icu/primevideo",
+    "https://embedtv-4.icu/primevideo2",
+    "https://embedtv-4.icu/record",
+    "https://embedtv-4.icu/sbt",
+    "https://embedtv-4.icu/sexyhot",
+    "https://embedtv-4.icu/sonychannel",
+    "https://embedtv-4.icu/space",
+    "https://embedtv-4.icu/sportv",
+    "https://embedtv-4.icu/sportv2",
+    "https://embedtv-4.icu/sportv3",
+    "https://embedtv-4.icu/sportv4",
+    "https://embedtv-4.icu/starchannel",
+    "https://embedtv-4.icu/studiouniversal",
+    "https://embedtv-4.icu/tcm",
+    "https://embedtv-4.icu/tlc",
+    "https://embedtv-4.icu/tnt",
+    "https://embedtv-4.icu/tntnovelas",
+    "https://embedtv-4.icu/tntseries",
+    "https://embedtv-4.icu/telecineaction",
+    "https://embedtv-4.icu/telecinecult",
+    "https://embedtv-4.icu/telecinefun",
+    "https://embedtv-4.icu/telecinepipoca",
+    "https://embedtv-4.icu/telecinepremium",
+    "https://embedtv-4.icu/telecinetouch",
+    "https://embedtv-4.icu/ufcfightpass",
+    "https://embedtv-4.icu/universaltv",
+    "https://embedtv-4.icu/viva",
+    "https://embedtv-4.icu/warnerchannel",
+    "https://embedtv-4.icu/off",
 ]
 
 # Expressão regular para encontrar links .m3u8 no código-fonte
 M3U8_PATTERN = r'https?:\/\/[^\s"\']+\.m3u8(?:\?[^\s"\']*)?'
 # Mantemos o limite de 2 threads para evitar o erro DevToolsActivePort/concorrência.
-MAX_THREADS = 2 
+MAX_THREADS = 2
 
 # ==============================================================================
 # 2. FUNÇÕES DE SUPORTE E INFRAESTRUTURA
@@ -57,9 +156,9 @@ def inicializar_driver():
         chrome_options = Options()
         
         # Opções ESSENCIAIS para rodar no servidor Linux do GitHub
-        chrome_options.add_argument('--headless') 
-        chrome_options.add_argument('--no-sandbox') 
-        chrome_options.add_argument('--disable-dev-shm-usage') 
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--disable-blink-features=AutomationControlled")
         chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
         
@@ -121,7 +220,7 @@ def salvar_no_github(lista_m3u_final):
 def extrair_m3u8(url):
     driver = inicializar_driver()
     if not driver:
-        return None 
+        return None
         
     nome_canal = get_channel_name(url)
     link_m3u8_real = None
@@ -132,7 +231,7 @@ def extrair_m3u8(url):
         
         # Espera que o corpo da página esteja carregado (Timeout de 20s)
         WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.TAG_NAME, "body")) 
+            EC.presence_of_element_located((By.TAG_NAME, "body"))
         )
 
         # LÓGICA DE EXTRAÇÃO: Procurar link M3U8 no código-fonte
@@ -146,19 +245,19 @@ def extrair_m3u8(url):
         # Manteremos apenas a busca no código-fonte (page_source)
 
         if link_m3u8_real:
-            print(f"    ✅ [Canal {nome_canal}] SUCESSO: Link extraído.")
+            print(f"    ✅ [Canal {nome_canal}] SUCESSO: Link extraído.")
             # Formato M3U que seu player precisa
             resultado_m3u = f'#EXTINF:-1 tvg-name="{nome_canal}" group-title="CANAIS TV",{nome_canal}\n{link_m3u8_real}'
             return resultado_m3u
         else:
-            print(f"    ❌ [Canal {nome_canal}] FALHA: Link M3U8 não encontrado no código-fonte.")
+            print(f"    ❌ [Canal {nome_canal}] FALHA: Link M3U8 não encontrado no código-fonte.")
             return None
 
     except TimeoutException:
-        print(f"    ❌ [Canal {nome_canal}] TIMEOUT: A página demorou muito para carregar (20s).")
+        print(f"    ❌ [Canal {nome_canal}] TIMEOUT: A página demorou muito para carregar (20s).")
         return None
     except Exception as e:
-        print(f"    ❌ [Canal {nome_canal}] ERRO GERAL: {e}")
+        print(f"    ❌ [Canal {nome_canal}] ERRO GERAL: {e}")
         return None
     finally:
         if driver:
@@ -208,4 +307,3 @@ def processar_lista_canais_paralelo():
 # ==============================================================================
 if __name__ == "__main__":
     processar_lista_canais_paralelo()
-
