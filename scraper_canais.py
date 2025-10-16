@@ -15,9 +15,9 @@ from github import Github
 # 1. CONFIGURAÇÕES DE AMBIENTE E GITHUB
 # ==============================================================================
 
-# O Token é lido do Secret do GitHub Actions
+# O Token é lido do Secret do GitHub Actions (CRON_GITHUB_TOKEN)
 GITHUB_TOKEN = os.getenv("CRON_GITHUB_TOKEN", None)
-REPO_NAME = "ting560/tv"  # <--- VERIFIQUE SE SEU REPO É ESTE!
+REPO_NAME = "ting560/tv" # <--- VERIFIQUE SE SEU REPO É ESTE!
 ARQUIVO_SAIDA = "minha_lista_canais.m3u"
 
 # Lista de URLs ATUALIZADA
@@ -49,7 +49,7 @@ URLS_CANAIS = [
 ]
 # Expressão regular para encontrar links .m3u8 no código-fonte
 M3U8_PATTERN = r'https?:\/\/[^\s"\']+\.m3u8(?:\?[^\s"\']*)?'
-# Mantemos o limite de 2 threads para evitar o erro DevToolsActivePort/concorrência.
+# Mantemos o limite de 2 threads para evitar o erro DevToolsActivePort/concorrência no GitHub Actions.
 MAX_THREADS = 2
 
 # ==============================================================================
@@ -67,10 +67,11 @@ def inicializar_driver():
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--disable-blink-features=AutomationControlled")
         chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
+        
+        # Opções de Otimização (mantidas as que permitem o funcionamento do JS)
         chrome_options.add_argument("--disable-extensions")
         chrome_options.add_argument("--disable-plugins")
-        chrome_options.add_argument("--disable-images")
-        chrome_options.add_argument("--disable-javascript")  # Desabilitar JS pode ajudar a evitar detecção
+        # Removido --disable-images e --disable-javascript para permitir o carregamento do link M3U8
         chrome_options.add_argument("--disable-web-security")
         chrome_options.add_argument("--allow-running-insecure-content")
         chrome_options.add_argument("--ignore-certificate-errors")
@@ -100,18 +101,20 @@ def salvar_no_github(lista_m3u_final):
         return
 
     try:
-        # Nota: O uso de login_or_token está depreciado, mas funciona com o token
+        # Inicializa o GitHub
         g = Github(GITHUB_TOKEN)
         repo = g.get_repo(REPO_NAME)
         
         novo_conteudo = "\n".join(lista_m3u_final)
+        data_hora = time.strftime('%Y-%m-%d %H:%M:%S')
 
         try:
             # Tenta buscar o arquivo existente
             conteudo_arquivo = repo.get_contents(ARQUIVO_SAIDA, ref="main")
-            # Atualiza o arquivo
+            
+            # Atualiza o arquivo (usando f-string para o commit message)
             repo.update_file(conteudo_arquivo.path, 
-                             f"Atualização automática da lista de canais - {time.strftime('%Y-%m-%d %H:%M:%S')}", 
+                             f"Atualização automática da lista de canais - {data_hora}", 
                              novo_conteudo, 
                              conteudo_arquivo.sha,
                              branch="main")
@@ -121,7 +124,7 @@ def salvar_no_github(lista_m3u_final):
             # Cria o arquivo se ele não existir
             if "Not Found" in str(e) or "404" in str(e):
                 repo.create_file(ARQUIVO_SAIDA, 
-                                 f"Criação automática da lista de canais - {time.strftime('%Y-%m-%d %H:%M:%S')}", 
+                                 f"Criação automática da lista de canais - {data_hora}", 
                                  novo_conteudo,
                                  branch="main")
                 print(f"✅ Arquivo '{ARQUIVO_SAIDA}' CRIADO com sucesso no GitHub!")
@@ -163,9 +166,6 @@ def extrair_m3u8(url):
         if match:
             link_m3u8_real = match.group(0)
 
-        # Se não encontrar no código-fonte, tente o log de rede ou outros elementos (muito complexo para um script simples)
-        # Manteremos apenas a busca no código-fonte (page_source)
-
         if link_m3u8_real:
             print(f"    ✅ [Canal {nome_canal}] SUCESSO: Link extraído.")
             # Formato M3U que seu player precisa
@@ -183,6 +183,7 @@ def extrair_m3u8(url):
         return None
     finally:
         if driver:
+            # Garante que o driver feche, mesmo em caso de erro
             driver.quit()
 
 # ==============================================================================
@@ -198,6 +199,7 @@ def processar_lista_canais_paralelo():
 
     # Executa a função extrair_m3u8 em paralelo
     with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
+        # O executor.map é ideal para mapear a função sobre a lista de URLs
         resultados = list(executor.map(extrair_m3u8, URLS_CANAIS))
     
     # Filtra apenas os resultados válidos (que não são None)
