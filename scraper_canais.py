@@ -101,7 +101,6 @@ URLS_CANAIS = [
     "https://embedtv-4.icu/paramountchannel",
     "https://embedtv-4.icu/paramountplus",
     "https://embedtv-4.icu/paramountplus2",
-    "https://embedtv-4.icu/playboy",
     "https://embedtv-4.icu/premiere",
     "https://embedtv-4.icu/premiere2",
     "https://embedtv-4.icu/premiere3",
@@ -307,3 +306,4 @@ def processar_lista_canais_paralelo():
 # ==============================================================================
 if __name__ == "__main__":
     processar_lista_canais_paralelo()
+
