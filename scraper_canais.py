@@ -46,6 +46,13 @@ URLS_CANAIS = [
     "https://embedtv-4.icu/espn4",
     "https://embedtv-4.icu/disneyplus1",
     "https://embedtv-4.icu/band"
+    "https://embedtv-4.icu/telecineaction",
+    "https://embedtv-4.icu/telecinecult",
+    "https://embedtv-4.icu/telecinefun",
+    "https://embedtv-4.icu/telecinepipoca",
+    "https://embedtv-4.icu/telecinepremium",
+    "https://embedtv-4.icu/telecinetouch",
+    "https://embedtv-4.icu/universaltv",
 ]
 # Expressão regular para encontrar links .m3u8 no código-fonte
 M3U8_PATTERN = r'https?:\/\/[^\s"\']+\.m3u8(?:\?[^\s"\']*)?'
@@ -231,3 +238,4 @@ def processar_lista_canais_paralelo():
 # ==============================================================================
 if __name__ == "__main__":
     processar_lista_canais_paralelo()
+
