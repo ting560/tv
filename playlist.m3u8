@@ -17,12 +17,6 @@ https://iptv.vivatele.com:443/live/viva_padrao/viva2384/2.m3u8
 #EXTINF:-1 tvg-id="RecordTV" tvg-name="RecordTV RJ" tvg-logo="https://listaiptv.gratis/logos/imagens/recordtv.png" group-title="Canais Abertos",RecordTV RJ
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/13.m3u8
 
-#EXTINF:-1 tvg-id="CNN" tvg-name="CNN Brasil" tvg-logo="https://listaiptv.gratis/logos/imagens/cnn.png" group-title="Notícias",CNN Brasil
-https://iptv.vivatele.com:443/live/viva_padrao/viva2384/74.m3u8
-
-#EXTINF:-1 tvg-id="GloboNews" tvg-name="GLOBO NEWS" tvg-logo="https://listaiptv.gratis/logos/imagens/globonews.png" group-title="Notícias",GLOBO NEWS
-https://dm2-usa-cloud-stream-user40028922.s27-usa-cloudfront-net.online/token/866df4672d2344aa9f2b78080089f4eb/globonews.m3u8
-
 #EXTINF:-1 tvg-id="JPNews" tvg-name="JP NEWS" tvg-logo="https://listaiptv.gratis/logos/imagens/jpnews.png" group-title="Notícias",JP NEWS
 https://iptv.vivatele.com:443/live/viva_padrao/viva2384/57.m3u8
 
