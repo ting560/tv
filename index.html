@@ -1,586 +1,563 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Base de Chorinho - Playbacks Profissionais de Choro</title>
-    <meta name="description" content="Assinatura mensal de R$ 50 para acesso ilimitado a playbacks de chorinho com nova música toda semana. Curadoria de Cristiano Ferreira.">
-    <style>
-        /* Reset e Tipografia */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #fafafa;
-        }
-        a { color: #0066cc; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base de Chorinho - Playbacks Profissionais de Choro</title>
+    <meta name="description" content="Assinatura mensal de R$ 50 para acesso ilimitado a playbacks de chorinho com nova música toda semana. Curadoria de Cristiano Ferreira.">
+    <style>
+        /* Reset e Tipografia */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fafafa;
+        }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
 
-        /* Layout Geral */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        header, footer {
-            background: #003366;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
-        header h1 { font-size: 2.2rem; margin-bottom: 8px; }
-        header p { font-size: 1.1rem; opacity: 0.9; }
+        /* Layout Geral */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header, footer {
+            background: #003366;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        header h1 { font-size: 2.2rem; margin-bottom: 8px; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
 
-        section { padding: 50px 0; }
-        h2 { font-size: 1.8rem; margin-bottom: 20px; text-align: center; color: #003366; }
-        p { margin-bottom: 16px; }
+        section { padding: 50px 0; }
+        h2 { font-size: 1.8rem; margin-bottom: 20px; text-align: center; color: #003366; }
+        p { margin-bottom: 16px; }
 
-        /* Botões */
-        .btn {
-            display: inline-block;
-            background: #0066cc;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-weight: bold;
-            text-align: center;
-            transition: background 0.3s;
-        }
-        .btn:hover { background: #004c99; }
+        /* Botões */
+        .btn {
+            display: inline-block;
+            background: #0066cc;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-align: center;
+            transition: background 0.3s;
+        }
+        .btn:hover { background: #004c99; }
 
-        /* Seção de Apresentação com Vídeo */
-        #intro {
-            background: #fff;
-            padding: 60px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .intro-content {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-        .intro-video {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-        }
-        /* Estilo para o iframe do vídeo */
-        .intro-video iframe {
-            width: 100%;
-            max-width: 500px;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-            aspect-ratio: 16 / 9; /* Mantém a proporção do vídeo */
-        }
-        .intro-text {
-            flex: 1;
-            min-width: 300px;
-        }
-        .intro-text h2 {
-            text-align: left;
-            color: #003366;
-            margin-bottom: 16px;
-        }
-        .intro-text p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
+        /* Seção de Apresentação com Vídeo */
+        #intro {
+            background: #fff;
+            padding: 60px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .intro-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .intro-video {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        /* Estilo para o iframe do vídeo */
+        .intro-video iframe {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            aspect-ratio: 16 / 9; /* Mantém a proporção do vídeo */
+        }
+        .intro-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        .intro-text h2 {
+            text-align: left;
+            color: #003366;
+            margin-bottom: 16px;
+        }
+        .intro-text p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        /* Hero com Promoção e Cronômetro */
+        #hero {
+            background: linear-gradient(135deg, #003366, #0066cc);
+            color: #fff;
+            text-align: center;
+            padding: 80px 0;
+        }
+        #hero .promo-badge {
+            background: #ff3333;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        #hero .original-price {
+            text-decoration: line-through;
+            opacity: 0.7;
+            font-size: 1.2rem;
+        }
+        #hero .promo-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        #hero .promo-details {
+            font-size: 1.1rem;
+            margin: 20px 0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #countdown {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 20px 0;
+            letter-spacing: 2px;
+        }
+        #countdown span {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin: 0 4px;
+            min-width: 60px;
+        }
+
+        /* Benefícios */
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .benefit-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .benefit-item h3 { color: #003366; margin-bottom: 10px; }
+
+        /* Players */
+        .players {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .player-item {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .player-item strong { display: block; margin-bottom: 8px; color: #003366; }
+        audio { width: 100%; margin-top: 8px; }
+
+        /* Tabela de Playlists */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th { background: #003366; color: #fff; }
+        tr:hover { background: #f5f5f5; }
+
+        /* Depoimentos */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .testimonial {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            font-style: italic;
+        }
+        .testimonial cite {
+            display: block;
+            margin-top: 12px;
+            font-style: normal;
+            font-weight: bold;
+            color: #003366;
+        }
+
+        /* Como Funciona */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .step {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .step strong { display: block; font-size: 1.4rem; color: #0066cc; margin-bottom: 10px; }
+
+        /* Formulário (Manter estilos para a nova seção de CTA/WhatsApp) */
+        .checkout-form {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center; /* Adicionado para centralizar o botão */
+        }
+        .whatsapp-link { /* Novo estilo para o link do WhatsApp */
+            display: inline-block;
+            width: 100%;
+            padding: 14px;
+            background: #25D366; /* Cor verde do WhatsApp */
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+        }
+        .whatsapp-link:hover { background: #1EAF54; text-decoration: none;}
+
+        .price {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0066cc;
+            margin: 20px 0;
+        }
+        .guarantee { text-align: center; font-size: 0.9rem; color: #666; margin-top: 10px; }
+        
+        /* Estilo do ícone do WhatsApp */
+        .whatsapp-link::before {
+            content: '💬'; /* Emoji do balão de fala, pode ser substituído por um ícone SVG */
+            margin-right: 10px;
         }
 
-        /* Hero com Promoção e Cronômetro */
-        #hero {
-            background: linear-gradient(135deg, #003366, #0066cc);
-            color: #fff;
-            text-align: center;
-            padding: 80px 0;
-        }
-        #hero .promo-badge {
-            background: #ff3333;
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        #hero .original-price {
-            text-decoration: line-through;
-            opacity: 0.7;
-            font-size: 1.2rem;
-        }
-        #hero .promo-price {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        #hero .promo-details {
-            font-size: 1.1rem;
-            margin: 20px 0;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        #countdown {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin: 20px 0;
-            letter-spacing: 2px;
-        }
-        #countdown span {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin: 0 4px;
-            min-width: 60px;
-        }
+        footer { font-size: 0.9rem; }
+        footer a { color: #aaccff; margin: 0 10px; }
 
-        /* Benefícios */
-        .benefits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        .benefit-item {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        .benefit-item h3 { color: #003366; margin-bottom: 10px; }
-
-        /* Players */
-        .players {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        .player-item {
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        }
-        .player-item strong { display: block; margin-bottom: 8px; color: #003366; }
-        audio { width: 100%; margin-top: 8px; }
-
-        /* Tabela de Playlists */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 30px 0;
-            background: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        th, td {
-            padding: 14px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-        th { background: #003366; color: #fff; }
-        tr:hover { background: #f5f5f5; }
-
-        /* Depoimentos */
-        .testimonials {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        .testimonial {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            font-style: italic;
-        }
-        .testimonial cite {
-            display: block;
-            margin-top: 12px;
-            font-style: normal;
-            font-weight: bold;
-            color: #003366;
-        }
-
-        /* Como Funciona */
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        .step {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        }
-        .step strong { display: block; font-size: 1.4rem; color: #0066cc; margin-bottom: 10px; }
-
-        /* Formulário */
-        .checkout-form {
-            max-width: 500px;
-            margin: 40px auto;
-            padding: 30px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .checkout-form label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #003366;
-        }
-        .checkout-form input, .checkout-form select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 1rem;
-        }
-        .checkout-form button {
-            width: 100%;
-            padding: 14px;
-            background: #ff3333;
-            color: #fff;
-            font-weight: bold;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .checkout-form button:hover { background: #cc0000; }
-
-        .price {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #0066cc;
-            margin: 20px 0;
-        }
-        .guarantee { text-align: center; font-size: 0.9rem; color: #666; margin-top: 10px; }
-
-        footer { font-size: 0.9rem; }
-        footer a { color: #aaccff; margin: 0 10px; }
-
-        @media (max-width: 768px) {
-            header h1 { font-size: 1.8rem; }
-            h2 { font-size: 1.5rem; }
-            .intro-content { flex-direction: column; text-align: center; }
-            .intro-text h2 { text-align: center; }
-            .intro-video iframe { max-width: 100%; }
-            #hero .promo-price { font-size: 2rem; }
-            #countdown { font-size: 1.4rem; }
-            #countdown span { min-width: 50px; padding: 6px 8px; }
-        }
-    </style>
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+            .intro-content { flex-direction: column; text-align: center; }
+            .intro-text h2 { text-align: center; }
+            .intro-video iframe { max-width: 100%; }
+            #hero .promo-price { font-size: 2rem; }
+            #countdown { font-size: 1.4rem; }
+            #countdown span { min-width: 50px; padding: 6px 8px; }
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <h1>Base de Chorinho</h1>
-            <p><strong>Com Cristiano Ferreira</strong><br>Playbacks profissionais de choro para músicos e entusiastas</p>
-        </div>
-    </header>
+    <header>
+        <div class="container">
+            <h1>Base de Chorinho</h1>
+            <p><strong>Com Cristiano Ferreira</strong><br>Playbacks profissionais de choro para músicos e entusiastas</p>
+        </div>
+    </header>
 
-    <!-- Seção com Vídeo do YouTube -->
-    <section id="intro">
-        <div class="container">
-            <div class="intro-content">
-                <div class="intro-video">
-                    <!-- VÍDEO DO YOUTUBE INTEGRADO -->
-                    <iframe 
-                        width="560" 
-                        height="315" 
-                        src="https://www.youtube.com/embed/sEGz8jO3AfE?rel=0&modestbranding=1&showinfo=0" 
-                        title="Cristiano Ferreira apresenta a Base de Chorinho" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        allowfullscreen>
-                    </iframe>
-                    <p style="margin-top: 12px; font-size: 0.9rem; color: #666;"><em>Cristiano Ferreira apresenta a Base de Chorinho</em></p>
-                </div>
-   <div class="intro-text">
-    <h2>Bases de Chorinho por Cristiano Ferreira</h2>
-    <p>O canal Bases de Chorinho foi criado por Cristiano Ferreira em 2020 e de lá pra cá vem sugerindo bases de apoio para quem estuda música, trabalha com choro e ama esse gênero musical centenário.</p>
-    <p>O canal teve início às suas atividades em julho de 2020 e a proposta é auxiliar músicos solistas como bandolinistas, cavaquinistas, saxofonistas, flautistas, clarinetistas e cantores e desde então tem sido usado em seus estudos aplicados.</p>
-   </div>
-                
-            </div>
-        </div>
-    </section>
+        <section id="intro">
+        <div class="container">
+            <div class="intro-content">
+                <div class="intro-video">
+                                        <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/sEGz8jO3AfE?rel=0&modestbranding=1&showinfo=0" 
+                        title="Cristiano Ferreira apresenta a Base de Chorinho" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                    </iframe>
+                    <p style="margin-top: 12px; font-size: 0.9rem; color: #666;"><em>Cristiano Ferreira apresenta a Base de Chorinho</em></p>
+                </div>
+   <div class="intro-text">
+    <h2>Bases de Chorinho por Cristiano Ferreira</h2>
+    <p>O canal Bases de Chorinho foi criado por Cristiano Ferreira em 2020 e de lá pra cá vem sugerindo bases de apoio para quem estuda música, trabalha com choro e ama esse gênero musical centenário.</p>
+    <p>O canal teve início às suas atividades em julho de 2020 e a proposta é auxiliar músicos solistas como bandolinistas, cavaquinistas, saxofonistas, flautistas, clarinetistas e cantores e desde então tem sido usado em seus estudos aplicados.</p>
+   </div>
+                
+            </div>
+        </div>
+    </section>
 
-    <!-- Hero com Promoção e Cronômetro -->
-    <section id="hero">
-        <div class="container">
-            <div class="promo-badge">PROMOÇÃO RELÂMPAGO</div>
-            <h2 style="color: #fff; margin-bottom: 20px;">A Maior Biblioteca de Playbacks de Choro do Brasil</h2>
-            
-            <p class="original-price">De: R$ 350 (primeiro mês) + R$ 100/mês</p>
-            <p class="promo-price">Por apenas R$ 120 no primeiro mês<br><span style="font-size: 1.2rem;">e R$ 50 nos próximos!</span></p>
-            
-            <p class="promo-details">Acesso ilimitado + nova música toda semana. <strong>Oferta válida apenas até 1º de dezembro!</strong></p>
-            
-            <div id="countdown">00 : 00 : 00 : 00</div>
-            
-            <a href="#checkout" class="btn" style="background: #ff3333; font-size: 1.2rem; padding: 16px 32px;">QUERO ESSA OFERTA AGORA</a>
-        </div>
-    </section>
+        <section id="hero">
+        <div class="container">
+            <div class="promo-badge">PROMOÇÃO RELÂMPAGO</div>
+            <h2 style="color: #fff; margin-bottom: 20px;">A Maior Biblioteca de Playbacks de Choro do Brasil</h2>
+            
+            <p class="original-price">De: R$ 350 (primeiro mês) + R$ 100/mês</p>
+            <p class="promo-price">Por apenas R$ 120 no primeiro mês<br><span style="font-size: 1.2rem;">e R$ 50 nos próximos!</span></p>
+            
+            <p class="promo-details">Acesso ilimitado + nova música toda semana. <strong>Oferta válida apenas até 1º de dezembro!</strong></p>
+            
+            <div id="countdown">00 : 00 : 00 : 00</div>
+            
+                        <a href="https://wa.me/5524999936696" target="_blank" class="btn" style="background: #ff3333; font-size: 1.2rem; padding: 16px 32px;">QUERO ESSA OFERTA AGORA</a>
+        </div>
+    </section>
 
-    <section id="benefits">
-        <div class="container">
-            <h2>Por que assinar a Base de Chorinho?</h2>
-            <div class="benefits">
-                <div class="benefit-item">
-                    <h3>Qualidade Profissional</h3>
-                    <p>Gravações em estúdio com arranjos fiéis ao gênero, executadas por músicos experientes.</p>
-                </div>
-                <div class="benefit-item">
-                    <h3>Atualização Semanal</h3>
-                    <p>Toda segunda-feira, uma nova faixa é adicionada à biblioteca.</p>
-                </div>
-                <div class="benefit-item">
-                    <h3>Player Embutido</h3>
-                    <p>Ouça diretamente no site, sem necessidade de downloads.</p>
-                </div>
-                <div class="benefit-item">
-                    <h3>Seleção de Playlists</h3>
-                    <p>Monte sua própria seleção ou escolha entre curadorias temáticas.</p>
-                </div>
-                <div class="benefit-item">
-                    <h3>Compatível com Todos os Instrumentos</h3>
-                    <p>Violão 7 cordas, bandolim, cavaquinho, flauta, pandeiro e mais.</p>
-                </div>
-                <div class="benefit-item">
-                    <h3>Partituras Inclusas</h3>
-                    <p>PDF com cifras e partituras em todas as faixas.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section id="benefits">
+        <div class="container">
+            <h2>Por que assinar a Base de Chorinho?</h2>
+            <div class="benefits">
+                <div class="benefit-item">
+                    <h3>Qualidade Profissional</h3>
+                    <p>Gravações em estúdio com arranjos fiéis ao gênero, executadas por músicos experientes.</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>Atualização Semanal</h3>
+                    <p>Toda segunda-feira, uma nova faixa é adicionada à biblioteca.</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>Player Embutido</h3>
+                    <p>Ouça diretamente no site, sem necessidade de downloads.</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>Seleção de Playlists</h3>
+                    <p>Monte sua própria seleção ou escolha entre curadorias temáticas.</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>Compatível com Todos os Instrumentos</h3>
+                    <p>Violão 7 cordas, bandolim, cavaquinho, flauta, pandeiro e mais.</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>Partituras Inclusas</h3>
+                    <p>PDF com cifras e partituras em todas as faixas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 <section id="samples" style="background: #f5f5f5;">
-    <div class="container">
-        <h2>Ouça Amostras</h2>
-        <p style="text-align: center; margin-bottom: 20px;"><em>Essas são apenas amostras. Assinantes têm acesso às versões completas em alta qualidade.</em></p>
-        <div class="players">
-            
-            <div class="player-item">
-                <strong>1. Brasileirinho (Waldir Azevedo)</strong>
-                <audio controls>
-                    <source src="images/BRASILEIRINHO.mp3" type="audio/mpeg">
-                    Seu navegador não suporta o elemento de áudio.
-                </audio>
-            </div>
+    <div class="container">
+        <h2>Ouça Amostras</h2>
+        <p style="text-align: center; margin-bottom: 20px;"><em>Essas são apenas amostras. Assinantes têm acesso às versões completas em alta qualidade.</em></p>
+        <div class="players">
+            
+            <div class="player-item">
+                <strong>1. Brasileirinho (Waldir Azevedo)</strong>
+                <audio controls>
+                    <source src="images/BRASILEIRINHO.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+            </div>
 
-            <div class="player-item">
-                <strong>2. Delicado (Waldir Azevedo)</strong>
-                <audio controls>
-                    <source src="images/DELICADO.mp3" type="audio/mpeg">
-                    Seu navegador não suporta o elemento de áudio.
-                </audio>
-            </div>
+            <div class="player-item">
+                <strong>2. Delicado (Waldir Azevedo)</strong>
+                <audio controls>
+                    <source src="images/DELICADO.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+            </div>
 
-            <div class="player-item">
-                <strong>3. Noites Cariocas (Jacob do Bandolim)</strong>
-                <audio controls>
-                    <source src="images/NOITES%20CARIOCAS%20%28Jacob%20do%20Bandolim%29.mp3" type="audio/mpeg">
-                    Seu navegador não suporta o elemento de áudio.
-                </audio>
-            </div>
+            <div class="player-item">
+                <strong>3. Noites Cariocas (Jacob do Bandolim)</strong>
+                <audio controls>
+                    <source src="images/NOITES%20CARIOCAS%20%28Jacob%20do%20Bandolim%29.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+            </div>
 
-            <div class="player-item">
-                <strong>4. O Mundo é um Moinho (Cartola)</strong>
-                <audio controls>
-                    <source src="images/O%20MUNDO%20É%20UM%20MOINHO%20%28Cartola%29.mp3" type="audio/mpeg">
-                    Seu navegador não suporta o elemento de áudio.
-                </audio>
-            </div>
+            <div class="player-item">
+                <strong>4. O Mundo é um Moinho (Cartola)</strong>
+                <audio controls>
+                    <source src="images/O%20MUNDO%20É%20UM%20MOINHO%20%28Cartola%29.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+            </div>
 
-            <div class="player-item">
-                <strong>5. Pedacinho do Céu (Waldir Azevedo)</strong>
-                <audio controls>
-                    <source src="images/PEDACINHO%20DO%20CEU%20%28Waldir%20Azevedo%29.mp3" type="audio/mpeg">
-                    Seu navegador não suporta o elemento de áudio.
-                </audio>
-            </div>
+            <div class="player-item">
+                <strong>5. Pedacinho do Céu (Waldir Azevedo)</strong>
+                <audio controls>
+                    <source src="images/PEDACINHO%20DO%20CEU%20%28Waldir%20Azevedo%29.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+            </div>
 
-            <div class="player-item">
-                <strong>6. Sonoroso (K-Ximbinho)</strong>
-                <audio controls>
-                    <source src="images/SONOROSO%20%28K-Ximbinho%29.mp3" type="audio/mpeg">
-                    Seu navegador não suporta o elemento de áudio.
-                </audio>
-            </div>
-            
-            <div class="player-item">
-                <strong>7. Vibrações (Jacob do Bandolim)</strong>
-                <audio controls>
-                    <source src="images/VIBRAÇOES%20%28Jacob%20do%20Bandolim%29.mp3" type="audio/mpeg">
-                    Seu navegador não suporta o elemento de áudio.
-                </audio>
-            </div>
-            
-            </div>
+            <div class="player-item">
+                <strong>6. Sonoroso (K-Ximbinho)</strong>
+                <audio controls>
+                    <source src="images/SONOROSO%20%28K-Ximbinho%29.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+            </div>
+            
+            <div class="player-item">
+                <strong>7. Vibrações (Jacob do Bandolim)</strong>
+                <audio controls>
+                    <source src="images/VIBRAÇOES%20%28Jacob%20do%20Bandolim%29.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+            </div>
+            
+            </div>
 
-        </div>
-    </div>
+        </div>
+    </div>
 </section>
-    
-    
+    
+    
 <section class="features">
-    <div class="container">
-        <h2>Recursos em Destaque</h2>
-        <div class="feature-list">
-            
-            <div class="feature-item">
-                <h3>🎶 Seleção de Playlists</h3>
-                <p>Monte sua playlist para seus estudos ou apresentações direto no site.</p>
-            </div>
-            
-            <div class="feature-item">
-                <h3>🔊 Qualidade Profissional</h3>
-                <p>Gravações em estúdio com qualidade e arranjos fiéis ao original.</p>
-                <p><strong>Playbacks produzidos com instrumentos regionais como:</strong> Violão 7 cordas, harmonia de violão 6, cavaco e pandeiro de couro. Próprio para quem toca bandolim, cavaquinho, flauta entre outros.</p>
-            </div>
-            
-            <div class="feature-item">
-                <h3>📄 Partituras Inclusas</h3>
-                <p>PDF com as cifras de harmonias e partituras de algumas faixas.</p>
-            </div>
-            
-        </div>
-        <p style="text-align: center; margin-top: 30px;"><a href="#" class="btn">Explorar Conteúdo Completo</a></p>
-    </div>
+    <div class="container">
+        <h2>Recursos em Destaque</h2>
+        <div class="feature-list">
+            
+            <div class="feature-item">
+                <h3>🎶 Seleção de Playlists</h3>
+                <p>Monte sua playlist para seus estudos ou apresentações direto no site.</p>
+            </div>
+            
+            <div class="feature-item">
+                <h3>🔊 Qualidade Profissional</h3>
+                <p>Gravações em estúdio com qualidade e arranjos fiéis ao original.</p>
+                <p><strong>Playbacks produzidos com instrumentos regionais como:</strong> Violão 7 cordas, harmonia de violão 6, cavaco e pandeiro de couro. Próprio para quem toca bandolim, cavaquinho, flauta entre outros.</p>
+            </div>
+            
+            <div class="feature-item">
+                <h3>📄 Partituras Inclusas</h3>
+                <p>PDF com as cifras de harmonias e partituras de algumas faixas.</p>
+            </div>
+            
+        </div>
+        <p style="text-align: center; margin-top: 30px;"><a href="https://wa.me/5524999936696" target="_blank" class="btn">Explorar Conteúdo Completo</a></p>
+    </div>
 </section>
-    
+    
 
-    
+    
 
-    <section id="testimonials" style="background: #f5f5f5;">
-        <div class="container">
-            <h2>O que os Assinantes Dizem</h2>
-            <div class="testimonials">
-                <div class="testimonial">
-                    <p>"Finalmente encontrei playbacks de choro com arranjos corretos e som limpo. A atualização semanal mantém minha prática sempre renovada."</p>
-                    <cite>– Marcelo R., bandolinista (RJ)</cite>
-                </div>
-                <div class="testimonial">
-                    <p>"Os players são práticos e as partituras ajudam muito nos ensaios. Vale cada real."</p>
-                    <cite>– Ana Clara, flautista (SP)</cite>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section id="testimonials" style="background: #f5f5f5;">
+        <div class="container">
+            <h2>O que os Assinantes Dizem</h2>
+            <div class="testimonials">
+                <div class="testimonial">
+                    <p>"Finalmente encontrei playbacks de choro com arranjos corretos e som limpo. A atualização semanal mantém minha prática sempre renovada."</p>
+                    <cite>– Marcelo R., bandolinista (RJ)</cite>
+                </div>
+                <div class="testimonial">
+                    <p>"Os players são práticos e as partituras ajudam muito nos ensaios. Vale cada real."</p>
+                    <cite>– Ana Clara, flautista (SP)</cite>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <section id="how-it-works">
-        <div class="container">
-            <h2>Como Funciona</h2>
-            <div class="steps">
-                <div class="step">
-                    <strong>1</strong>
-                    <p>Assine com a oferta promocional.</p>
-                </div>
-                <div class="step">
-                    <strong>2</strong>
-                    <p>Acesse imediatamente a biblioteca completa.</p>
-                </div>
-                <div class="step">
-                    <strong>3</strong>
-                    <p>Receba nova música toda segunda-feira.</p>
-                </div>
-                <div class="step">
-                    <strong>4</strong>
-                    <p>Pratique com partituras e playlists.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section id="how-it-works">
+        <div class="container">
+            <h2>Como Funciona</h2>
+            <div class="steps">
+                <div class="step">
+                    <strong>1</strong>
+                    <p>Assine com a oferta promocional.</p>
+                </div>
+                <div class="step">
+                    <strong>2</strong>
+                    <p>Acesse imediatamente a biblioteca completa.</p>
+                </div>
+                <div class="step">
+                    <strong>3</strong>
+                    <p>Receba nova música toda segunda-feira.</p>
+                </div>
+                <div class="step">
+                    <strong>4</strong>
+                    <p>Pratique com partituras e playlists.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <section id="checkout" style="background: #fff;">
-        <div class="container">
-            <h2 style="margin-bottom: 10px;">Garanta a Oferta Antes que Acabe!</h2>
-            <div class="price" style="color: #ff3333;">R$ 120 no 1º mês<br><span style="font-size: 1.2rem; color: #0066cc;">R$ 50 nos próximos</span></div>
-            <p style="text-align: center; margin-bottom: 20px;"><em>Sem contrato de fidelidade • Cancele quando quiser</em></p>
+    <section id="checkout" style="background: #fff;">
+        <div class="container">
+            <h2 style="margin-bottom: 10px;">Garanta a Oferta Antes que Acabe!</h2>
+            <div class="price" style="color: #ff3333;">R$ 120 no 1º mês<br><span style="font-size: 1.2rem; color: #0066cc;">R$ 50 nos próximos</span></div>
+            <p style="text-align: center; margin-bottom: 20px;"><em>Sem contrato de fidelidade • Cancele quando quiser</em></p>
 
-            <form class="checkout-form">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" placeholder="seuemail@exemplo.com" required>
+                        <div class="checkout-form">
+                <p style="font-weight: bold; margin-bottom: 15px; color: #333;">Fale com a nossa equipe no WhatsApp para garantir sua vaga:</p>
+                <a href="https://wa.me/5524999936696" target="_blank" class="whatsapp-link">
+                  FALE CONOSCO NO WHATSAPP
+                </a>
+            </div>
+                        <p class="guarantee"><strong>Garantia:</strong> Se não estiver satisfeito nos primeiros 7 dias, devolva 100% do valor.</p>
+        </div>
+    </section>
 
-                <label for="payment">Forma de Pagamento</label>
-                <select id="payment" required>
-                    <option value="">Selecione</option>
-                    <option>Cartão de Crédito</option>
-                    <option>Pix</option>
-                    <option>Boleto</option>
-                </select>
+    <footer>
+        <div class="container">
+            <p><strong>Base de Chorinho</strong> – Onde a tradição do choro encontra a praticidade digital.<br>
+            <em>Desenvolvido e curado por Cristiano Ferreira</em></p>
+            <p style="margin-top: 15px;">
+                <a href="#">Termos de Uso</a> |
+                <a href="#">Política de Privacidade</a> |
+                <a href="#">Contato</a>
+            </p>
+        </div>
+    </footer>
 
-                <button type="submit">ASSINAR COM DESCONTO</button>
-            </form>
+    <script>
+        // Cronômetro até 1º de dezembro de 2025 23:59:59
+        const countdownDate = new Date('2025-12-01T23:59:59').getTime();
 
-            <p class="guarantee"><strong>Garantia:</strong> Se não estiver satisfeito nos primeiros 7 dias, devolva 100% do valor.</p>
-        </div>
-    </section>
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
 
-    <footer>
-        <div class="container">
-            <p><strong>Base de Chorinho</strong> – Onde a tradição do choro encontra a praticidade digital.<br>
-            <em>Desenvolvido e curado por Cristiano Ferreira</em></p>
-            <p style="margin-top: 15px;">
-                <a href="#">Termos de Uso</a> |
-                <a href="#">Política de Privacidade</a> |
-                <a href="#">Contato</a>
-            </p>
-        </div>
-    </footer>
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = 'OFERTA ENCERRADA';
+                return;
+            }
 
-    <script>
-        // Cronômetro até 1º de dezembro de 2025 23:59:59
-        const countdownDate = new Date('2025-12-01T23:59:59').getTime();
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        const updateCountdown = () => {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
+            document.getElementById('countdown').innerHTML = 
+                `<span>${days.toString().padStart(2, '0')}</span> : 
+                 <span>${hours.toString().padStart(2, '0')}</span> : 
+                 <span>${minutes.toString().padStart(2, '0')}</span> : 
+                 <span>${seconds.toString().padStart(2, '0')}</span>`;
+        };
 
-            if (distance < 0) {
-                document.getElementById('countdown').innerHTML = 'OFERTA ENCERRADA';
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('countdown').innerHTML = 
-                `<span>${days.toString().padStart(2, '0')}</span> : 
-                 <span>${hours.toString().padStart(2, '0')}</span> : 
-                 <span>${minutes.toString().padStart(2, '0')}</span> : 
-                 <span>${seconds.toString().padStart(2, '0')}</span>`;
-        };
-
-        // Atualiza a cada segundo
-        setInterval(updateCountdown, 1000);
-        updateCountdown(); // Inicial
-    </script>
+        // Atualiza a cada segundo
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Inicial
+    </script>
 
 </body>
 </html>
-
-
-
-
-
