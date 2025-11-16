@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Base de Chorinho - Playbacks Profissionais de Choro</title>
+  <meta name="description" content="Assinatura mensal de R$ 50 para acesso ilimitado a playbacks de chorinho com nova música toda semana. Curadoria de Cristiano Ferreira.">
+
+  <style>
+    /* Reset básico e tipografia */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height:1.6;color:#222;background:#fafafa;
+      -webkit-font-smoothing:antialiased;
+    }
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+    /* Header / Footer */
+    header, footer{background:#003366;color:#fff}
+    header{padding:20px 0;text-align:center}
+    header h1{font-size:2.1rem;margin-bottom:6px}
+    header p{font-size:1rem;opacity:.95}
+    footer{padding:18px 0;font-size:.95rem;text-align:center}
+    footer a{color:#cfe8ff;margin:0 8px;text-decoration:none}
+
+    /* Sections */
+    section{padding:48px 0}
+    h2{font-size:1.7rem;margin-bottom:18px;color:#003366;text-align:center}
+    p{margin-bottom:14px;color:#333}
+
+    /* Buttons */
+    .btn{
+      display:inline-block;background:#0066cc;color:#fff;padding:12px 24px;border-radius:8px;
+      font-weight:700;text-decoration:none;transition:transform .12s ease,box-shadow .12s;
+    }
+    .btn:focus,.btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.12)}
+    .btn--cta{background:#ff3333}
+
+    /* Intro (vídeo + texto) */
+    #intro{background:#fff;border-bottom:1px solid #eee;padding-top:56px;padding-bottom:56px}
+    .intro-grid{display:flex;gap:36px;align-items:center;flex-wrap:wrap}
+    .intro-video{flex:1;min-width:300px;text-align:center}
+    .intro-video iframe{
+      width:100%;max-width:560px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.12);
+      aspect-ratio:16/9;height:auto;border:0;
+    }
+    .intro-text{flex:1;min-width:300px}
+    .intro-text h2{font-size:1.4rem;color:#003366;text-align:left;margin-bottom:12px}
+    .intro-text p{font-size:1.02rem;color:#444}
+
+    /* Hero promocional */
+    #hero{background:linear-gradient(135deg,#003366,#0066cc);color:#fff;text-align:center;padding:64px 20px}
+    .promo-badge{background:#ff3333;display:inline-block;padding:8px 16px;border-radius:999px;font-weight:800;margin-bottom:12px;animation:pulse 2200ms infinite}
+    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
+    .original-price{opacity:.9;text-decoration:line-through;margin-top:10px}
+    .promo-price{font-size:2.2rem;font-weight:800;margin:10px 0}
+    .promo-details{max-width:720px;margin:0 auto 18px;font-size:1rem}
+    #countdown{font-weight:800;font-size:1.3rem;letter-spacing:1.5px;margin-bottom:18px}
+    #countdown span{display:inline-block;background:rgba(255,255,255,.12);padding:8px 10px;border-radius:8px;min-width:56px;margin:0 6px}
+
+    /* Benefits */
+    .benefits{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:18px}
+    .benefit-item{background:#fff;padding:18px;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+    .benefit-item h3{color:#003366;margin-bottom:8px}
+
+    /* Players */
+    .players{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+    .player-item{background:#fff;padding:14px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+    .player-item strong{display:block;color:#003366;margin-bottom:8px}
+    audio{width:100%;outline:none}
+
+    /* Testimonials */
+    .testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+    .testimonial{background:#fff;padding:18px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.05);font-style:italic}
+    .testimonial cite{display:block;margin-top:12px;font-style:normal;font-weight:700;color:#003366}
+
+    /* Steps */
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:12px}
+    .step{background:#fff;padding:16px;border-radius:10px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+    .step strong{display:block;font-size:1.4rem;color:#0066cc;margin-bottom:8px}
+
+    /* Checkout */
+    .checkout-wrap{display:flex;flex-direction:column;align-items:center;gap:18px}
+    .checkout-form{max-width:520px;width:100%;background:#fff;padding:22px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08);text-align:center}
+    .whatsapp-link{display:inline-block;width:100%;padding:14px;background:#25D366;color:#fff;border-radius:8px;font-weight:800;text-decoration:none}
+    .whatsapp-link:focus,.whatsapp-link:hover{opacity:.95;transform:translateY(-1px)}
+    .price{font-size:2rem;font-weight:800;color:#0066cc;text-align:center;margin-top:8px}
+    .price .primeiro{color:#ff3333}
+    .guarantee{text-align:center;color:#666;margin-top:12px;font-size:.95rem}
+
+    /* Utility */
+    .muted{color:#666;font-size:.95rem}
+    .sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+
+    /* Responsividade */
+    @media (max-width:768px){
+      header h1{font-size:1.6rem}
+      .intro-text h2{text-align:center}
+      .intro-text{order:2}
+      .intro-video{order:1}
+      .promo-price{font-size:1.6rem}
+      #countdown{font-size:1.05rem}
+      .players{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Base de Chorinho</h1>
+      <p><strong>Com Cristiano Ferreira</strong><br>Playbacks profissionais de choro para músicos e entusiastas</p>
+    </div>
+  </header>
+
+  <!-- INTRO -->
+  <section id="intro" aria-labelledby="intro-title">
+    <div class="container intro-grid">
+      <div class="intro-video" aria-hidden="false">
+        <iframe src="https://www.youtube.com/embed/sEGz8jO3AfE?rel=0&modestbranding=1&showinfo=0"
+                title="Cristiano Ferreira apresenta a Base de Chorinho"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <p class="muted" style="margin-top:10px;"><em>Cristiano Ferreira apresenta a Base de Chorinho</em></p>
+      </div>
+
+      <div class="intro-text">
+        <h2 id="intro-title">Bases de Chorinho por Cristiano Ferreira</h2>
+        <p>O canal Bases de Chorinho foi criado por Cristiano Ferreira em 2020 e de lá pra cá vem sugerindo bases de apoio para quem estuda música, trabalha com choro e ama esse gênero musical centenário.</p>
+        <p>O canal teve início às suas atividades em julho de 2020 e a proposta é auxiliar músicos solistas como bandolinistas, cavaquinistas, saxofonistas, flautistas, clarinetistas e cantores — ideal para estudos e apresentações.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HERO / PROMO -->
+  <section id="hero" aria-labelledby="promo-title">
+    <div class="container">
+      <div class="promo-badge" role="status" aria-live="polite">PROMOÇÃO RELÂMPAGO</div>
+      <h2 id="promo-title" style="color:#fff;margin:14px 0 6px">A Maior Biblioteca de Playbacks de Choro do Brasil</h2>
+
+      <p class="original-price" aria-hidden="true">De: R$ 350 (primeiro mês) + R$ 100/mês</p>
+      <p class="promo-price"><span class="primeiro">Por apenas R$ 120 no primeiro mês</span><br><span style="font-size:1rem;color:#fff">e R$ 50 nos próximos!</span></p>
+
+      <p class="promo-details">Acesso ilimitado + nova música toda semana. <strong>Oferta válida apenas até 1º de dezembro!</strong></p>
+
+      <div id="countdown" aria-live="polite" aria-atomic="true">00 : 00 : 00 : 00</div>
+
+      <p>
+        <a class="btn btn--cta" href="https://wa.me/5524999936696?text=Ol%C3%A1%2C%20Cristiano.%20Quero%20aproveitar%20a%20oferta%20da%20Base%20de%20Chorinho!" target="_blank" rel="noopener noreferrer">
+          QUERO ESSA OFERTA AGORA
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section id="benefits" aria-labelledby="benefits-title">
+    <div class="container">
+      <h2 id="benefits-title">Por que assinar a Base de Chorinho?</h2>
+      <div class="benefits">
+        <div class="benefit-item">
+          <h3>Qualidade Profissional</h3>
+          <p>Gravações em estúdio com arranjos fiéis ao gênero, executadas por músicos experientes.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3>Atualização Semanal</h3>
+          <p>Toda segunda-feira, uma nova faixa é adicionada à biblioteca.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3>Player Embutido</h3>
+          <p>Ouça diretamente no site, sem necessidade de downloads.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3>Seleção de Playlists</h3>
+          <p>Monte sua própria seleção ou escolha entre curadorias temáticas.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3>Compatível com Todos os Instrumentos</h3>
+          <p>Violão 7 cordas, bandolim, cavaquinho, flauta, pandeiro e mais.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3>Partituras Inclusas</h3>
+          <p>PDF com cifras e partituras em todas as faixas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAMPLES / PLAYERS -->
+  <section id="samples" style="background:#f5f5f5" aria-labelledby="samples-title">
+    <div class="container">
+      <h2 id="samples-title">Ouça Amostras</h2>
+      <p style="text-align:center;margin-bottom:18px;"><em>Essas são apenas amostras. Assinantes têm acesso às versões completas em alta qualidade.</em></p>
+
+      <div class="players">
+        <div class="player-item">
+          <strong>1. Brasileirinho (Waldir Azevedo)</strong>
+          <audio controls preload="none">
+            <source src="images/BRASILEIRINHO.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+
+        <div class="player-item">
+          <strong>2. Delicado (Waldir Azevedo)</strong>
+          <audio controls preload="none">
+            <source src="images/DELICADO.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+
+        <div class="player-item">
+          <strong>3. Noites Cariocas (Jacob do Bandolim)</strong>
+          <audio controls preload="none">
+            <source src="images/NOITES%20CARIOCAS%20%28Jacob%20do%20Bandolim%29.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+
+        <div class="player-item">
+          <strong>4. O Mundo é um Moinho (Cartola)</strong>
+          <audio controls preload="none">
+            <source src="images/O%20MUNDO%20%C3%89%20UM%20MOINHO%20%28Cartola%29.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+
+        <div class="player-item">
+          <strong>5. Pedacinho do Céu (Waldir Azevedo)</strong>
+          <audio controls preload="none">
+            <source src="images/PEDACINHO%20DO%20CEU%20%28Waldir%20Azevedo%29.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+
+        <div class="player-item">
+          <strong>6. Sonoroso (K-Ximbinho)</strong>
+          <audio controls preload="none">
+            <source src="images/SONOROSO%20%28K-Ximbinho%29.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+
+        <div class="player-item">
+          <strong>7. Vibrações (Jacob do Bandolim)</strong>
+          <audio controls preload="none">
+            <source src="images/VIBRA%C3%87OES%20%28Jacob%20do%20Bandolim%29.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" aria-labelledby="features-title">
+    <div class="container">
+      <h2 id="features-title">Recursos em Destaque</h2>
+
+      <div class="feature-list" style="display:grid;gap:16px;">
+        <div style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.05)">
+          <h3>🎶 Seleção de Playlists</h3>
+          <p>Monte sua playlist para seus estudos ou apresentações direto no site.</p>
+        </div>
+
+        <div style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.05)">
+          <h3>🔊 Qualidade Profissional</h3>
+          <p>Gravações em estúdio com qualidade e arranjos fiéis ao original.</p>
+          <p><strong>Playbacks produzidos com instrumentos regionais como:</strong> Violão 7 cordas, harmonia de violão 6, cavaco e pandeiro de couro.</p>
+        </div>
+
+        <div style="background:#fff;padding:16px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.05)">
+          <h3>📄 Partituras Inclusas</h3>
+          <p>PDF com as cifras de harmonias e partituras de algumas faixas.</p>
+        </div>
+      </div>
+
+      <p style="text-align:center;margin-top:18px;">
+        <a class="btn" href="https://wa.me/5524999936696?text=Ol%C3%A1%2C%20Cristiano.%20Quero%20aproveitar%20a%20oferta%20da%20Base%20de%20Chorinho!" target="_blank" rel="noopener noreferrer">Explorar Conteúdo Completo</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" style="background:#f5f5f5" aria-labelledby="testimonials-title">
+    <div class="container">
+      <h2 id="testimonials-title">O que os Assinantes Dizem</h2>
+      <div class="testimonials">
+        <div class="testimonial">
+          <p>"Finalmente encontrei playbacks de choro com arranjos corretos e som limpo. A atualização semanal mantém minha prática sempre renovada."</p>
+          <cite>– Marcelo R., bandolinista (RJ)</cite>
+        </div>
+        <div class="testimonial">
+          <p>"Os players são práticos e as partituras ajudam muito nos ensaios. Vale cada real."</p>
+          <cite>– Ana Clara, flautista (SP)</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" aria-labelledby="how-title">
+    <div class="container">
+      <h2 id="how-title">Como Funciona</h2>
+      <div class="steps">
+        <div class="step"><strong>1</strong><p>Assine com a oferta promocional.</p></div>
+        <div class="step"><strong>2</strong><p>Acesse imediatamente a biblioteca completa.</p></div>
+        <div class="step"><strong>3</strong><p>Receba nova música toda segunda-feira.</p></div>
+        <div class="step"><strong>4</strong><p>Pratique com partituras e playlists.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKOUT -->
+  <section id="checkout" style="background:#fff" aria-labelledby="checkout-title">
+    <div class="container">
+      <h2 id="checkout-title">Garanta a Oferta Antes que Acabe!</h2>
+
+      <div class="price" aria-hidden="true" style="margin-bottom:8px">
+        <span class="primeiro" style="color:#ff3333">R$ 120 no 1º mês</span><br>
+        <span style="font-size:1rem;color:#0066cc">R$ 50 nos próximos</span>
+      </div>
+
+      <p style="text-align:center;margin-bottom:14px;"><em>Sem contrato de fidelidade • Cancele quando quiser</em></p>
+
+      <div class="checkout-wrap">
+        <div class="checkout-form" role="form" aria-label="Formulário de contato para assinatura">
+          <p style="font-weight:700;color:#003366;margin-bottom:12px">
+            Fale agora com <strong>Cristiano Ferreira</strong> para garantir sua vaga e finalizar a assinatura:
+          </p>
+
+          <a class="whatsapp-link" href="https://wa.me/5524999936696?text=Ol%C3%A1%2C%20Cristiano.%20Quero%20aproveitar%20a%20oferta%20da%20Base%20de%20Chorinho!" target="_blank" rel="noopener noreferrer">
+            💬 FALAR COM CRISTIANO AGORA
+          </a>
+        </div>
+
+        <p class="guarantee"><strong>Garantia:</strong> Se não estiver satisfeito nos primeiros 7 dias, devolva 100% do valor.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p><strong>Base de Chorinho</strong> – Onde a tradição do choro encontra a praticidade digital.<br><em>Desenvolvido e curado por Cristiano Ferreira</em></p>
+      <p style="margin-top:12px;">
+        <a href="#" aria-label="Termos de Uso">Termos de Uso</a> |
+        <a href="#" aria-label="Política de Privacidade">Política de Privacidade</a> |
+        <a href="#" aria-label="Contato">Contato</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS: contador regressivo -->
+  <script>
+    // Contador até 1º de dezembro de 2025 23:59:59 (mesma data que você usou)
+    const countdownEl = document.getElementById('countdown');
+    const countdownDate = new Date('2025-12-01T23:59:59').getTime();
+
+    function updateCountdown() {
+      const now = Date.now();
+      const distance = countdownDate - now;
+
+      if (distance <= 0) {
+        countdownEl.textContent = 'OFERTA ENCERRADA';
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML =
+        `<span aria-hidden="true">${String(days).padStart(2,'0')}</span> : ` +
+        `<span aria-hidden="true">${String(hours).padStart(2,'0')}</span> : ` +
+        `<span aria-hidden="true">${String(minutes).padStart(2,'0')}</span> : ` +
+        `<span aria-hidden="true">${String(seconds).padStart(2,'0')}</span>`;
+    }
+
+    // Atualiza imediatamente e depois a cada segundo
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+
+    // Limpeza caso já tenha expirado
+    if (Date.now() > countdownDate) {
+      clearInterval(timer);
+      countdownEl.textContent = 'OFERTA ENCERRADA';
+    }
+  </script>
+</body>
+</html>
