@@ -1,0 +1,456 @@
+/* style.css */
+
+:root {
+    --primary-color: #667eea; /* Roxo suave */
+    --secondary-color: #764ba2; /* Roxo escuro */
+    --accent-color: #ff6b6b; /* Vermelho para destaque */
+    --background-light: #f4f7f6;
+    --background-dark: #2c3e50;
+    --text-color: #333;
+    --text-light: #fff;
+    --card-bg: #ffffff;
+    --success-color: #4CAF50; /* Verde */
+    --selected-color: #FFC107; /* AMARELO para o botão selecionado */
+}
+
+/* Base e Responsividade */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background-light);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* Cabeçalho e Navegação */
+header {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 15px 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: none; 
+}
+
+.logo-with-image {
+    color: var(--text-light);
+    font-size: 1.8em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-image {
+    width: 32px; 
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent-color);
+}
+
+/* Botões de Ação Geral (Submit, Logout) */
+.btn-submit, .btn-logout {
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover, .btn-logout:hover {
+    background-color: #e65252;
+}
+
+/* --- ESTILOS DO BOTÃO DE ADICIONAR À LISTA --- */
+
+.add-to-playlist-btn {
+    display: block; 
+    width: 100%;
+    margin-top: 15px !important;
+    background-color: var(--primary-color) !important;
+    color: var(--text-light) !important;
+    border: none;
+    padding: 10px 15px !important;
+    border-radius: 6px !important;
+    cursor: pointer;
+    font-size: 0.95em !important;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+/* --- ESTILOS DO BOTÃO DE PARTITURA --- */
+
+.open-sheet-btn {
+    display: block; 
+    width: 100%;
+    margin-top: 10px !important;
+    background-color: #4CAF50 !important; /* Verde para partitura */
+    color: var(--text-light) !important;
+    border: none;
+    padding: 10px 15px !important;
+    border-radius: 6px !important;
+    cursor: pointer;
+    font-size: 0.95em !important;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.open-sheet-btn:hover {
+    background-color: #45a049 !important;
+}
+
+.add-to-playlist-btn:hover:not(.in-playlist) {
+    background-color: var(--secondary-color) !important;
+}
+
+/* ESTADO SELECIONADO: Muda para AMARELO */
+.add-to-playlist-btn.in-playlist {
+    background-color: var(--selected-color) !important;
+    color: var(--text-color) !important;
+    cursor: default;
+    opacity: 0.95;
+    pointer-events: none;
+}
+
+/* --- ESTILOS DO PLAYER NO MODAL --- */
+
+.modal-player-controls {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 18px;
+    width: 100%;
+}
+
+.player-main-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+    margin: 15px 0;
+}
+
+.player-main-controls button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888; 
+    transition: color 0.2s, transform 0.2s;
+}
+
+/* Botões de Avançar e Voltar */
+.player-main-controls .control-nav {
+    font-size: 2.5rem; 
+    padding: 5px;
+    line-height: 1; 
+}
+
+.player-main-controls .control-nav:hover {
+    color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.player-main-controls .control-nav:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Botão Principal: Play/Pause */
+.player-main-controls .control-main {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    color: #666;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding-left: 5px;
+}
+
+.player-main-controls .control-main:hover {
+    background-color: #ccc;
+    color: var(--secondary-color);
+}
+
+.now-playing {
+    text-align: center;
+    padding-top: 10px;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--secondary-color);
+}
+
+
+/* --- Área de Autenticação e Conteúdo --- */
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.auth-section {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+}
+
+.auth-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.auth-section p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.auth-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    color: #999;
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+    transition: color 0.3s, border-bottom 0.3s;
+}
+
+.tab-button.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.auth-form .form-group {
+    margin-bottom: 15px;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+.auth-form button[type="submit"] {
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* --- Área de Conteúdo (App) --- */
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+.music-list-section h2 {
+    color: var(--secondary-color);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.music-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.music-card {
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    position: relative;
+    border-left: 5px solid var(--primary-color);
+    transition: transform 0.3s;
+}
+
+.music-card:hover {
+    transform: translateY(-5px);
+}
+
+.music-card h3 {
+    color: var(--secondary-color);
+    margin-bottom: 5px;
+    font-size: 1.4em;
+}
+
+.music-card p {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.audio-player {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    background-color: var(--background-dark);
+    color: #aaa;
+    font-size: 0.9em;
+}
+
+/* Mensagens de Alerta */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Responsividade Geral */
+@media (max-width: 768px) {
+    
+    /* Configurações de layout */
+    header { padding: 15px 20px; }
+    .hero h1 { font-size: 2em; }
+    main { padding: 10px; }
+    .auth-section { padding: 30px 20px; }
+    
+    /* Ajuste de Grid (Músicas) */
+    .music-grid { 
+        gap: 20px; 
+        /* Reduz o min-width para garantir 1 coluna em telas muito pequenas */
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    }
+    
+    /* Ajuste de Controles de Busca/Ordem */
+    .music-controls {
+        flex-direction: column; /* Empilha busca e ordem */
+        align-items: stretch;
+    }
+    #searchInput, #orderSelect {
+        width: 100%;
+        min-width: unset;
+    }
+
+    /* Ajuste para o Painel Admin */
+    .admin-container {
+        margin: 20px 10px;
+        padding: 20px;
+    }
+    
+    /* Responsividade da Tabela de Gerenciamento */
+    #musicasAdminList {
+        overflow-x: auto; /* Permite scroll horizontal na tabela */
+        -webkit-overflow-scrolling: touch;
+    }
+    #musicasAdminList table {
+        /* Garante que a tabela não encolha além do necessário */
+        min-width: 700px; 
+    }
+    
+    /* Esconde colunas menos importantes em mobile */
+    #musicasAdminList thead th:nth-child(5), /* Data */
+    #musicasAdminList tbody td:nth-child(5) {
+        display: none;
+    }
+    
+    /* Ajuste dos botões de ação na tabela */
+    #musicasAdminList td:last-child {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-start; /* Alinha os botões à esquerda */
+    }
+    .btn-edit, .btn-remove {
+        width: 100%;
+        margin: 0 !important;
+        text-align: center;
+    }
+}

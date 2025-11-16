@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Chorinho Premium</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #f6f8fa;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .auth-container {
+            max-width: 400px;
+            width: 100%;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(102,126,234,0.10);
+            padding: 40px 28px 32px 28px;
+            font-family: 'Poppins',sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .auth-container h2 {
+            text-align: center;
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 22px;
+            font-size: 2rem;
+        }
+        .auth-form {
+            width: 100%;
+        }
+        .auth-form .form-group {
+            margin-bottom: 20px;
+        }
+        .auth-form label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            color: #4b5fc2;
+            font-size: 1.08em;
+        }
+        .auth-form input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #d3d7e3;
+            font-size: 1.08em;
+            background: #f7faff;
+            box-sizing: border-box;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            background: linear-gradient(90deg,#667eea 0%,#4b5fc2 100%);
+            color: #fff;
+            font-size: 1.15em;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 2px 8px rgba(102,126,234,0.08);
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .btn-submit:hover {
+            background: linear-gradient(90deg,#4b5fc2 0%,#667eea 100%);
+            box-shadow: 0 4px 16px rgba(102,126,234,0.18);
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 22px;
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.08em;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        #registerMessage {
+            margin-top: 18px;
+            font-size: 1.08em;
+        }
+        @media (max-width: 600px) {
+            .auth-container {
+                max-width: 98vw;
+                padding: 18px 4vw 12px 4vw;
+            }
+            .auth-container h2 {
+                font-size: 1.25rem;
+            }
+            .auth-form label {
+                font-size: 1em;
+            }
+            .btn-submit {
+                font-size: 1em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <h2>Criar Conta</h2>
+        <form id="registerForm" class="auth-form">
+            <div class="form-group"><label for="register-email">E-mail</label><input type="email" id="register-email" name="register-email" required></div>
+            <div class="form-group"><label for="register-password">Senha</label><input type="password" id="register-password" name="register-password" required></div>
+            <button type="submit" class="btn-submit">Criar Conta</button>
+        </form>
+        <a href="index.html" class="back-link">Voltar para Login</a>
+        <div id="registerMessage" style="margin-top:16px; text-align:center;"></div>
+    </div>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="cadastro.js"></script>
+</body>
+</html>
