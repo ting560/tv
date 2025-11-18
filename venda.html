@@ -231,28 +231,43 @@
     .promo-details strong { 
         color: #ffd700;
     }
+
+    /* NOVO CSS PARA FORMATAR O CRONÔMETRO COM TEXTO */
     #countdown{
+      display:flex; /* Usa flexbox para alinhar os blocos */
+      justify-content:center;
+      gap:20px;
       font-weight:800;
-      font-size:1.5rem;
-      letter-spacing:2px;
       margin-bottom:24px;
-      display: inline-block;
-      background: rgba(255,255,255,0.1);
-      padding: 12px 20px;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
       color: #fff;
+      flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
     }
-    #countdown span{
-      display:inline-block;
-      background:rgba(255,255,255,0.15);
-      padding:10px 12px;
-      border-radius:8px;
-      min-width:60px;
-      margin:0 8px;
-      font-weight:700;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    .timer-unit{
+      background:rgba(255,255,255,0.1);
+      padding:10px 15px;
+      border-radius:12px;
+      min-width: 80px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
+    .timer-unit .number{
+      display:block;
+      font-size:2rem;
+      font-weight:900;
+      color:#ffd700; /* Número em destaque */
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .timer-unit .label{
+      display:block;
+      font-size:0.85rem;
+      font-weight:500;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    /* FIM NOVO CSS PARA CRONÔMETRO */
+
 
     /* Banner da Black Friday */
     .black-friday-banner {
@@ -499,8 +514,12 @@
       .intro-text{order:2}
       .intro-video{order:1}
       .promo-price{font-size:2rem}
-      #countdown{font-size:1.1rem; padding: 8px 12px;}
-      #countdown span{padding:6px 8px; min-width:45px; margin:0 4px; font-size:0.9rem;}
+      /* Ajuste responsivo para o novo cronômetro */
+      #countdown{gap:10px}
+      .timer-unit{padding:8px 10px; min-width: 60px;}
+      .timer-unit .number{font-size:1.5rem}
+      .timer-unit .label{font-size:0.7rem}
+      /* Fim Ajuste responsivo para o novo cronômetro */
       .players{grid-template-columns:1fr}
       .promo-price{font-size:2.2rem}
       .price{font-size:2rem}
@@ -592,7 +611,7 @@
 
       <p class="promo-details">Acesso ilimitado + nova música toda semana. <strong>Oferta válida apenas até 1º de dezembro!</strong></p>
 
-      <div id="countdown" aria-live="polite" aria-atomic="true">00 : 00 : 00 : 00</div>
+      <div id="countdown" aria-live="polite" aria-atomic="true">Aguardando Contagem...</div>
 
       <p>
         <a class="btn btn--cta" href="https://wa.me/5524999936696?text=Ol%C3%A1%2C%20Cristiano.%20Quero%20aproveitar%20a%20oferta%20da%20Base%20de%20Chorinho!" target="_blank" rel="noopener noreferrer">
@@ -819,6 +838,7 @@
 
       if (distance <= 0) {
         countdownEl.textContent = 'OFERTA ENCERRADA';
+        clearInterval(timer); 
         return;
       }
 
@@ -827,11 +847,29 @@
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+      // --- MUDANÇA AQUI: NOVO FORMATO COM TEXTO ---
       countdownEl.innerHTML =
-        `<span aria-hidden="true">${String(days).padStart(2,'0')}</span> : ` +
-        `<span aria-hidden="true">${String(hours).padStart(2,'0')}</span> : ` +
-        `<span aria-hidden="true">${String(minutes).padStart(2,'0')}</span> : ` +
-        `<span aria-hidden="true">${String(seconds).padStart(2,'0')}</span>`;
+        // Dias
+        `<div class="timer-unit">
+          <span class="number">${String(days).padStart(2,'0')}</span>
+          <span class="label">Dias</span>
+        </div>` +
+        // Horas
+        `<div class="timer-unit">
+          <span class="number">${String(hours).padStart(2,'0')}</span>
+          <span class="label">Horas</span>
+        </div>` +
+        // Minutos
+        `<div class="timer-unit">
+          <span class="number">${String(minutes).padStart(2,'0')}</span>
+          <span class="label">Minutos</span>
+        </div>` +
+        // Segundos (opcional, mantido para completar o formato do cronômetro)
+        `<div class="timer-unit">
+          <span class="number">${String(seconds).padStart(2,'0')}</span>
+          <span class="label">Segundos</span>
+        </div>`;
+        // ------------------------------------------
     }
 
     // Atualiza imediatamente e depois a cada segundo
