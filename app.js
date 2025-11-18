@@ -3,7 +3,7 @@
 import { auth, db } from './firebase-config.js';
 import { 
     onAuthStateChanged, 
-    // createUserWithEmailAndPassword, <--- REMOVIDO
+    createUserWithEmailAndPassword, 
     signInWithEmailAndPassword, 
     signOut 
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
@@ -18,6 +18,7 @@ import {
 const appContainer = document.getElementById('app-container');
 const authContainer = document.getElementById('auth-container');
 const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
 const logoutBtn = document.getElementById('logoutBtn');
 const musicListContainer = document.getElementById('musicList');
 const messageEl = document.getElementById('message');
@@ -162,6 +163,9 @@ function closePlayerListModalFn() {
     
     // Oculta o modal
     playerListModal.style.display = 'none';
+    
+    // Zera a sessão PHP no logout também (opcional, mas recomendado)
+    fetch('clear_session.php', { method: 'POST' }); 
 }
 
 if (openPlayerListBtn) openPlayerListBtn.addEventListener('click', openPlayerListModalFn);
@@ -187,7 +191,9 @@ function renderModalPlayer() {
     
     const musica = modalMusicas[modalCurrentIndex];
     const safeFileName = (musica.arquivo || '').trim();
-    const audioUrl = `musicas/${encodeURIComponent(safeFileName)}`;
+    
+    // *** A URL AGORA APONTA PARA O SCRIPT PROTEGIDO COM TOKEN ***
+    const audioUrl = `https://radiopositivafm.com.br/bandas/imgem/stream_protected.php?file=${encodeURIComponent(safeFileName)}&token=b3JkZW1fZGVfY2hvcmluaG9fMjAyNQ==`;
     
     modalPlayerControls.innerHTML = `
         <div class="now-playing">Tocando: ${musica.titulo || 'Título Desconhecido'}</div>
@@ -340,6 +346,40 @@ window.moveModalMusicDown = function(idx) {
 
 // --- Funções de UI e Autenticação ---
 
+/**
+ * Envia o UID do Firebase para um script PHP para criar a sessão do servidor.
+ * @param {string} uid O ID de usuário do Firebase.
+ */
+async function setPhpSession(uid) {
+    try {
+        const response = await fetch('set_session.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `uid=${uid}`
+        });
+        const result = await response.json();
+        if (result.status !== 'success') {
+            console.error('Erro ao criar sessão PHP:', result.message);
+        }
+    } catch (error) {
+        console.error('Erro de rede ao comunicar com set_session.php:', error);
+    }
+}
+
+/**
+ * Encerra a sessão PHP no servidor.
+ */
+async function clearPhpSession() {
+    try {
+        await fetch('clear_session.php', { method: 'POST' });
+    } catch (error) {
+        console.error('Erro de rede ao comunicar com clear_session.php:', error);
+    }
+}
+
+
 function showAuthScreen() {
     authContainer.style.display = 'flex';
     appContainer.style.display = 'none';
@@ -357,8 +397,12 @@ function showAppScreen(user) {
 onAuthStateChanged(auth, (user) => {
     if (user) {
         showAppScreen(user);
+        // Garante que a sessão PHP está ativa ao carregar a página
+        setPhpSession(user.uid); 
     } else {
         showAuthScreen();
+        // Garante que a sessão PHP é limpa ao carregar a página e não estar logado
+        clearPhpSession(); 
     }
 });
 
@@ -368,7 +412,11 @@ if (loginForm) {
         const email = loginForm['login-email'].value;
         const password = loginForm['login-password'].value;
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            
+            // *** NOVO PASSO CRÍTICO: CRIA SESSÃO PHP ***
+            await setPhpSession(userCredential.user.uid);
+
             showMessage('Login realizado com sucesso!', 'success');
         } catch (error) {
             showMessage('Erro ao fazer login. Verifique suas credenciais.', 'error');
@@ -376,10 +424,37 @@ if (loginForm) {
     });
 }
 
+// Se você tiver um formulário de cadastro, adicione a chamada `setPhpSession` lá também.
+if (registerForm) {
+    registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = registerForm['register-email'].value;
+        const password = registerForm['register-password'].value;
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            
+            // *** NOVO PASSO CRÍTICO: CRIA SESSÃO PHP ***
+            await setPhpSession(userCredential.user.uid); 
+            
+            showMessage('Cadastro realizado com sucesso! Você já está logado.', 'success');
+            // Redireciona para a página principal após o registro
+            setTimeout(() => { window.location.href = 'index.html'; }, 1000); 
+
+        } catch (error) {
+            showMessage(`Erro ao cadastrar: ${error.message}`, 'error');
+        }
+    });
+}
+
+
 if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
         try {
             await signOut(auth);
+            
+            // *** PASSO CRÍTICO: LIMPA SESSÃO PHP ***
+            await clearPhpSession();
+
             showMessage('Logout realizado com sucesso!', 'success');
             // Limpa a playlist ao sair
             userPlaylist = [];
@@ -404,7 +479,9 @@ function renderMusicList(musicas) {
         card.className = 'music-card';
         
         const safeFileName = (musica.arquivo || '').trim();
-        const audioUrl = `musicas/${encodeURIComponent(safeFileName)}`;
+        
+        // *** A URL AGORA APONTA PARA O SCRIPT PROTEGIDO COM TOKEN ***
+        const audioUrl = `https://radiopositivafm.com.br/bandas/imgem/stream_protected.php?file=${encodeURIComponent(safeFileName)}&token=b3JkZW1fZGVfY2hvcmluaG9fMjAyNQ==`;
         
         // Formata a data
         let date = 'N/A';
