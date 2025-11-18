@@ -192,8 +192,8 @@ function renderModalPlayer() {
     const musica = modalMusicas[modalCurrentIndex];
     const safeFileName = (musica.arquivo || '').trim();
     
-    // *** A URL AGORA APONTA PARA O SCRIPT PROTEGIDO COM TOKEN ***
-    const audioUrl = `https://radiopositivafm.com.br/bandas/imgem/stream_protected.php?file=${encodeURIComponent(safeFileName)}&token=b3JkZW1fZGVfY2hvcmluaG9fMjAyNQ==`;
+    // *** A URL AGORA APONTA PARA O SCRIPT PROTEGIDO COM TOKEN TEMPORÁRIO ***
+    const audioUrl = `https://radiopositivafm.com.br/bandas/imgem/stream_protected.php?file=${encodeURIComponent(safeFileName)}&temp_token=temp_2025_secure_token_1`;
     
     modalPlayerControls.innerHTML = `
         <div class="now-playing">Tocando: ${musica.titulo || 'Título Desconhecido'}</div>
@@ -480,8 +480,8 @@ function renderMusicList(musicas) {
         
         const safeFileName = (musica.arquivo || '').trim();
         
-        // *** A URL AGORA APONTA PARA O SCRIPT PROTEGIDO COM TOKEN ***
-        const audioUrl = `https://radiopositivafm.com.br/bandas/imgem/stream_protected.php?file=${encodeURIComponent(safeFileName)}&token=b3JkZW1fZGVfY2hvcmluaG9fMjAyNQ==`;
+        // *** A URL AGORA APONTA PARA O SCRIPT PROTEGIDO COM TOKEN TEMPORÁRIO ***
+        const audioUrl = `https://radiopositivafm.com.br/bandas/imgem/stream_protected.php?file=${encodeURIComponent(safeFileName)}&temp_token=temp_2025_secure_token_1`;
         
         // Formata a data
         let date = 'N/A';

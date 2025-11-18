@@ -39,7 +39,7 @@ main {
 header {
     background-color: var(--primary-color);
     color: var(--text-light);
-    padding: 15px 40px;
+    padding: 15px 20px; /* Reduzido para mobile */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -57,7 +57,7 @@ nav {
 
 .logo-with-image {
     color: var(--text-light);
-    font-size: 1.8em;
+    font-size: 1.5em; /* Reduzido para mobile */
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -77,10 +77,10 @@ nav {
     background-color: var(--accent-color);
     color: var(--text-light);
     border: none;
-    padding: 10px 20px;
+    padding: 8px 16px; /* Ajustado para mobile */
     border-radius: 8px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 0.9em; /* Reduzido para mobile */
     font-weight: 600;
     transition: background-color 0.3s;
 }
@@ -153,7 +153,7 @@ nav {
 .player-main-controls {
     display: flex;
     align-items: center;
-    gap: 20px; 
+    gap: 15px; /* Reduzido para mobile */
     margin: 15px 0;
 }
 
@@ -167,7 +167,7 @@ nav {
 
 /* Botões de Avançar e Voltar */
 .player-main-controls .control-nav {
-    font-size: 2.5rem; 
+    font-size: 2rem; /* Reduzido para mobile */
     padding: 5px;
     line-height: 1; 
 }
@@ -185,12 +185,12 @@ nav {
 
 /* Botão Principal: Play/Pause */
 .player-main-controls .control-main {
-    width: 60px;
-    height: 60px;
+    width: 50px; /* Reduzido para mobile */
+    height: 50px; /* Reduzido para mobile */
     border-radius: 50%;
     background-color: #e0e0e0;
     color: #666;
-    font-size: 1.8rem;
+    font-size: 1.5rem; /* Reduzido para mobile */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -207,10 +207,9 @@ nav {
     text-align: center;
     padding-top: 10px;
     font-weight: 600;
-    font-size: 1.08rem;
+    font-size: 1em; /* Reduzido para mobile */
     color: var(--secondary-color);
 }
-
 
 /* --- Área de Autenticação e Conteúdo --- */
 
@@ -219,27 +218,30 @@ nav {
     justify-content: center;
     align-items: center;
     min-height: 80vh;
+    padding: 10px; /* Adicionado para mobile */
 }
 
 .auth-section {
     background-color: var(--card-bg);
-    padding: 40px;
+    padding: 30px 20px; /* Ajustado para mobile */
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     max-width: 400px;
-    width: 90%;
+    width: 95%; /* Ajustado para mobile */
 }
 
 .auth-section h2 {
     color: var(--primary-color);
     margin-bottom: 10px;
     text-align: center;
+    font-size: 1.8em; /* Reduzido para mobile */
 }
 
 .auth-section p {
     text-align: center;
     color: #666;
     margin-bottom: 25px;
+    font-size: 0.95em; /* Reduzido para mobile */
 }
 
 .auth-tabs {
@@ -251,9 +253,9 @@ nav {
 .tab-button {
     background: none;
     border: none;
-    padding: 10px 15px;
+    padding: 10px 12px; /* Ajustado para mobile */
     cursor: pointer;
-    font-size: 1em;
+    font-size: 0.9em; /* Reduzido para mobile */
     font-weight: 600;
     color: #999;
     border-bottom: 2px solid transparent;
@@ -274,6 +276,7 @@ nav {
     display: block;
     margin-bottom: 5px;
     font-weight: 600;
+    font-size: 0.95em; /* Reduzido para mobile */
 }
 
 .auth-form input {
@@ -294,47 +297,47 @@ nav {
 .app-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 15px 10px; /* Ajustado para mobile */
 }
 
 .hero {
     text-align: center;
-    padding: 40px 20px;
+    padding: 30px 15px; /* Ajustado para mobile */
     background-color: var(--primary-color);
     color: var(--text-light);
     border-radius: 12px;
-    margin-bottom: 30px;
+    margin-bottom: 20px; /* Reduzido para mobile */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .hero h1 {
-    font-size: 2.5em;
+    font-size: 2em; /* Reduzido para mobile */
     margin-bottom: 10px;
 }
 
 .hero p {
-    font-size: 1.1em;
+    font-size: 1em; /* Reduzido para mobile */
     opacity: 0.9;
 }
 
 .music-list-section h2 {
     color: var(--secondary-color);
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 2em;
+    margin-bottom: 20px; /* Reduzido para mobile */
+    font-size: 1.8em; /* Reduzido para mobile */
 }
 
 .music-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Ajustado para mobile */
+    gap: 20px; /* Reduzido para mobile */
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .music-card {
     background-color: var(--card-bg);
-    padding: 25px;
+    padding: 20px; /* Reduzido para mobile */
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     position: relative;
@@ -349,13 +352,13 @@ nav {
 .music-card h3 {
     color: var(--secondary-color);
     margin-bottom: 5px;
-    font-size: 1.4em;
+    font-size: 1.2em; /* Reduzido para mobile */
 }
 
 .music-card p {
-    font-size: 0.9em;
+    font-size: 0.9em; /* Reduzido para mobile */
     color: #666;
-    margin-bottom: 15px;
+    margin-bottom: 12px; /* Reduzido para mobile */
 }
 
 .audio-player {
@@ -366,19 +369,20 @@ nav {
 /* Rodapé */
 footer {
     text-align: center;
-    padding: 20px;
-    margin-top: 30px;
+    padding: 15px 10px; /* Ajustado para mobile */
+    margin-top: 20px; /* Reduzido para mobile */
     background-color: var(--background-dark);
     color: #aaa;
-    font-size: 0.9em;
+    font-size: 0.85em; /* Reduzido para mobile */
 }
 
 /* Mensagens de Alerta */
 .alert {
-    padding: 15px;
-    margin-bottom: 20px;
+    padding: 12px; /* Reduzido para mobile */
+    margin-bottom: 15px; /* Reduzido para mobile */
     border-radius: 8px;
     font-weight: 600;
+    font-size: 0.95em; /* Reduzido para mobile */
 }
 
 .alert-success {
@@ -393,20 +397,157 @@ footer {
     border: 1px solid #f5c6cb;
 }
 
+/* Controles de Música Principal */
+.music-controls {
+    margin-bottom: 20px; /* Reduzido para mobile */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px; /* Reduzido para mobile */
+    align-items: center;
+    justify-content: center;
+}
+
+#searchInput, #orderSelect {
+    padding: 8px; /* Reduzido para mobile */
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    min-width: 200px; /* Reduzido para mobile */
+    font-size: 0.9em; /* Reduzido para mobile */
+}
+
+/* Modal de Player Lista */
+.modal-player-content { 
+    background: var(--background-light); 
+    padding: 20px; /* Reduzido para mobile */
+    border-radius: 12px; 
+    max-width: 95%; /* Ajustado para mobile */
+    width: 95%; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    max-height: 90vh; 
+    overflow-y: auto;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+}
+
+.modal-title {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 15px; /* Reduzido para mobile */
+    font-size: 1.5em; /* Reduzido para mobile */
+}
+
+#modalAudioPlayer {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.modal-music-list { 
+    width: 100%; 
+    margin-top: 10px; 
+    max-height: 200px; 
+    overflow-y: auto; 
+    padding-right: 5px; 
+}
+
+.modal-music-list > div { 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; /* Reduzido para mobile */
+    margin-bottom: 6px; /* Reduzido para mobile */
+    background: #fff; 
+    border-radius: 8px; 
+    padding: 6px 10px; /* Reduzido para mobile */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.modal-music-list span { 
+    flex: 1; 
+    font-size: 0.85em; /* Reduzido para mobile */
+}
+
+.modal-music-list button { 
+    border: none; 
+    border-radius: 4px; 
+    padding: 3px 6px; /* Reduzido para mobile */
+    cursor: pointer; 
+    font-size: 0.75rem; /* Reduzido para mobile */
+    transition: background 0.2s; 
+}
+
+.modal-music-list button.remove { 
+    background: #ff5252; 
+    color:#fff; 
+}
+
+.modal-music-list button.remove:hover { 
+    background: #e53935; 
+}
+
+.modal-music-list button:not(.remove) { 
+    background: #667eea; 
+    color:#fff; 
+}
+
+.modal-music-list button:not(.remove):hover { 
+    background: #5a6edb; 
+}
+
+.modal-music-list button:disabled { 
+    background: #bdbdbd; 
+    cursor: not-allowed; 
+}
+
+/* Estilos do Modal de Partitura */
+.sheet-modal-content {
+    background: var(--background-dark); 
+    padding: 8px; /* Reduzido para mobile */
+    border-radius: 12px; 
+    max-width: 95%; 
+    max-height: 95%; 
+    width: 95%; 
+    height: 90vh;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+#closeSheetModal {
+    position: absolute;
+    top: -12px; /* Ajustado para mobile */
+    right: -12px; /* Ajustado para mobile */
+    font-size: 1.3rem; /* Reduzido para mobile */
+    background: #ff6b6b;
+    z-index: 10001; 
+    color: white !important;
+    width: 25px; /* Reduzido para mobile */
+    height: 25px; /* Reduzido para mobile */
+    line-height: 1;
+    padding: 0;
+}
+
 /* Responsividade Geral */
 @media (max-width: 768px) {
     
     /* Configurações de layout */
-    header { padding: 15px 20px; }
-    .hero h1 { font-size: 2em; }
-    main { padding: 10px; }
-    .auth-section { padding: 30px 20px; }
+    header { padding: 15px 15px; }
+    .hero h1 { font-size: 1.8em; }
+    main { padding: 10px 5px; }
+    .auth-section { padding: 25px 15px; }
     
     /* Ajuste de Grid (Músicas) */
     .music-grid { 
-        gap: 20px; 
+        gap: 15px; 
         /* Reduz o min-width para garantir 1 coluna em telas muito pequenas */
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
     }
     
     /* Ajuste de Controles de Busca/Ordem */
@@ -421,8 +562,8 @@ footer {
 
     /* Ajuste para o Painel Admin */
     .admin-container {
-        margin: 20px 10px;
-        padding: 20px;
+        margin: 15px 5px;
+        padding: 15px;
     }
     
     /* Responsividade da Tabela de Gerenciamento */
@@ -452,5 +593,34 @@ footer {
         width: 100%;
         margin: 0 !important;
         text-align: center;
+        padding: 8px !important; /* Ajustado para mobile */
+        font-size: 0.85em; /* Reduzido para mobile */
+    }
+    
+    /* Ajustes adicionais para mobile */
+    .music-card {
+        padding: 15px;
+    }
+    
+    .music-card h3 {
+        font-size: 1.1em;
+    }
+    
+    .music-card p {
+        font-size: 0.85em;
+    }
+    
+    .player-main-controls {
+        gap: 10px;
+    }
+    
+    .player-main-controls .control-nav {
+        font-size: 1.8rem;
+    }
+    
+    .player-main-controls .control-main {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
     }
 }
