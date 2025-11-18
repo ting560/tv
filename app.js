@@ -192,13 +192,18 @@ function renderModalPlayer() {
     const musica = modalMusicas[modalCurrentIndex];
     const safeFileName = (musica.arquivo || '').trim();
     
-    // *** A URL AGORA APONTA PARA O SCRIPT PROTEGIDO COM TOKEN TEMPORÁRIO ***
-    const audioUrl = `https://radiopositivafm.com.br/bandas/imgem/stream_protected.php?file=${encodeURIComponent(safeFileName)}&temp_token=temp_2025_secure_token_1`;
+    // *** A URL AGORA APONTA PARA O SCRIPT PROTEGIDO ***
+    const audioUrl = `https://radiopositivafm.com.br/bandas/imgem/stream_protected.php?file=${encodeURIComponent(safeFileName)}&token=b3JkZW1fZGVfY2hvcmluaG9fMjAyNQ==`;
     
     modalPlayerControls.innerHTML = `
         <div class="now-playing">Tocando: ${musica.titulo || 'Título Desconhecido'}</div>
         
-        <audio id="modalAudioPlayer" controls src="${audioUrl}" controlsList="nodownload" preload="auto"></audio>
+        <audio id="modalAudioPlayer" 
+               controls 
+               data-src="${audioUrl}" 
+               controlsList="nodownload" 
+               preload="none"
+               crossorigin="anonymous"></audio>
 
         <div class="player-main-controls">
             <button id="modalPrevBtn" class="control-nav" title="Anterior" ${modalCurrentIndex===0 ? 'disabled' : ''}>&#9664;&#9664;</button> 
@@ -208,15 +213,55 @@ function renderModalPlayer() {
             <button id="modalNextBtn" class="control-nav" title="Próxima" ${modalCurrentIndex === modalMusicas.length - 1 ? 'disabled' : ''}>&#9654;&#9654;</button>
         </div>
     `;
-
+    
     // --- LÓGICA DE CONTROLE DO PLAYER ---
     
     const audioPlayer = document.getElementById('modalAudioPlayer');
     const playPauseBtn = document.getElementById('modalPlayPauseBtn');
     
+    // Remove o src inicial para evitar carregamento automático
+    if (audioPlayer.hasAttribute('src')) {
+        audioPlayer.removeAttribute('src');
+    }
+    
+    // Define o src apenas quando o usuário clica para reproduzir
+    audioPlayer.addEventListener('play', () => {
+        const srcUrl = audioPlayer.getAttribute('data-src');
+        if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+            audioPlayer.src = srcUrl;
+            // Força o carregamento do áudio
+            setTimeout(() => {
+                audioPlayer.load();
+            }, 10);
+        }
+        
+        try {
+            if (currentAudio && currentAudio !== audioPlayer) {
+                currentAudio.pause();
+            }
+            currentAudio = audioPlayer;
+        } catch (e) {
+            console.error("Erro ao pausar outros áudios:", e);
+        }
+    });
+    
+    // Também define o src no evento canplaythrough
+    audioPlayer.addEventListener('canplaythrough', () => {
+        const srcUrl = audioPlayer.getAttribute('data-src');
+        if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+            audioPlayer.src = srcUrl;
+        }
+    });
+    
     modalAudioPlayerInstance = audioPlayer;
 
     if (isPlaying) {
+        // Se já estava tocando, define o src e inicia a reprodução
+        const srcUrl = audioPlayer.getAttribute('data-src');
+        if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+            audioPlayer.src = srcUrl;
+            audioPlayer.load();
+        }
         audioPlayer.play();
         playPauseBtn.innerHTML = '&#10073;&#10073;';
         playPauseBtn.title = 'Pause';
@@ -224,6 +269,12 @@ function renderModalPlayer() {
     
     playPauseBtn.onclick = () => {
         if (audioPlayer.paused) {
+            // Define o src apenas quando o usuário clica para reproduzir
+            const srcUrl = audioPlayer.getAttribute('data-src');
+            if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+                audioPlayer.src = srcUrl;
+                audioPlayer.load();
+            }
             audioPlayer.play();
         } else {
             audioPlayer.pause();
@@ -246,14 +297,14 @@ function renderModalPlayer() {
         if (modalCurrentIndex < modalMusicas.length - 1) {
             modalCurrentIndex++;
             renderModalPlayer();
-            renderModalMusicList(); // Atualiza a lista para o destaque
+            renderModalMusicList();
         } else {
             isPlaying = false;
             playPauseBtn.innerHTML = '&#9654;';
             playPauseBtn.title = 'Play';
             modalCurrentIndex = 0; 
-            renderModalPlayer(); // Volta ao primeiro e atualiza o player
-            renderModalMusicList(); // Atualiza a lista para o destaque
+            renderModalPlayer();
+            renderModalMusicList();
         }
     };
     
@@ -272,6 +323,23 @@ function renderModalPlayer() {
             renderModalMusicList();
         } 
     };
+    
+    // Garante que o player esteja pronto
+    setTimeout(() => {
+        const srcUrl = audioPlayer.getAttribute('data-src');
+        if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+            audioPlayer.src = srcUrl;
+            // Força o carregamento do áudio após um pequeno delay
+            setTimeout(() => {
+                audioPlayer.load();
+            }, 50);
+        }
+    }, 100);
+    
+    // Adiciona evento para verificar erros
+    audioPlayer.addEventListener('error', (e) => {
+        console.error('Erro no player modal:', e);
+    });
 }
 
 
@@ -480,8 +548,8 @@ function renderMusicList(musicas) {
         
         const safeFileName = (musica.arquivo || '').trim();
         
-        // *** A URL AGORA APONTA PARA O SCRIPT PROTEGIDO COM TOKEN TEMPORÁRIO ***
-        const audioUrl = `https://radiopositivafm.com.br/bandas/imgem/stream_protected.php?file=${encodeURIComponent(safeFileName)}&temp_token=temp_2025_secure_token_1`;
+        // *** A URL AGORA APONTA PARA O SCRIPT PROTEGIDO ***
+        const audioUrl = `https://radiopositivafm.com.br/bandas/imgem/stream_protected.php?file=${encodeURIComponent(safeFileName)}&token=b3JkZW1fZGVfY2hvcmluaG9fMjAyNQ==`;
         
         // Formata a data
         let date = 'N/A';
@@ -496,7 +564,11 @@ function renderMusicList(musicas) {
             <p>Artista: ${musica.artista || 'N/A'}</p>
             <p>Lançamento: ${date}</p>
             
-            <audio controls class="audio-player" data-src="${audioUrl}" controlsList="nodownload">
+            <audio controls class="audio-player" 
+                   data-src="${audioUrl}" 
+                   controlsList="nodownload" 
+                   preload="none"
+                   crossorigin="anonymous">
                 Seu navegador não suporta o elemento de áudio.
             </audio>
             
@@ -518,9 +590,38 @@ function renderMusicList(musicas) {
         
         // Lógica de áudio na grade principal
         const audioPlayer = card.querySelector('.audio-player');
-        audioPlayer.src = audioPlayer.getAttribute('data-src');
+        // Armazena a URL no atributo data
+        audioPlayer.setAttribute('data-src', audioUrl);
+        
+        // Remove o src inicial para evitar carregamento automático
+        if (audioPlayer.hasAttribute('src')) {
+            audioPlayer.removeAttribute('src');
+        }
+        
+        // Adiciona evento para definir o src quando o player é carregado
+        audioPlayer.addEventListener('loadstart', () => {
+            console.log('Iniciando carregamento do áudio:', audioUrl);
+        });
+        
+        audioPlayer.addEventListener('loadeddata', () => {
+            console.log('Dados do áudio carregados:', audioUrl);
+        });
+        
+        audioPlayer.addEventListener('error', (e) => {
+            console.error('Erro ao carregar áudio:', audioUrl, e);
+        });
         
         audioPlayer.addEventListener('play', () => {
+            // Define o src apenas quando o usuário clica para reproduzir
+            const srcUrl = audioPlayer.getAttribute('data-src');
+            if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+                audioPlayer.src = srcUrl;
+                // Força o carregamento do áudio
+                setTimeout(() => {
+                    audioPlayer.load();
+                }, 10);
+            }
+            
             try {
                 if (currentAudio && currentAudio !== audioPlayer) {
                     currentAudio.pause();
@@ -528,6 +629,16 @@ function renderMusicList(musicas) {
                 currentAudio = audioPlayer;
             } catch (e) {
                 console.error("Erro ao pausar outros áudios:", e);
+            }
+        });
+        
+        // Para garantir compatibilidade, também definimos o src no evento canplay
+        audioPlayer.addEventListener('canplay', () => {
+            const srcUrl = audioPlayer.getAttribute('data-src');
+            // Apenas define o src se ainda não estiver definido
+            if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+                audioPlayer.src = srcUrl;
+                // Não força o carregamento no canplay para evitar loops
             }
         });
 
