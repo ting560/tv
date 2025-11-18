@@ -1,16 +1,16 @@
 /* style.css */
 
 :root {
-    --primary-color: #667eea; /* Roxo suave */
-    --secondary-color: #764ba2; /* Roxo escuro */
-    --accent-color: #ff6b6b; /* Vermelho para destaque */
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #ff6b6b;
     --background-light: #f4f7f6;
     --background-dark: #2c3e50;
     --text-color: #333;
     --text-light: #fff;
     --card-bg: #ffffff;
-    --success-color: #4CAF50; /* Verde */
-    --selected-color: #FFC107; /* AMARELO para o botão selecionado */
+    --success-color: #4CAF50;
+    --selected-color: #FFC107;
 }
 
 /* Base e Responsividade */
@@ -32,93 +32,251 @@ body {
 
 main {
     flex-grow: 1;
-    padding: 20px;
+    padding: 15px 10px;
 }
 
 /* Cabeçalho e Navegação */
 header {
     background-color: var(--primary-color);
     color: var(--text-light);
-    padding: 15px 20px; /* Reduzido para mobile */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 12px 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.logo {
-    display: none; 
 }
 
 .logo-with-image {
     color: var(--text-light);
-    font-size: 1.5em; /* Reduzido para mobile */
+    font-size: 1.4em;
     font-weight: 700;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
-.logo-image {
-    width: 32px; 
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--accent-color);
-}
-
-/* Botões de Ação Geral (Submit, Logout) */
-.btn-submit, .btn-logout {
+.btn-logout {
     background-color: var(--accent-color);
     color: var(--text-light);
     border: none;
-    padding: 8px 16px; /* Ajustado para mobile */
-    border-radius: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.9em; /* Reduzido para mobile */
+    font-size: 0.85em;
     font-weight: 600;
     transition: background-color 0.3s;
 }
 
-.btn-submit:hover, .btn-logout:hover {
+.btn-logout:hover {
     background-color: #e65252;
 }
 
-/* --- ESTILOS DO BOTÃO DE ADICIONAR À LISTA --- */
+/* --- Área de Autenticação e Conteúdo --- */
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 10px;
+}
+
+.auth-section {
+    background-color: var(--card-bg);
+    padding: 25px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    width: 95%;
+}
+
+.auth-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    text-align: center;
+    font-size: 1.6em;
+}
+
+.auth-section p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+
+.auth-form .form-group {
+    margin-bottom: 15px;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+.btn-submit {
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #e65252;
+}
+
+/* --- Área de Conteúdo (App) --- */
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 5px;
+}
+
+.hero {
+    text-align: center;
+    padding: 25px 15px;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hero h1 {
+    font-size: 1.8em;
+    margin-bottom: 8px;
+}
+
+.hero p {
+    font-size: 0.95em;
+    opacity: 0.95;
+}
+
+.music-list-section h2 {
+    color: var(--secondary-color);
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.6em;
+}
+
+.music-controls {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+#searchInput, #orderSelect {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 300px;
+    font-size: 0.9em;
+}
+
+.music-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.music-card {
+    background-color: var(--card-bg);
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: relative;
+    border-left: 4px solid var(--primary-color);
+    transition: transform 0.2s;
+}
+
+.music-card:hover {
+    transform: translateY(-2px);
+}
+
+.music-card h3 {
+    color: var(--secondary-color);
+    margin-bottom: 6px;
+    font-size: 1.1em;
+}
+
+.music-card p {
+    font-size: 0.85em;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.audio-player {
+    width: 100%;
+    margin-top: 10px;
+    height: 40px;
+}
 
 .add-to-playlist-btn {
-    display: block; 
+    display: block;
     width: 100%;
-    margin-top: 15px !important;
+    margin-top: 12px;
     background-color: var(--primary-color) !important;
     color: var(--text-light) !important;
     border: none;
     padding: 10px 15px !important;
     border-radius: 6px !important;
     cursor: pointer;
-    font-size: 0.95em !important;
+    font-size: 0.9em !important;
     font-weight: 600;
     transition: background-color 0.3s;
 }
 
-/* --- ESTILOS DO BOTÃO DE PARTITURA --- */
+.add-to-playlist-btn:hover:not(.in-playlist) {
+    background-color: var(--secondary-color) !important;
+}
+
+.add-to-playlist-btn.in-playlist {
+    background-color: var(--selected-color) !important;
+    color: var(--text-color) !important;
+    cursor: default;
+    opacity: 0.9;
+    pointer-events: none;
+}
 
 .open-sheet-btn {
-    display: block; 
+    display: block;
     width: 100%;
-    margin-top: 10px !important;
-    background-color: #4CAF50 !important; /* Verde para partitura */
+    margin-top: 8px;
+    background-color: #4CAF50 !important;
     color: var(--text-light) !important;
     border: none;
     padding: 10px 15px !important;
     border-radius: 6px !important;
     cursor: pointer;
-    font-size: 0.95em !important;
+    font-size: 0.9em !important;
     font-weight: 600;
     transition: background-color 0.3s;
 }
@@ -127,33 +285,71 @@ nav {
     background-color: #45a049 !important;
 }
 
-.add-to-playlist-btn:hover:not(.in-playlist) {
-    background-color: var(--secondary-color) !important;
-}
+/* --- PLAYER MODAL --- */
 
-/* ESTADO SELECIONADO: Muda para AMARELO */
-.add-to-playlist-btn.in-playlist {
-    background-color: var(--selected-color) !important;
-    color: var(--text-color) !important;
-    cursor: default;
-    opacity: 0.95;
-    pointer-events: none;
-}
-
-/* --- ESTILOS DO PLAYER NO MODAL --- */
-
-.modal-player-controls {
-    display: flex; 
-    flex-direction: column;
+#playerListModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
     align-items: center;
-    margin-bottom: 18px;
-    width: 100%;
+    justify-content: center;
+    animation: fadeIn 0.3s;
+}
+
+.modal-player-content {
+    background: var(--background-light);
+    padding: 20px 15px;
+    border-radius: 10px;
+    max-width: 95%;
+    width: 95%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-title {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.now-playing {
+    text-align: center;
+    padding: 8px 0;
+    font-weight: 600;
+    font-size: 1em;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
 }
 
 .player-main-controls {
     display: flex;
     align-items: center;
-    gap: 15px; /* Reduzido para mobile */
+    justify-content: center;
+    gap: 15px;
     margin: 15px 0;
 }
 
@@ -161,15 +357,14 @@ nav {
     background: none;
     border: none;
     cursor: pointer;
-    color: #888; 
+    color: #888;
     transition: color 0.2s, transform 0.2s;
 }
 
-/* Botões de Avançar e Voltar */
 .player-main-controls .control-nav {
-    font-size: 2rem; /* Reduzido para mobile */
+    font-size: 1.8rem;
     padding: 5px;
-    line-height: 1; 
+    line-height: 1;
 }
 
 .player-main-controls .control-nav:hover {
@@ -183,19 +378,18 @@ nav {
     transform: none;
 }
 
-/* Botão Principal: Play/Pause */
 .player-main-controls .control-main {
-    width: 50px; /* Reduzido para mobile */
-    height: 50px; /* Reduzido para mobile */
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background-color: #e0e0e0;
     color: #666;
-    font-size: 1.5rem; /* Reduzido para mobile */
+    font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding-left: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding-left: 3px;
 }
 
 .player-main-controls .control-main:hover {
@@ -203,186 +397,139 @@ nav {
     color: var(--secondary-color);
 }
 
-.now-playing {
-    text-align: center;
-    padding-top: 10px;
-    font-weight: 600;
-    font-size: 1em; /* Reduzido para mobile */
-    color: var(--secondary-color);
-}
-
-/* --- Área de Autenticação e Conteúdo --- */
-
-.auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-    padding: 10px; /* Adicionado para mobile */
-}
-
-.auth-section {
-    background-color: var(--card-bg);
-    padding: 30px 20px; /* Ajustado para mobile */
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    width: 95%; /* Ajustado para mobile */
-}
-
-.auth-section h2 {
-    color: var(--primary-color);
-    margin-bottom: 10px;
-    text-align: center;
-    font-size: 1.8em; /* Reduzido para mobile */
-}
-
-.auth-section p {
-    text-align: center;
-    color: #666;
-    margin-bottom: 25px;
-    font-size: 0.95em; /* Reduzido para mobile */
-}
-
-.auth-tabs {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.tab-button {
-    background: none;
-    border: none;
-    padding: 10px 12px; /* Ajustado para mobile */
-    cursor: pointer;
-    font-size: 0.9em; /* Reduzido para mobile */
-    font-weight: 600;
-    color: #999;
-    border-bottom: 2px solid transparent;
-    text-decoration: none;
-    transition: color 0.3s, border-bottom 0.3s;
-}
-
-.tab-button.active {
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--primary-color);
-}
-
-.auth-form .form-group {
+#modalAudioPlayer {
+    width: 100%;
     margin-bottom: 15px;
+    height: 40px;
 }
 
-.auth-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-    font-size: 0.95em; /* Reduzido para mobile */
-}
-
-.auth-form input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1em;
-}
-
-.auth-form button[type="submit"] {
-    width: 100%;
-    margin-top: 15px;
-}
-
-/* --- Área de Conteúdo (App) --- */
-
-.app-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 15px 10px; /* Ajustado para mobile */
-}
-
-.hero {
-    text-align: center;
-    padding: 30px 15px; /* Ajustado para mobile */
-    background-color: var(--primary-color);
-    color: var(--text-light);
-    border-radius: 12px;
-    margin-bottom: 20px; /* Reduzido para mobile */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.hero h1 {
-    font-size: 2em; /* Reduzido para mobile */
-    margin-bottom: 10px;
-}
-
-.hero p {
-    font-size: 1em; /* Reduzido para mobile */
-    opacity: 0.9;
-}
-
-.music-list-section h2 {
-    color: var(--secondary-color);
-    text-align: center;
-    margin-bottom: 20px; /* Reduzido para mobile */
-    font-size: 1.8em; /* Reduzido para mobile */
-}
-
-.music-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Ajustado para mobile */
-    gap: 20px; /* Reduzido para mobile */
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.music-card {
-    background-color: var(--card-bg);
-    padding: 20px; /* Reduzido para mobile */
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    position: relative;
-    border-left: 5px solid var(--primary-color);
-    transition: transform 0.3s;
-}
-
-.music-card:hover {
-    transform: translateY(-5px);
-}
-
-.music-card h3 {
-    color: var(--secondary-color);
-    margin-bottom: 5px;
-    font-size: 1.2em; /* Reduzido para mobile */
-}
-
-.music-card p {
-    font-size: 0.9em; /* Reduzido para mobile */
-    color: #666;
-    margin-bottom: 12px; /* Reduzido para mobile */
-}
-
-.audio-player {
+.modal-music-list {
     width: 100%;
     margin-top: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.modal-music-list > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    background: #fff;
+    border-radius: 6px;
+    padding: 8px 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
+}
+
+.modal-music-list span {
+    flex: 1;
+    font-size: 0.85em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modal-music-list button {
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.modal-music-list button.remove {
+    background: #ff5252;
+    color: #fff;
+}
+
+.modal-music-list button.remove:hover {
+    background: #e53935;
+}
+
+.modal-music-list button:not(.remove) {
+    background: #667eea;
+    color: #fff;
+}
+
+.modal-music-list button:not(.remove):hover {
+    background: #5a6edb;
+}
+
+.modal-music-list button:disabled {
+    background: #bdbdbd;
+    cursor: not-allowed;
+}
+
+/* --- SHEET MODAL --- */
+
+#sheetModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.sheet-modal-content {
+    background: var(--background-dark);
+    padding: 8px;
+    border-radius: 10px;
+    max-width: 95%;
+    max-height: 95%;
+    width: 95%;
+    height: 85vh;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+#closeSheetModal {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    font-size: 1.3rem;
+    background: #ff6b6b;
+    z-index: 10001;
+    color: white !important;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+}
+
+#sheetViewer {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 /* Rodapé */
 footer {
     text-align: center;
-    padding: 15px 10px; /* Ajustado para mobile */
-    margin-top: 20px; /* Reduzido para mobile */
+    padding: 15px 10px;
+    margin-top: 20px;
     background-color: var(--background-dark);
     color: #aaa;
-    font-size: 0.85em; /* Reduzido para mobile */
+    font-size: 0.8em;
 }
 
 /* Mensagens de Alerta */
 .alert {
-    padding: 12px; /* Reduzido para mobile */
-    margin-bottom: 15px; /* Reduzido para mobile */
-    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
     font-weight: 600;
-    font-size: 0.95em; /* Reduzido para mobile */
+    font-size: 0.9em;
 }
 
 .alert-success {
@@ -397,230 +544,132 @@ footer {
     border: 1px solid #f5c6cb;
 }
 
-/* Controles de Música Principal */
-.music-controls {
-    margin-bottom: 20px; /* Reduzido para mobile */
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px; /* Reduzido para mobile */
-    align-items: center;
-    justify-content: center;
+/* Animações */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-#searchInput, #orderSelect {
-    padding: 8px; /* Reduzido para mobile */
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    min-width: 200px; /* Reduzido para mobile */
-    font-size: 0.9em; /* Reduzido para mobile */
-}
-
-/* Modal de Player Lista */
-.modal-player-content { 
-    background: var(--background-light); 
-    padding: 20px; /* Reduzido para mobile */
-    border-radius: 12px; 
-    max-width: 95%; /* Ajustado para mobile */
-    width: 95%; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    position: relative;
-    max-height: 90vh; 
-    overflow-y: auto;
-}
-
-.modal-close-button {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 1.8rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #555;
-}
-
-.modal-title {
-    text-align: center;
-    color: var(--secondary-color);
-    margin-bottom: 15px; /* Reduzido para mobile */
-    font-size: 1.5em; /* Reduzido para mobile */
-}
-
-#modalAudioPlayer {
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.modal-music-list { 
-    width: 100%; 
-    margin-top: 10px; 
-    max-height: 200px; 
-    overflow-y: auto; 
-    padding-right: 5px; 
-}
-
-.modal-music-list > div { 
-    display: flex; 
-    align-items: center; 
-    gap: 6px; /* Reduzido para mobile */
-    margin-bottom: 6px; /* Reduzido para mobile */
-    background: #fff; 
-    border-radius: 8px; 
-    padding: 6px 10px; /* Reduzido para mobile */
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-}
-
-.modal-music-list span { 
-    flex: 1; 
-    font-size: 0.85em; /* Reduzido para mobile */
-}
-
-.modal-music-list button { 
-    border: none; 
-    border-radius: 4px; 
-    padding: 3px 6px; /* Reduzido para mobile */
-    cursor: pointer; 
-    font-size: 0.75rem; /* Reduzido para mobile */
-    transition: background 0.2s; 
-}
-
-.modal-music-list button.remove { 
-    background: #ff5252; 
-    color:#fff; 
-}
-
-.modal-music-list button.remove:hover { 
-    background: #e53935; 
-}
-
-.modal-music-list button:not(.remove) { 
-    background: #667eea; 
-    color:#fff; 
-}
-
-.modal-music-list button:not(.remove):hover { 
-    background: #5a6edb; 
-}
-
-.modal-music-list button:disabled { 
-    background: #bdbdbd; 
-    cursor: not-allowed; 
-}
-
-/* Estilos do Modal de Partitura */
-.sheet-modal-content {
-    background: var(--background-dark); 
-    padding: 8px; /* Reduzido para mobile */
-    border-radius: 12px; 
-    max-width: 95%; 
-    max-height: 95%; 
-    width: 95%; 
-    height: 90vh;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-#closeSheetModal {
-    position: absolute;
-    top: -12px; /* Ajustado para mobile */
-    right: -12px; /* Ajustado para mobile */
-    font-size: 1.3rem; /* Reduzido para mobile */
-    background: #ff6b6b;
-    z-index: 10001; 
-    color: white !important;
-    width: 25px; /* Reduzido para mobile */
-    height: 25px; /* Reduzido para mobile */
-    line-height: 1;
-    padding: 0;
-}
-
-/* Responsividade Geral */
-@media (max-width: 768px) {
-    
-    /* Configurações de layout */
-    header { padding: 15px 15px; }
-    .hero h1 { font-size: 1.8em; }
-    main { padding: 10px 5px; }
-    .auth-section { padding: 25px 15px; }
-    
-    /* Ajuste de Grid (Músicas) */
-    .music-grid { 
-        gap: 15px; 
-        /* Reduz o min-width para garantir 1 coluna em telas muito pequenas */
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+/* Estilos para telas maiores (tablet/desktop) */
+@media (min-width: 768px) {
+    main {
+        padding: 20px;
     }
     
-    /* Ajuste de Controles de Busca/Ordem */
-    .music-controls {
-        flex-direction: column; /* Empilha busca e ordem */
-        align-items: stretch;
-    }
-    #searchInput, #orderSelect {
-        width: 100%;
-        min-width: unset;
-    }
-
-    /* Ajuste para o Painel Admin */
-    .admin-container {
-        margin: 15px 5px;
-        padding: 15px;
+    header {
+        padding: 15px 30px;
     }
     
-    /* Responsividade da Tabela de Gerenciamento */
-    #musicasAdminList {
-        overflow-x: auto; /* Permite scroll horizontal na tabela */
-        -webkit-overflow-scrolling: touch;
-    }
-    #musicasAdminList table {
-        /* Garante que a tabela não encolha além do necessário */
-        min-width: 700px; 
+    .logo-with-image {
+        font-size: 1.8em;
     }
     
-    /* Esconde colunas menos importantes em mobile */
-    #musicasAdminList thead th:nth-child(5), /* Data */
-    #musicasAdminList tbody td:nth-child(5) {
-        display: none;
+    .btn-logout {
+        padding: 10px 20px;
+        font-size: 1em;
     }
     
-    /* Ajuste dos botões de ação na tabela */
-    #musicasAdminList td:last-child {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        align-items: flex-start; /* Alinha os botões à esquerda */
-    }
-    .btn-edit, .btn-remove {
-        width: 100%;
-        margin: 0 !important;
-        text-align: center;
-        padding: 8px !important; /* Ajustado para mobile */
-        font-size: 0.85em; /* Reduzido para mobile */
+    .auth-section {
+        padding: 40px;
+        max-width: 400px;
     }
     
-    /* Ajustes adicionais para mobile */
-    .music-card {
-        padding: 15px;
+    .auth-section h2 {
+        font-size: 2em;
     }
     
-    .music-card h3 {
+    .app-container {
+        padding: 20px 15px;
+    }
+    
+    .hero {
+        padding: 40px 20px;
+        margin-bottom: 30px;
+    }
+    
+    .hero h1 {
+        font-size: 2.5em;
+    }
+    
+    .hero p {
         font-size: 1.1em;
     }
     
-    .music-card p {
-        font-size: 0.85em;
+    .music-list-section h2 {
+        font-size: 2em;
     }
     
-    .player-main-controls {
-        gap: 10px;
+    .music-controls {
+        flex-direction: row;
+        justify-content: center;
+        gap: 16px;
+    }
+    
+    #searchInput, #orderSelect {
+        width: auto;
+        min-width: 220px;
+    }
+    
+    .music-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+    }
+    
+    .music-card {
+        padding: 25px;
+    }
+    
+    .music-card h3 {
+        font-size: 1.4em;
+    }
+    
+    .music-card p {
+        font-size: 0.9em;
+    }
+    
+    .modal-player-content {
+        max-width: 500px;
+        padding: 30px;
+    }
+    
+    .modal-title {
+        font-size: 1.5em;
     }
     
     .player-main-controls .control-nav {
-        font-size: 1.8rem;
+        font-size: 2.5rem;
     }
     
     .player-main-controls .control-main {
-        width: 45px;
-        height: 45px;
-        font-size: 1.3rem;
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+    
+    .sheet-modal-content {
+        max-width: 90%;
+        max-height: 90%;
+        width: 900px;
+        height: 90vh;
+    }
+    
+    footer {
+        font-size: 0.9em;
+    }
+}
+
+/* Estilos para telas médias */
+@media (min-width: 480px) and (max-width: 767px) {
+    .music-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    
+    .music-card {
+        padding: 20px;
+    }
+    
+    .modal-player-content {
+        padding: 25px 20px;
     }
 }
