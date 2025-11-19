@@ -585,6 +585,7 @@ function renderMusicList(musicas) {
             audioPlayer.removeAttribute('src');
         }
         
+        // Adiciona evento para definir o src quando o player é carregado
         audioPlayer.addEventListener('loadstart', () => {
             console.log('Iniciando carregamento do áudio:', audioUrl);
         });
@@ -597,8 +598,8 @@ function renderMusicList(musicas) {
             console.error('Erro ao carregar áudio:', audioUrl, e);
         });
         
+        // Define o src e carrega o áudio quando o usuário interage com o player
         audioPlayer.addEventListener('play', () => {
-            // Define o src apenas quando o usuário clica para reproduzir
             const srcUrl = audioPlayer.getAttribute('data-src');
             if (!audioPlayer.src || audioPlayer.src === window.location.href) {
                 audioPlayer.src = srcUrl;
@@ -618,15 +619,86 @@ function renderMusicList(musicas) {
             }
         });
         
+        // Também carrega quando o usuário clica em qualquer parte do player
+        audioPlayer.addEventListener('click', () => {
+            const srcUrl = audioPlayer.getAttribute('data-src');
+            if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+                audioPlayer.src = srcUrl;
+                setTimeout(() => {
+                    audioPlayer.load();
+                }, 10);
+            }
+        });
+        
+        // Carrega o áudio quando o mouse passa sobre o player (mouseenter)
+        audioPlayer.addEventListener('mouseenter', () => {
+            const srcUrl = audioPlayer.getAttribute('data-src');
+            if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+                audioPlayer.src = srcUrl;
+                setTimeout(() => {
+                    audioPlayer.load();
+                }, 10);
+            }
+        });
+        
+        // Carrega o áudio quando o player recebe foco
+        audioPlayer.addEventListener('focus', () => {
+            const srcUrl = audioPlayer.getAttribute('data-src');
+            if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+                audioPlayer.src = srcUrl;
+                setTimeout(() => {
+                    audioPlayer.load();
+                }, 10);
+            }
+        });
+        
+        // Carrega o áudio quando o player é selecionado via teclado
+        audioPlayer.addEventListener('keydown', (e) => {
+            // Se for Enter ou Espaço (teclas de play/pause)
+            if (e.keyCode === 13 || e.keyCode === 32) {
+                const srcUrl = audioPlayer.getAttribute('data-src');
+                if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+                    audioPlayer.src = srcUrl;
+                    setTimeout(() => {
+                        audioPlayer.load();
+                    }, 10);
+                }
+            }
+        });
+        
+        // Previne o comportamento padrão de carregamento automático
+        audioPlayer.addEventListener('loadstart', (e) => {
+            // Se o src for o da página atual, significa que o navegador tentou carregar automaticamente
+            if (audioPlayer.src === window.location.href) {
+                e.preventDefault();
+                // Definimos o src correto
+                const srcUrl = audioPlayer.getAttribute('data-src');
+                audioPlayer.src = srcUrl;
+            }
+        });
+        
         // Para garantir compatibilidade, também definimos o src no evento canplay
         audioPlayer.addEventListener('canplay', () => {
             const srcUrl = audioPlayer.getAttribute('data-src');
             // Apenas define o src se ainda não estiver definido
             if (!audioPlayer.src || audioPlayer.src === window.location.href) {
                 audioPlayer.src = srcUrl;
+                // Não força o carregamento no canplay para evitar loops
             }
         });
-
+        
+        // Força o carregamento do áudio após um curto período
+        setTimeout(() => {
+            const srcUrl = audioPlayer.getAttribute('data-src');
+            if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+                audioPlayer.src = srcUrl;
+                // Força o carregamento do áudio após um pequeno delay
+                setTimeout(() => {
+                    audioPlayer.load();
+                }, 50);
+            }
+        }, 500);
+        
         // Adiciona listener ao botão de adicionar à playlist
         const addBtn = card.querySelector('.add-to-playlist-btn');
         addBtn.addEventListener('click', () => addToUserPlaylist(musica));
