@@ -656,6 +656,7 @@ function renderMusicList(musicas) {
         audioPlayer.addEventListener('keydown', (e) => {
             // Se for Enter ou Espaço (teclas de play/pause)
             if (e.keyCode === 13 || e.keyCode === 32) {
+                e.preventDefault();
                 const srcUrl = audioPlayer.getAttribute('data-src');
                 if (!audioPlayer.src || audioPlayer.src === window.location.href) {
                     audioPlayer.src = srcUrl;
@@ -663,8 +664,26 @@ function renderMusicList(musicas) {
                         audioPlayer.load();
                     }, 10);
                 }
+                // Tenta reproduzir o áudio após um pequeno delay
+                setTimeout(() => {
+                    audioPlayer.play().catch(e => {
+                        console.log('Erro ao reproduzir:', e);
+                    });
+                }, 100);
             }
         });
+        
+        // Garante que o player esteja pronto após um curto período
+        setTimeout(() => {
+            const srcUrl = audioPlayer.getAttribute('data-src');
+            if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+                audioPlayer.src = srcUrl;
+                // Força o carregamento do áudio
+                setTimeout(() => {
+                    audioPlayer.load();
+                }, 50);
+            }
+        }, 300);
         
         // Previne o comportamento padrão de carregamento automático
         audioPlayer.addEventListener('loadstart', (e) => {
@@ -674,8 +693,59 @@ function renderMusicList(musicas) {
                 // Definimos o src correto
                 const srcUrl = audioPlayer.getAttribute('data-src');
                 audioPlayer.src = srcUrl;
+                // Força o carregamento após um pequeno delay
+                setTimeout(() => {
+                    audioPlayer.load();
+                }, 50);
             }
         });
+        
+        // Trata erros de carregamento
+        audioPlayer.addEventListener('error', (e) => {
+            console.error('Erro no player principal:', e);
+            // Tenta recarregar o áudio
+            const srcUrl = audioPlayer.getAttribute('data-src');
+            if (audioPlayer.src && audioPlayer.src !== window.location.href) {
+                setTimeout(() => {
+                    audioPlayer.src = srcUrl;
+                    audioPlayer.load();
+                }, 100);
+            }
+        });
+        
+        // Garante que o player esteja pronto após um período maior
+        setTimeout(() => {
+            const srcUrl = audioPlayer.getAttribute('data-src');
+            if (!audioPlayer.src || audioPlayer.src === window.location.href) {
+                audioPlayer.src = srcUrl;
+                // Força o carregamento do áudio
+                setTimeout(() => {
+                    audioPlayer.load();
+                }, 100);
+            } else {
+                // Se já tem src, verifica se está carregado
+                if (audioPlayer.networkState === 0) { // NETWORK_EMPTY
+                    setTimeout(() => {
+                        audioPlayer.load();
+                    }, 100);
+                }
+            }
+        }, 1000);
+        
+        // Verifica o estado do player periodicamente
+        const checkInterval = setInterval(() => {
+            if (audioPlayer.networkState === 0 && audioPlayer.src && audioPlayer.src !== window.location.href) {
+                // Se o player está vazio mas tem src válido, força o carregamento
+                setTimeout(() => {
+                    audioPlayer.load();
+                }, 50);
+            }
+        }, 2000);
+        
+        // Limpa o interval após 10 segundos
+        setTimeout(() => {
+            clearInterval(checkInterval);
+        }, 10000);
         
         // Para garantir compatibilidade, também definimos o src no evento canplay
         audioPlayer.addEventListener('canplay', () => {
@@ -683,21 +753,29 @@ function renderMusicList(musicas) {
             // Apenas define o src se ainda não estiver definido
             if (!audioPlayer.src || audioPlayer.src === window.location.href) {
                 audioPlayer.src = srcUrl;
-                // Não força o carregamento no canplay para evitar loops
             }
         });
         
-        // Força o carregamento do áudio após um curto período
-        setTimeout(() => {
-            const srcUrl = audioPlayer.getAttribute('data-src');
-            if (!audioPlayer.src || audioPlayer.src === window.location.href) {
-                audioPlayer.src = srcUrl;
-                // Força o carregamento do áudio após um pequeno delay
-                setTimeout(() => {
-                    audioPlayer.load();
-                }, 50);
+        // Adiciona evento para verificar quando o player está pronto
+        audioPlayer.addEventListener('canplaythrough', () => {
+            console.log('Player pronto para reprodução contínua:', audioUrl);
+        });
+        
+        // Monitora o estado de carregamento
+        const loadingCheck = setInterval(() => {
+            if (audioPlayer.readyState >= 2) { // HAVE_CURRENT_DATA
+                console.log('Áudio carregado com dados suficientes:', audioUrl);
+                clearInterval(loadingCheck);
+            } else if (audioPlayer.networkState === 3) { // NETWORK_NO_SOURCE
+                console.log('Erro de rede ao carregar áudio:', audioUrl);
+                clearInterval(loadingCheck);
             }
-        }, 500);
+        }, 1000);
+        
+        // Limpa o interval após 5 segundos
+        setTimeout(() => {
+            clearInterval(loadingCheck);
+        }, 5000);
         
         // Adiciona listener ao botão de adicionar à playlist
         const addBtn = card.querySelector('.add-to-playlist-btn');
