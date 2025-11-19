@@ -234,15 +234,6 @@ function renderModalPlayer() {
                 audioPlayer.load();
             }, 10);
         }
-        
-        try {
-            if (currentAudio && currentAudio !== audioPlayer) {
-                currentAudio.pause();
-            }
-            currentAudio = audioPlayer;
-        } catch (e) {
-            console.error("Erro ao pausar outros áudios:", e);
-        }
     });
     
     // Também define o src no evento canplaythrough
@@ -251,6 +242,11 @@ function renderModalPlayer() {
         if (!audioPlayer.src || audioPlayer.src === window.location.href) {
             audioPlayer.src = srcUrl;
         }
+    });
+    
+    // Adiciona evento para verificar erros
+    audioPlayer.addEventListener('error', (e) => {
+        console.error('Erro no player modal:', e);
     });
     
     modalAudioPlayerInstance = audioPlayer;
@@ -329,17 +325,8 @@ function renderModalPlayer() {
         const srcUrl = audioPlayer.getAttribute('data-src');
         if (!audioPlayer.src || audioPlayer.src === window.location.href) {
             audioPlayer.src = srcUrl;
-            // Força o carregamento do áudio após um pequeno delay
-            setTimeout(() => {
-                audioPlayer.load();
-            }, 50);
         }
     }, 100);
-    
-    // Adiciona evento para verificar erros
-    audioPlayer.addEventListener('error', (e) => {
-        console.error('Erro no player modal:', e);
-    });
 }
 
 
@@ -598,7 +585,6 @@ function renderMusicList(musicas) {
             audioPlayer.removeAttribute('src');
         }
         
-        // Adiciona evento para definir o src quando o player é carregado
         audioPlayer.addEventListener('loadstart', () => {
             console.log('Iniciando carregamento do áudio:', audioUrl);
         });
@@ -638,7 +624,6 @@ function renderMusicList(musicas) {
             // Apenas define o src se ainda não estiver definido
             if (!audioPlayer.src || audioPlayer.src === window.location.href) {
                 audioPlayer.src = srcUrl;
-                // Não força o carregamento no canplay para evitar loops
             }
         });
 
