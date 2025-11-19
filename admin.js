@@ -126,7 +126,7 @@ function setupKeyFormListener() {
         
         // Verifica a chave através do script PHP
         try {
-            const response = await fetch('https://www.basesdechorinho.com.br/verify_admin.php', {
+            const response = await fetch('./verify_admin.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
