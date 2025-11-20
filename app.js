@@ -34,6 +34,31 @@ let currentOrder = 'recent';
 // Playlist personalizada
 let userPlaylist = [];
 
+// Carrega a playlist do localStorage ao iniciar
+function loadUserPlaylist() {
+    try {
+        const savedPlaylist = localStorage.getItem('userPlaylist');
+        if (savedPlaylist) {
+            userPlaylist = JSON.parse(savedPlaylist);
+        }
+    } catch (error) {
+        console.error('Erro ao carregar playlist do localStorage:', error);
+        userPlaylist = [];
+    }
+}
+
+// Salva a playlist no localStorage
+function saveUserPlaylist() {
+    try {
+        localStorage.setItem('userPlaylist', JSON.stringify(userPlaylist));
+    } catch (error) {
+        console.error('Erro ao salvar playlist no localStorage:', error);
+    }
+}
+
+// Carrega a playlist ao iniciar
+loadUserPlaylist();
+
 // Controles do Modal Player
 const openPlayerListBtn = document.getElementById('openPlayerListBtn');
 const playerListModal = document.getElementById('playerListModal');
@@ -54,6 +79,39 @@ const sheetViewer = document.getElementById('sheetViewer');
 
 // --- Funções Auxiliares e Botões de Ação ---
 
+// Função para converter URLs do GitHub para jsDelivr
+function convertGitHubToJsDelivr(githubUrl) {
+    // Exemplo: https://github.com/ting560/tv/blob/main/partituras/ARQUIVO.pdf
+    // Para: https://cdn.jsdelivr.net/gh/ting560/tv@main/partituras/ARQUIVO.pdf
+    
+    const githubRegex = /https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/([^\/]+)\/(.+)/;
+    const match = githubUrl.match(githubRegex);
+    
+    if (match) {
+        const user = match[1];
+        const repo = match[2];
+        const branch = match[3];
+        const filePath = match[4];
+        
+        return `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/${filePath}`;
+    }
+    
+    // Verifica se é uma URL raw.githubusercontent.com
+    const rawRegex = /https:\/\/raw\.githubusercontent\.com\/([^\/]+)\/([^\/]+)\/([^\/]+)\/(.+)/;
+    const rawMatch = githubUrl.match(rawRegex);
+    
+    if (rawMatch) {
+        const user = rawMatch[1];
+        const repo = rawMatch[2];
+        const branch = rawMatch[3];
+        const filePath = rawMatch[4];
+        
+        return `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/${filePath}`;
+    }
+    
+    return githubUrl; // Retorna a URL original se não for do GitHub
+}
+
 function showMessage(msg, type = 'success') {
     messageEl.innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
     setTimeout(() => { messageEl.innerHTML = ''; }, 5000);
@@ -62,7 +120,51 @@ function showMessage(msg, type = 'success') {
 // Função Global para abrir a partitura em um MODAL/POPUP
 window.openSheet = function(url) {
     if (url) {
-        sheetViewer.src = url;
+        // Verifica se é uma imagem
+        const isImage = /\.(jpg|jpeg|png|gif|bmp)$/i.test(url);
+        
+        if (isImage) {
+            // Para imagens, cria um conteúdo HTML com a imagem centralizada
+            const htmlContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>
+                        body {
+                            margin: 0;
+                            padding: 0;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            min-height: 100vh;
+                            background: #000;
+                        }
+                        img {
+                            max-width: 100%;
+                            max-height: 100vh;
+                            width: auto;
+                            height: auto;
+                            object-fit: contain;
+                            display: block;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <img src="${url}" alt="Partitura">
+                </body>
+                </html>
+            `;
+            
+            // Cria um blob com o conteúdo HTML
+            const blob = new Blob([htmlContent], {type: 'text/html'});
+            const blobUrl = URL.createObjectURL(blob);
+            
+            sheetViewer.src = blobUrl;
+        } else {
+            // Para PDFs e outros tipos, usa o URL diretamente
+            sheetViewer.src = url;
+        }
+        
         sheetModal.style.display = 'flex'; // Exibe o modal
     }
 };
@@ -85,6 +187,32 @@ if (sheetModal) {
     });
 }
 
+// Ajusta o tamanho da partitura quando ela é carregada
+if (sheetViewer) {
+    sheetViewer.addEventListener('load', function() {
+        // Verifica se o conteúdo é uma imagem
+        const iframeDoc = this.contentDocument || this.contentWindow.document;
+        const images = iframeDoc.querySelectorAll('img');
+        
+        images.forEach(img => {
+            // Adiciona estilo para garantir que a imagem caiba no modal
+            img.style.maxWidth = '100%';
+            img.style.maxHeight = '100%';
+            img.style.width = 'auto';
+            img.style.height = 'auto';
+            img.style.objectFit = 'contain';
+            img.style.display = 'block';
+            img.style.margin = '0 auto';
+        });
+        
+        // Se for um PDF, tenta ajustar o tamanho
+        if (this.src && this.src.includes('.pdf')) {
+            this.style.width = '100%';
+            this.style.height = '100%';
+        }
+    });
+}
+
 // Função para renderizar o botão de partitura para a LISTA DO MODAL (estilo compacto)
 function renderModalSheetButton(musica) {
     if (musica.partitura) {
@@ -92,7 +220,7 @@ function renderModalSheetButton(musica) {
         return `<button class="modal-sheet-btn" 
                     title="Partitura"
                     style="background: var(--success-color); color: var(--text-light); border: none; border-radius: 4px; padding: 4px 8px; cursor: pointer; font-size: 0.8rem; margin-left: 6px; flex-shrink: 0;"
-                    onclick="window.openSheet('${musica.partitura}')">
+                    onclick="window.openSheet('${convertGitHubToJsDelivr(musica.partitura)}')">
                     🎼
                 </button>`; 
     }
@@ -125,6 +253,7 @@ function addToUserPlaylist(musica) {
         return;
     }
     userPlaylist.push(musica);
+    saveUserPlaylist(); // Salva a playlist no localStorage
     showMessage('Música adicionada à sua lista!', 'success');
     
     document.querySelectorAll(`[data-musica-arquivo="${musica.arquivo}"]`).forEach(btn => {
@@ -163,9 +292,6 @@ function closePlayerListModalFn() {
     
     // Oculta o modal
     playerListModal.style.display = 'none';
-    
-    // Zera a sessão PHP no logout também (opcional, mas recomendado)
-    fetch('clear_session.php', { method: 'POST' }); 
 }
 
 if (openPlayerListBtn) openPlayerListBtn.addEventListener('click', openPlayerListModalFn);
@@ -401,6 +527,37 @@ window.moveModalMusicDown = function(idx) {
 
 // --- Funções de UI e Autenticação ---
 
+// Timer de inatividade
+let inactivityTimer;
+const INACTIVITY_TIMEOUT = 15 * 60 * 1000; // 15 minutos em milissegundos
+
+// Função para resetar o timer de inatividade
+function resetInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(() => {
+        // Expira a sessão após 15 minutos de inatividade
+        signOut(auth);
+        clearPhpSession();
+        showMessage('Sessão expirada por inatividade.', 'error');
+    }, INACTIVITY_TIMEOUT);
+}
+
+// Adiciona listeners para resetar o timer de inatividade
+function setupInactivityListeners() {
+    // Eventos que indicam atividade do usuário
+    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+    
+    events.forEach(event => {
+        document.addEventListener(event, resetInactivityTimer, true);
+    });
+    
+    // Inicia o timer
+    resetInactivityTimer();
+}
+
+// Inicia os listeners de inatividade
+setupInactivityListeners();
+
 /**
  * Envia o UID do Firebase para um script PHP para criar a sessão do servidor.
  * @param {string} uid O ID de usuário do Firebase.
@@ -513,6 +670,7 @@ if (logoutBtn) {
             showMessage('Logout realizado com sucesso!', 'success');
             // Limpa a playlist ao sair
             userPlaylist = [];
+            saveUserPlaylist(); // Salva a playlist vazia no localStorage
         } catch (error) {
             showMessage('Erro ao fazer logout.', 'error');
         }
@@ -565,10 +723,10 @@ function renderMusicList(musicas) {
                 + Adicionar à Lista 
             </button>
             
-            ${musica.partitura ? `
+            ${musica.partitura && musica.partitura !== '' ? `
                 <button class="open-sheet-btn" 
                         title="Abrir Partitura" 
-                        onclick="window.openSheet('${musica.partitura}')"> 
+                        onclick="window.openSheet('${convertGitHubToJsDelivr(musica.partitura)}')"> 
                     Ver Partitura 🎼 
                 </button>` : ''}
             `;
@@ -727,7 +885,7 @@ function renderMusicList(musicas) {
                 if (audioPlayer.networkState === 0) { // NETWORK_EMPTY
                     setTimeout(() => {
                         audioPlayer.load();
-                    }, 100);
+                    }, 50);
                 }
             }
         }, 1000);

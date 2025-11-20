@@ -3,7 +3,7 @@
 // Script para verificar a chave de acesso ao painel administrativo
 
 // A chave secreta (ALTERE PARA UMA CHAVE SEGURA)
-$ADMIN_KEY = "CrisTiano87492#2@&7"; // Mesma chave do admin-key.js
+$ADMIN_KEY = "12345678"; // Mesma chave do admin-key.js
 
 header('Content-Type: application/json');
 

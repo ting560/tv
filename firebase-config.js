@@ -1,11 +1,10 @@
 // firebase-config.js
 
-// Imports necessários para Auth e Firestore
+// Imports necessários para Auth, Firestore e Storage
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-// O Storage está comentado pois não estamos usando o upload direto
-// import { getStorage } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"; 
+import { getStorage } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"; 
 
 // Seus detalhes de configuração do Firebase (COPIADOS DO SEU PROJETO!)
 const firebaseConfig = {
@@ -23,6 +22,6 @@ const app = initializeApp(firebaseConfig);
 // Exporta os serviços que você vai usar
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-// export const storage = getStorage(app); // Storage comentado, pois não usamos o Blaze
+export const storage = getStorage(app);
 
 // Você pode remover o `storage` das exportações, já que ele não será usado com o plano Spark/Local.

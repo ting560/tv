@@ -88,6 +88,12 @@
                     <input type="url" id="partitura" name="partitura" placeholder="Ex: https://link.para.partitura.pdf">
                     <small id="partituraStatus"></small>
                 </div>
+                
+                <div class="form-group">
+                    <label for="partituraFile">Upload de Partitura (opcional, PDF ou imagem):</label>
+                    <input type="file" id="partituraFile" accept=".pdf,.jpg,.jpeg,.png">
+                    <small id="partituraFileStatus"></small>
+                </div>
 
                 <div class="form-group">
                     <button type="button" id="testarPartitura" style="background:#4b5fc2; margin-top:10px;">Testar Busca de Partitura</button>
@@ -157,6 +163,42 @@
             }
             .btn-remove:hover {
                 background: #d43c3c;
+            }
+            
+            .btn-partitura-exists {
+                padding: 6px 14px;
+                border: none;
+                border-radius: 5px;
+                font-size: 0.97em;
+                font-weight: 600;
+                cursor: pointer;
+                margin-bottom: 2px;
+                transition: background 0.2s;
+                background: #FFC107;
+                color: #000;
+                margin-left: 6px;
+            }
+            
+            .btn-partitura-exists:hover {
+                background: #e0a800;
+            }
+            
+            .btn-partitura-none {
+                padding: 6px 14px;
+                border: none;
+                border-radius: 5px;
+                font-size: 0.97em;
+                font-weight: 600;
+                cursor: pointer;
+                margin-bottom: 2px;
+                transition: background 0.2s;
+                background: #4CAF50;
+                color: #fff;
+                margin-left: 6px;
+            }
+            
+            .btn-partitura-none:hover {
+                background: #45a049;
             }
             </style>
             
