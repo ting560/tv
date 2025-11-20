@@ -81,24 +81,35 @@ const sheetViewer = document.getElementById('sheetViewer');
 
 // Função para converter URLs do GitHub para jsDelivr
 function convertGitHubToJsDelivr(githubUrl) {
-    // Exemplo: https://github.com/ting560/tv/blob/main/partituras/ARQUIVO.pdf
-    // Para: https://cdn.jsdelivr.net/gh/ting560/tv@main/partituras/ARQUIVO.pdf
+    // Se não for uma URL válida, retorna a URL original
+    if (!githubUrl || typeof githubUrl !== 'string' || githubUrl.trim() === '') {
+        return githubUrl;
+    }
     
-    const githubRegex = /https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/([^\/]+)\/(.+)/;
-    const match = githubUrl.match(githubRegex);
+    // Remove espaços em branco extras
+    const trimmedUrl = githubUrl.trim();
     
-    if (match) {
-        const user = match[1];
-        const repo = match[2];
-        const branch = match[3];
-        const filePath = match[4];
+    // Verifica se já está no formato jsDelivr
+    if (trimmedUrl.includes('cdn.jsdelivr.net')) {
+        return trimmedUrl;
+    }
+    
+    // Verifica se é uma URL do GitHub (blob)
+    const githubBlobRegex = /https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/([^\/]+)\/(.+)/;
+    const blobMatch = trimmedUrl.match(githubBlobRegex);
+    
+    if (blobMatch) {
+        const user = blobMatch[1];
+        const repo = blobMatch[2];
+        const branch = blobMatch[3];
+        const filePath = blobMatch[4];
         
         return `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/${filePath}`;
     }
     
     // Verifica se é uma URL raw.githubusercontent.com
     const rawRegex = /https:\/\/raw\.githubusercontent\.com\/([^\/]+)\/([^\/]+)\/([^\/]+)\/(.+)/;
-    const rawMatch = githubUrl.match(rawRegex);
+    const rawMatch = trimmedUrl.match(rawRegex);
     
     if (rawMatch) {
         const user = rawMatch[1];
@@ -109,7 +120,8 @@ function convertGitHubToJsDelivr(githubUrl) {
         return `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/${filePath}`;
     }
     
-    return githubUrl; // Retorna a URL original se não for do GitHub
+    // Para URLs que já estão em outros formatos ou são URLs diretas, retorna como está
+    return trimmedUrl;
 }
 
 function showMessage(msg, type = 'success') {
@@ -120,73 +132,201 @@ function showMessage(msg, type = 'success') {
 // Função Global para abrir a partitura em um MODAL/POPUP
 window.openSheet = function(url) {
     if (url) {
-        // Verifica se é uma imagem
-        const isImage = /\.(jpg|jpeg|png|gif|bmp)$/i.test(url);
+        // --- CORREÇÃO AQUI ---
+        // Removemos qualquer coisa depois do '?' para verificar a extensão corretamente
+        // Ex: imagem.png?raw=true vira apenas imagem.png para o teste
+        const cleanUrlForCheck = url.split('?')[0]; 
+        
+        // Verifica se é imagem baseada na URL limpa
+        const isImage = /\.(jpg|jpeg|png|gif|bmp|webp)$/i.test(cleanUrlForCheck);
+        
+        // Tenta converter a URL se for do GitHub (para carregar mais rápido via CDN)
+        let finalUrl = url;
+        try {
+            finalUrl = convertGitHubToJsDelivr(url);
+        } catch (e) {
+            console.warn('Erro ao converter URL, usando a original:', url);
+            finalUrl = url;
+        }
         
         if (isImage) {
-            // Para imagens, cria um conteúdo HTML com a imagem centralizada
+            // Para imagens, cria o visualizador CUSTOMIZADO (com Zoom e Centralização)
             const htmlContent = `
                 <!DOCTYPE html>
-                <html>
+                <html lang="pt-BR">
                 <head>
+                    <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Visualizador de Partitura</title>
                     <style>
                         html, body {
                             height: 100%;
                             margin: 0;
                             padding: 0;
+                            background-color: #1a1a1a;
                             overflow: hidden;
+                            font-family: sans-serif;
                         }
-                        body {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            min-height: 100vh;
-                            background: #000;
-                        }
-                        .image-container {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
+                        
+                        .viewer-container {
                             width: 100vw;
                             height: 100vh;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
                             overflow: auto;
+                            position: relative;
                         }
+
                         img {
-                            max-width: 95vw;
-                            max-height: 95vh;
-                            width: auto;
-                            height: auto;
-                            object-fit: contain;
-                            display: block;
+                            max-width: 98%; 
+                            max-height: 98%;
+                            object-fit: contain; 
+                            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+                            transition: transform 0.2s ease;
+                            transform-origin: center center;
                         }
-                        @media (max-width: 768px) {
-                            img {
-                                max-width: 98vw;
-                                max-height: 98vh;
-                            }
+
+                        .controls {
+                            position: fixed;
+                            bottom: 20px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            background: rgba(0, 0, 0, 0.7);
+                            padding: 8px 16px;
+                            border-radius: 30px;
+                            display: flex;
+                            gap: 15px;
+                            z-index: 1000;
+                            backdrop-filter: blur(5px);
+                        }
+
+                        .btn-control {
+                            background: none;
+                            border: 2px solid rgba(255,255,255,0.7);
+                            color: white;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            font-size: 20px;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            transition: all 0.2s;
+                            font-weight: bold;
+                        }
+
+                        .btn-control:hover {
+                            background: white;
+                            color: #000;
+                            transform: scale(1.1);
+                        }
+
+                        .btn-control:active {
+                            transform: scale(0.95);
+                        }
+                        
+                        .error-message {
+                            color: #ff6b6b; text-align: center; background: rgba(0,0,0,0.8); padding: 20px; border-radius: 8px;
                         }
                     </style>
                 </head>
                 <body>
-                    <div class="image-container">
-                        <img src="${url}" alt="Partitura">
+                    <div class="viewer-container" id="container">
+                        <img id="sheetImage" src="${finalUrl}" alt="Partitura">
                     </div>
+
+                    <div class="controls">
+                        <button class="btn-control" onclick="zoomOut()" title="Diminuir">-</button>
+                        <button class="btn-control" onclick="resetZoom()" title="Ajustar à Tela">R</button>
+                        <button class="btn-control" onclick="zoomIn()" title="Aumentar">+</button>
+                    </div>
+
+                    <script>
+                        let currentScale = 1;
+                        const img = document.getElementById('sheetImage');
+                        const container = document.getElementById('container');
+
+                        function updateZoom() {
+                            img.style.transform = 'scale(' + currentScale + ')';
+                            if (currentScale > 1) {
+                                img.style.cursor = 'grab';
+                                img.style.maxWidth = 'none'; 
+                                img.style.maxHeight = 'none';
+                            } else {
+                                img.style.cursor = 'default';
+                                img.style.maxWidth = '98%';
+                                img.style.maxHeight = '98%';
+                            }
+                        }
+
+                        function zoomIn() {
+                            currentScale += 0.25;
+                            updateZoom();
+                        }
+
+                        function zoomOut() {
+                            if (currentScale > 0.5) {
+                                currentScale -= 0.25;
+                                updateZoom();
+                            }
+                        }
+
+                        function resetZoom() {
+                            currentScale = 1;
+                            img.style.transform = 'scale(1)';
+                            img.style.maxWidth = '98%';
+                            img.style.maxHeight = '98%';
+                            img.style.left = 'auto';
+                            img.style.top = 'auto';
+                            updateZoom();
+                        }
+
+                        let isDragging = false;
+                        let startX, startY, scrollLeft, scrollTop;
+
+                        container.addEventListener('mousedown', (e) => {
+                            if (currentScale <= 1) return;
+                            isDragging = true;
+                            container.style.cursor = 'grabbing';
+                            startX = e.pageX - container.offsetLeft;
+                            startY = e.pageY - container.offsetTop;
+                            scrollLeft = container.scrollLeft;
+                            scrollTop = container.scrollTop;
+                        });
+
+                        container.addEventListener('mouseleave', () => { isDragging = false; container.style.cursor = 'default'; });
+                        container.addEventListener('mouseup', () => { isDragging = false; container.style.cursor = 'default'; });
+                        container.addEventListener('mousemove', (e) => {
+                            if (!isDragging) return;
+                            e.preventDefault();
+                            const x = e.pageX - container.offsetLeft;
+                            const y = e.pageY - container.offsetTop;
+                            const walkX = (x - startX) * 1.5;
+                            const walkY = (y - startY) * 1.5;
+                            container.scrollLeft = scrollLeft - walkX;
+                            container.scrollTop = scrollTop - walkY;
+                        });
+                        
+                        img.onerror = function() {
+                            this.style.display = 'none';
+                            container.innerHTML = '<div class="error-message">Não foi possível carregar a imagem.<br>URL: ${finalUrl}</div>';
+                        };
+                    </script>
                 </body>
                 </html>
             `;
             
-            // Cria um blob com o conteúdo HTML
             const blob = new Blob([htmlContent], {type: 'text/html'});
             const blobUrl = URL.createObjectURL(blob);
-            
             sheetViewer.src = blobUrl;
         } else {
-            // Para PDFs e outros tipos, usa o URL diretamente
-            sheetViewer.src = url;
+            // Se NÃO for imagem detectada (ex: PDF), carrega direto no iframe
+            sheetViewer.src = finalUrl;
         }
         
-        sheetModal.style.display = 'flex'; // Exibe o modal
+        sheetModal.style.display = 'flex';
     }
 };
 
@@ -223,11 +363,20 @@ window.addEventListener('resize', () => {
 // Função para renderizar o botão de partitura para a LISTA DO MODAL (estilo compacto)
 function renderModalSheetButton(musica) {
     if (musica.partitura) {
+        // Tenta converter a URL se for do GitHub
+        let finalUrl = musica.partitura;
+        try {
+            finalUrl = convertGitHubToJsDelivr(musica.partitura);
+        } catch (e) {
+            console.warn('Erro ao converter URL da partitura, usando a original:', musica.partitura);
+            finalUrl = musica.partitura;
+        }
+        
         // Estilo inline compacto para não quebrar o layout flexível da modal-music-list
         return `<button class="modal-sheet-btn" 
                     title="Partitura"
                     style="background: var(--success-color); color: var(--text-light); border: none; border-radius: 4px; padding: 4px 8px; cursor: pointer; font-size: 0.8rem; margin-left: 6px; flex-shrink: 0;"
-                    onclick="window.openSheet('${convertGitHubToJsDelivr(musica.partitura)}')">
+                    onclick="window.openSheet('${finalUrl}')">
                     🎼
                 </button>`; 
     }
