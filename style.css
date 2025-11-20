@@ -472,22 +472,26 @@ nav {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.95);
     z-index: 10000;
     align-items: center;
     justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .sheet-modal-content {
     background: var(--background-dark);
     padding: 8px;
     border-radius: 10px;
-    max-width: 95%;
-    max-height: 95%;
-    width: 95%;
-    height: 85vh;
+    max-width: 98%;
+    max-height: 98%;
+    width: 95vw;
+    height: 90vh;
     position: relative;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
 }
 
 #closeSheetModal {
@@ -511,6 +515,41 @@ nav {
     width: 100%;
     height: 100%;
     border: none;
+    flex-grow: 1;
+}
+
+/* Estilos responsivos para o modal de partitura */
+@media (max-width: 768px) {
+    #sheetModal {
+        padding: 5px;
+    }
+    
+    .sheet-modal-content {
+        width: 99vw;
+        height: 95vh;
+        padding: 5px;
+    }
+    
+    #closeSheetModal {
+        top: 5px;
+        right: 5px;
+        width: 25px;
+        height: 25px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .sheet-modal-content {
+        width: 100vw;
+        height: 97vh;
+        border-radius: 5px;
+    }
+    
+    #closeSheetModal {
+        top: 3px;
+        right: 3px;
+    }
 }
 
 /* Rodapé */

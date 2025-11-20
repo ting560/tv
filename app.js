@@ -129,28 +129,49 @@ window.openSheet = function(url) {
                 <!DOCTYPE html>
                 <html>
                 <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <style>
-                        body {
+                        html, body {
+                            height: 100%;
                             margin: 0;
                             padding: 0;
+                            overflow: hidden;
+                        }
+                        body {
                             display: flex;
                             justify-content: center;
                             align-items: center;
                             min-height: 100vh;
                             background: #000;
                         }
+                        .image-container {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 100vw;
+                            height: 100vh;
+                            overflow: auto;
+                        }
                         img {
-                            max-width: 100%;
-                            max-height: 100vh;
+                            max-width: 95vw;
+                            max-height: 95vh;
                             width: auto;
                             height: auto;
                             object-fit: contain;
                             display: block;
                         }
+                        @media (max-width: 768px) {
+                            img {
+                                max-width: 98vw;
+                                max-height: 98vh;
+                            }
+                        }
                     </style>
                 </head>
                 <body>
-                    <img src="${url}" alt="Partitura">
+                    <div class="image-container">
+                        <img src="${url}" alt="Partitura">
+                    </div>
                 </body>
                 </html>
             `;
@@ -187,31 +208,17 @@ if (sheetModal) {
     });
 }
 
-// Ajusta o tamanho da partitura quando ela é carregada
-if (sheetViewer) {
-    sheetViewer.addEventListener('load', function() {
-        // Verifica se o conteúdo é uma imagem
-        const iframeDoc = this.contentDocument || this.contentWindow.document;
-        const images = iframeDoc.querySelectorAll('img');
-        
-        images.forEach(img => {
-            // Adiciona estilo para garantir que a imagem caiba no modal
-            img.style.maxWidth = '100%';
-            img.style.maxHeight = '100%';
-            img.style.width = 'auto';
-            img.style.height = 'auto';
-            img.style.objectFit = 'contain';
-            img.style.display = 'block';
-            img.style.margin = '0 auto';
-        });
-        
-        // Se for um PDF, tenta ajustar o tamanho
-        if (this.src && this.src.includes('.pdf')) {
-            this.style.width = '100%';
-            this.style.height = '100%';
-        }
-    });
-}
+// Ajusta o tamanho do modal ao redimensionar a janela
+window.addEventListener('resize', () => {
+    if (sheetModal && sheetModal.style.display === 'flex') {
+        // Força um pequeno atraso para garantir que o redimensionamento seja aplicado
+        setTimeout(() => {
+            if (sheetViewer && sheetViewer.contentWindow) {
+                sheetViewer.contentWindow.dispatchEvent(new Event('resize'));
+            }
+        }, 100);
+    }
+});
 
 // Função para renderizar o botão de partitura para a LISTA DO MODAL (estilo compacto)
 function renderModalSheetButton(musica) {
