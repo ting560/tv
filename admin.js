@@ -7,7 +7,7 @@ import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebase
 import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"; // Importa função de cadastro
 
 // --- DEFINA SUA SENHA AQUI ---
-const ADMIN_PASSWORD = "Chorinho2025!"; // Altere para a senha que desejar
+const ADMIN_PASSWORD = "12345678"; // Altere para a senha que desejar
 // -----------------------------
 
 // --- Elementos da UI ---
@@ -929,3 +929,4 @@ document.getElementById('testarPartitura').addEventListener('click', async () =>
         document.getElementById('partituraStatus').style.color = 'red';
     }
 });
+
