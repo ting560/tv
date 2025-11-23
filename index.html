@@ -12,7 +12,7 @@
     <header>
         <nav>
             <div class="logo-with-image">
-                Chorinho 
+                Chorinho Premium 
             </div>
             <div class="nav-links">
                 <!-- Botão de logout removido pois não é necessário nesta página -->
@@ -190,8 +190,645 @@
             
             // Simular carregamento de músicas (em uma implementação real, isso viria do Firebase)
             setTimeout(() => {
-                // Exemplo de dados de músicas
+                // Dados de músicas atualizados
                 const musicas = [
+                    {
+                        titulo: "WAVE",
+                        artista: "Tom Jobim",
+                        data: "2025-11-11",
+                        arquivo: "wave.mp3",
+                        partitura: "https://exemplo.com/partituras/wave.pdf"
+                    },
+                    {
+                        titulo: "VOU VIVENDO",
+                        artista: "em tom de G",
+                        data: "2025-11-11",
+                        arquivo: "vou-vivendo-g.mp3",
+                        partitura: "https://exemplo.com/partituras/vou-vivendo-g.pdf"
+                    },
+                    {
+                        titulo: "VOU VIVENDO",
+                        artista: "em tom de F",
+                        data: "2025-11-11",
+                        arquivo: "vou-vivendo-f.mp3",
+                        partitura: "https://exemplo.com/partituras/vou-vivendo-f.pdf"
+                    },
+                    {
+                        titulo: "VIBRAÇÕES",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "vibracoes.mp3",
+                        partitura: "https://exemplo.com/partituras/vibracoes.pdf"
+                    },
+                    {
+                        titulo: "VE SE GOSTAS",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "ve-se-gostas.mp3",
+                        partitura: "https://exemplo.com/partituras/ve-se-gostas.pdf"
+                    },
+                    {
+                        titulo: "VAMOS ACABAR COM O BAILE",
+                        artista: "Garoto",
+                        data: "2025-11-11",
+                        arquivo: "vamos-acabar-com-o-baile.mp3",
+                        partitura: "https://exemplo.com/partituras/vamos-acabar-com-o-baile.pdf"
+                    },
+                    {
+                        titulo: "URUBU MALANDRO",
+                        artista: "Lourival Ignácio de Carvalho",
+                        data: "2025-11-11",
+                        arquivo: "urubu-malandro.mp3",
+                        partitura: "https://exemplo.com/partituras/urubu-malandro.pdf"
+                    },
+                    {
+                        titulo: "UM CHORINHO PRA VOCE",
+                        artista: "Severino Araújo",
+                        data: "2025-11-11",
+                        arquivo: "um-chorinho-pra-voce.mp3",
+                        partitura: "https://exemplo.com/partituras/um-chorinho-pra-voce.pdf"
+                    },
+                    {
+                        titulo: "UM A ZERO",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "um-a-zero.mp3",
+                        partitura: "https://exemplo.com/partituras/um-a-zero.pdf"
+                    },
+                    {
+                        titulo: "TREM DAS 11",
+                        artista: "Adoniram Barbosa",
+                        data: "2025-11-11",
+                        arquivo: "trem-das-11.mp3",
+                        partitura: "https://exemplo.com/partituras/trem-das-11.pdf"
+                    },
+                    {
+                        titulo: "TICO TICO NO FUBÁ",
+                        artista: "Zequinha Abreu",
+                        data: "2025-11-11",
+                        arquivo: "tico-tico.mp3",
+                        partitura: "https://exemplo.com/partituras/tico-tico.pdf"
+                    },
+                    {
+                        titulo: "TARANTELA",
+                        artista: "Luigi Ricci",
+                        data: "2025-11-11",
+                        arquivo: "tarantela.mp3",
+                        partitura: "https://exemplo.com/partituras/tarantela.pdf"
+                    },
+                    {
+                        titulo: "SUPLICA CEARENSE",
+                        artista: "Gordurinha",
+                        data: "2025-11-11",
+                        arquivo: "suplica-cearense.mp3",
+                        partitura: "https://exemplo.com/partituras/suplica-cearense.pdf"
+                    },
+                    {
+                        titulo: "SONOROSO",
+                        artista: "K-Ximbinho",
+                        data: "2025-11-11",
+                        arquivo: "sonoroso.mp3",
+                        partitura: "https://exemplo.com/partituras/sonoroso.pdf"
+                    },
+                    {
+                        titulo: "SOM DE CARRILHOES",
+                        artista: "Artista Desconhecido",
+                        data: "2025-11-11",
+                        arquivo: "som-de-carrilhoes.mp3",
+                        partitura: "https://exemplo.com/partituras/som-de-carrilhoes.pdf"
+                    },
+                    {
+                        titulo: "SOLUÇOS",
+                        artista: "Pixinguinha e Benedito Lacerda",
+                        data: "2025-11-11",
+                        arquivo: "solucos.mp3",
+                        partitura: "https://exemplo.com/partituras/solucos.pdf"
+                    },
+                    {
+                        titulo: "SOBE E DESCE",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "sobe-e-desce.mp3",
+                        partitura: "https://exemplo.com/partituras/sobe-e-desce.pdf"
+                    },
+                    {
+                        titulo: "SIMPLICIDADE",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "simplicidade.mp3",
+                        partitura: "https://exemplo.com/partituras/simplicidade.pdf"
+                    },
+                    {
+                        titulo: "SENTIDO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "sentido.mp3",
+                        partitura: "https://exemplo.com/partituras/sentido.pdf"
+                    },
+                    {
+                        titulo: "SEMPRE",
+                        artista: "K-XImbinho",
+                        data: "2025-11-11",
+                        arquivo: "sempre.mp3",
+                        partitura: "https://exemplo.com/partituras/sempre.pdf"
+                    },
+                    {
+                        titulo: "SAXOFONE, POR QUE CHORAS",
+                        artista: "Ratinho",
+                        data: "2025-11-11",
+                        arquivo: "saxofone-porque-choras.mp3",
+                        partitura: "https://exemplo.com/partituras/saxofone-porque-choras.pdf"
+                    },
+                    {
+                        titulo: "SAMPA",
+                        artista: "Caetano Veloso",
+                        data: "2025-11-11",
+                        arquivo: "sampa.mp3",
+                        partitura: "https://exemplo.com/partituras/sampa.pdf"
+                    },
+                    {
+                        titulo: "SAMBA DE VERÃO",
+                        artista: "Artista Desconhecido",
+                        data: "2025-11-11",
+                        arquivo: "samba-de-verao.mp3",
+                        partitura: "https://exemplo.com/partituras/samba-de-verao.pdf"
+                    },
+                    {
+                        titulo: "ROSA",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "rosa.mp3",
+                        partitura: "https://exemplo.com/partituras/rosa.pdf"
+                    },
+                    {
+                        titulo: "RONDA",
+                        artista: "Paulo Vanzolini",
+                        data: "2025-11-11",
+                        arquivo: "ronda.mp3",
+                        partitura: "https://exemplo.com/partituras/ronda.pdf"
+                    },
+                    {
+                        titulo: "RECEITA DE SAMBA",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "receita-de-samba.mp3",
+                        partitura: "https://exemplo.com/partituras/receita-de-samba.pdf"
+                    },
+                    {
+                        titulo: "PROEZAS DE SOLON",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "proezas-de-solon.mp3",
+                        partitura: "https://exemplo.com/partituras/proezas-de-solon.pdf"
+                    },
+                    {
+                        titulo: "PRETENCIOSO",
+                        artista: "Pixinguinha & Benedito Lacerda",
+                        data: "2025-11-11",
+                        arquivo: "pretensioso.mp3",
+                        partitura: "https://exemplo.com/partituras/pretensioso.pdf"
+                    },
+                    {
+                        titulo: "PRANTOS (Izaias Bueno) PLAYBACK",
+                        artista: "Artista Desconhecido",
+                        data: "2025-11-11",
+                        arquivo: "prantos-playback.mp3",
+                        partitura: "https://exemplo.com/partituras/prantos-playback.pdf"
+                    },
+                    {
+                        titulo: "PEDACINHO DO CEU",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "pedacinho-do-ceu.mp3",
+                        partitura: "https://exemplo.com/partituras/pedacinho-do-ceu.pdf"
+                    },
+                    {
+                        titulo: "ODEON",
+                        artista: "Ernesto Nazareth",
+                        data: "2025-11-11",
+                        arquivo: "odeon.mp3",
+                        partitura: "https://exemplo.com/partituras/odeon.pdf"
+                    },
+                    {
+                        titulo: "O MUNDO É UM MOINHO",
+                        artista: "Cartola",
+                        data: "2025-11-11",
+                        arquivo: "o-mundo-e-um-moinho.mp3",
+                        partitura: "https://exemplo.com/partituras/o-mundo-e-um-moinho.pdf"
+                    },
+                    {
+                        titulo: "O BOEMIO",
+                        artista: "Anacleto de Medeiros",
+                        data: "2025-11-11",
+                        arquivo: "o-boemio.mp3",
+                        partitura: "https://exemplo.com/partituras/o-boemio.pdf"
+                    },
+                    {
+                        titulo: "NOITES CARIOCAS",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "noites-cariocas.mp3",
+                        partitura: "https://exemplo.com/partituras/noites-cariocas.pdf"
+                    },
+                    {
+                        titulo: "NAQUELE TEMPO",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "naquele-tempo.mp3",
+                        partitura: "https://exemplo.com/partituras/naquele-tempo.pdf"
+                    },
+                    {
+                        titulo: "NAQUELA MESA",
+                        artista: "Sergio Bitencourt",
+                        data: "2025-11-11",
+                        arquivo: "naquela-mesa.mp3",
+                        partitura: "https://exemplo.com/partituras/naquela-mesa.pdf"
+                    },
+                    {
+                        titulo: "NA GLORIA",
+                        artista: "Raul de Barros",
+                        data: "2025-11-11",
+                        arquivo: "na-gloria.mp3",
+                        partitura: "https://exemplo.com/partituras/na-gloria.pdf"
+                    },
+                    {
+                        titulo: "MURMURANDO",
+                        artista: "Maestro Fonfon",
+                        data: "2025-11-11",
+                        arquivo: "murmurando.mp3",
+                        partitura: "https://exemplo.com/partituras/murmurando.pdf"
+                    },
+                    {
+                        titulo: "MINHAS MAOS MEU CAVAQUINHO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "minhas-maos-meu-cavaquinho.mp3",
+                        partitura: "https://exemplo.com/partituras/minhas-maos-meu-cavaquinho.pdf"
+                    },
+                    {
+                        titulo: "MEU DOCE CHORINHO",
+                        artista: "Mestro Portinho",
+                        data: "2025-11-11",
+                        arquivo: "meu-doce-chorinho.mp3",
+                        partitura: "https://exemplo.com/partituras/meu-doce-chorinho.pdf"
+                    },
+                    {
+                        titulo: "MEDLEY ARI BARROSO",
+                        artista: "Aquarela do Brasil-Canta Brasil-Isso Aqui, o que é",
+                        data: "2025-11-11",
+                        arquivo: "medley-ari-barroso.mp3",
+                        partitura: "https://exemplo.com/partituras/medley-ari-barroso.pdf"
+                    },
+                    {
+                        titulo: "MAGOADO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "magoado.mp3",
+                        partitura: "https://exemplo.com/partituras/magoado.pdf"
+                    },
+                    {
+                        titulo: "LUA BRANCA",
+                        artista: "Chiquinha Gonzaga",
+                        data: "2025-11-11",
+                        arquivo: "lua-branca.mp3",
+                        partitura: "https://exemplo.com/partituras/lua-branca.pdf"
+                    },
+                    {
+                        titulo: "LAMENTOS",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "lamentos.mp3",
+                        partitura: "https://exemplo.com/partituras/lamentos.pdf"
+                    },
+                    {
+                        titulo: "INGENUO",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "ingenuo.mp3",
+                        partitura: "https://exemplo.com/partituras/ingenuo.pdf"
+                    },
+                    {
+                        titulo: "HOMENAGEM A VELHA GUARDA",
+                        artista: "Sivuca",
+                        data: "2025-11-11",
+                        arquivo: "homenagem-a-velha-guarda.mp3",
+                        partitura: "https://exemplo.com/partituras/homenagem-a-velha-guarda.pdf"
+                    },
+                    {
+                        titulo: "GOSTOSINHO",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "gostosinho.mp3",
+                        partitura: "https://exemplo.com/partituras/gostosinho.pdf"
+                    },
+                    {
+                        titulo: "GAROTA DE IPANEMA Tom Jobim)",
+                        artista: "Artista Desconhecido",
+                        data: "2025-11-11",
+                        arquivo: "garota-de-ipanema.mp3",
+                        partitura: "https://exemplo.com/partituras/garota-de-ipanema.pdf"
+                    },
+                    {
+                        titulo: "FLOR DO CERRADO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "flor-do-cerrado.mp3",
+                        partitura: "https://exemplo.com/partituras/flor-do-cerrado.pdf"
+                    },
+                    {
+                        titulo: "FLOR AMOROSA",
+                        artista: "Joaquim Calado",
+                        data: "2025-11-11",
+                        arquivo: "flor-amorosa.mp3",
+                        partitura: "https://exemplo.com/partituras/flor-amorosa.pdf"
+                    },
+                    {
+                        titulo: "FEITIÇO DA VILA",
+                        artista: "Noel Rosa",
+                        data: "2025-11-11",
+                        arquivo: "feitico-da-vila.mp3",
+                        partitura: "https://exemplo.com/partituras/feitico-da-vila.pdf"
+                    },
+                    {
+                        titulo: "FEITIÇO",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "feitico.mp3",
+                        partitura: "https://exemplo.com/partituras/feitico.pdf"
+                    },
+                    {
+                        titulo: "FEIA",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "feia.mp3",
+                        partitura: "https://exemplo.com/partituras/feia.pdf"
+                    },
+                    {
+                        titulo: "EVOCATIVO",
+                        artista: "Joel Nascimento",
+                        data: "2025-11-11",
+                        arquivo: "evocativo.mp3",
+                        partitura: "https://exemplo.com/partituras/evocativo.pdf"
+                    },
+                    {
+                        titulo: "EU SEI Q VOU TE AMAR",
+                        artista: "Tom Jobim",
+                        data: "2025-11-11",
+                        arquivo: "eu-sei-que-vou-te-amar.mp3",
+                        partitura: "https://exemplo.com/partituras/eu-sei-que-vou-te-amar.pdf"
+                    },
+                    {
+                        titulo: "ESPINHA DE BACALHAU",
+                        artista: "Severino Araújo",
+                        data: "2025-11-11",
+                        arquivo: "espinha-de-bacalhau-severino.mp3",
+                        partitura: "https://exemplo.com/partituras/espinha-de-bacalhau-severino.pdf"
+                    },
+                    {
+                        titulo: "ESPINHA DE BACALHAU",
+                        artista: "C",
+                        data: "2025-11-11",
+                        arquivo: "espinha-de-bacalhau-c.mp3",
+                        partitura: "https://exemplo.com/partituras/espinha-de-bacalhau-c.pdf"
+                    },
+                    {
+                        titulo: "EM QUE ÉPOCA",
+                        artista: "Aymoré",
+                        data: "2025-11-11",
+                        arquivo: "em-que-epoca.mp3",
+                        partitura: "https://exemplo.com/partituras/em-que-epoca.pdf"
+                    },
+                    {
+                        titulo: "DOCE DE COCO",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "doce-de-coco.mp3",
+                        partitura: "https://exemplo.com/partituras/doce-de-coco.pdf"
+                    },
+                    {
+                        titulo: "DIABINHO MALUCO",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "diabinho-maluco.mp3",
+                        partitura: "https://exemplo.com/partituras/diabinho-maluco.pdf"
+                    },
+                    {
+                        titulo: "DIA DE DOMINGO",
+                        artista: "Tim Maia",
+                        data: "2025-11-11",
+                        arquivo: "dia-de-domingo.mp3",
+                        partitura: "https://exemplo.com/partituras/dia-de-domingo.pdf"
+                    },
+                    {
+                        titulo: "DENGOSO",
+                        artista: "Jonas Pereira",
+                        data: "2025-11-11",
+                        arquivo: "dengoso.mp3",
+                        partitura: "https://exemplo.com/partituras/dengoso.pdf"
+                    },
+                    {
+                        titulo: "DELICADO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "delicado.mp3",
+                        partitura: "https://exemplo.com/partituras/delicado.pdf"
+                    },
+                    {
+                        titulo: "CONVERSA DE BOTEQUIM",
+                        artista: "Noel Rosa",
+                        data: "2025-11-11",
+                        arquivo: "conversa-de-botequim.mp3",
+                        partitura: "https://exemplo.com/partituras/conversa-de-botequim.pdf"
+                    },
+                    {
+                        titulo: "COCHICHANDO",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "cochichando.mp3",
+                        partitura: "https://exemplo.com/partituras/cochichando.pdf"
+                    },
+                    {
+                        titulo: "CINEMA MUDO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "cinema-mudo.mp3",
+                        partitura: "https://exemplo.com/partituras/cinema-mudo.pdf"
+                    },
+                    {
+                        titulo: "CHORO NEGRO",
+                        artista: "Paulinho da Viola",
+                        data: "2025-11-11",
+                        arquivo: "choro-negro.mp3",
+                        partitura: "https://exemplo.com/partituras/choro-negro.pdf"
+                    },
+                    {
+                        titulo: "CHORANDO BAIXINHO",
+                        artista: "Abel Ferreira",
+                        data: "2025-11-11",
+                        arquivo: "chorando-baixinho.mp3",
+                        partitura: "https://exemplo.com/partituras/chorando-baixinho.pdf"
+                    },
+                    {
+                        titulo: "CHIQUITA",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "chiquita.mp3",
+                        partitura: "https://exemplo.com/partituras/chiquita.pdf"
+                    },
+                    {
+                        titulo: "CHEGA DE SAUDADE - DESAFINADO",
+                        artista: "Tom Jobim",
+                        data: "2025-11-11",
+                        arquivo: "chega-de-saudade-desafinado.mp3",
+                        partitura: "https://exemplo.com/partituras/chega-de-saudade-desafinado.pdf"
+                    },
+                    {
+                        titulo: "CARIOQUINHA",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "carioquinha.mp3",
+                        partitura: "https://exemplo.com/partituras/carioquinha.pdf"
+                    },
+                    {
+                        titulo: "CARINHOSO",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "carinhoso.mp3",
+                        partitura: "https://exemplo.com/partituras/carinhoso.pdf"
+                    },
+                    {
+                        titulo: "CAMUNDONGO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "camundongo.mp3",
+                        partitura: "https://exemplo.com/partituras/camundongo.pdf"
+                    },
+                    {
+                        titulo: "CADENCIA",
+                        artista: "Juventino Maciel",
+                        data: "2025-11-11",
+                        arquivo: "cadencia.mp3",
+                        partitura: "https://exemplo.com/partituras/cadencia.pdf"
+                    },
+                    {
+                        titulo: "BREJEIRO",
+                        artista: "Ernesto Nazareth",
+                        data: "2025-11-11",
+                        arquivo: "brejeiro.mp3",
+                        partitura: "https://exemplo.com/partituras/brejeiro.pdf"
+                    },
+                    {
+                        titulo: "BRASILEIRINHO",
+                        artista: "Waldir Azevedo em G",
+                        data: "2025-11-11",
+                        arquivo: "brasileirinho-g.mp3",
+                        partitura: "https://exemplo.com/partituras/brasileirinho-g.pdf"
+                    },
+                    {
+                        titulo: "BOLE BOLE",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "bole-bole.mp3",
+                        partitura: "https://exemplo.com/partituras/bole-bole.pdf"
+                    },
+                    {
+                        titulo: "BOLA PRETA",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "bola-preta.mp3",
+                        partitura: "https://exemplo.com/partituras/bola-preta.pdf"
+                    },
+                    {
+                        titulo: "BENZINHO",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "benzinho.mp3",
+                        partitura: "https://exemplo.com/partituras/benzinho.pdf"
+                    },
+                    {
+                        titulo: "BARRACÃO DE ZINCO",
+                        artista: "Antenor Borges & José Gonçalves",
+                        data: "2025-11-11",
+                        arquivo: "barracao-de-zinco.mp3",
+                        partitura: "https://exemplo.com/partituras/barracao-de-zinco.pdf"
+                    },
+                    {
+                        titulo: "AVE MARIA",
+                        artista: "Gnoud",
+                        data: "2025-11-11",
+                        arquivo: "ave-maria.mp3",
+                        partitura: "https://exemplo.com/partituras/ave-maria.pdf"
+                    },
+                    {
+                        titulo: "ASSIM MESMO",
+                        artista: "Luis Americano",
+                        data: "2025-11-11",
+                        arquivo: "assim-mesmo.mp3",
+                        partitura: "https://exemplo.com/partituras/assim-mesmo.pdf"
+                    },
+                    {
+                        titulo: "ASSANHADO",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "assanhado.mp3",
+                        partitura: "https://exemplo.com/partituras/assanhado.pdf"
+                    },
+                    {
+                        titulo: "AS ROSAS NAO FALAM",
+                        artista: "Cartola",
+                        data: "2025-11-11",
+                        arquivo: "as-rosas-nao-falam.mp3",
+                        partitura: "https://exemplo.com/partituras/as-rosas-nao-falam.pdf"
+                    },
+                    {
+                        titulo: "AQUARELA DE QUINXABAS",
+                        artista: "Hamilton de Holanda",
+                        data: "2025-11-11",
+                        arquivo: "aquarela-de-quinxabas.mp3",
+                        partitura: "https://exemplo.com/partituras/aquarela-de-quinxabas.pdf"
+                    },
+                    {
+                        titulo: "APANHEI-TE CAVAQUINHO (Ernesto Nazareth",
+                        artista: "Artista Desconhecido",
+                        data: "2025-11-11",
+                        arquivo: "apanhei-te-cavaquinho.mp3",
+                        partitura: "https://exemplo.com/partituras/apanhei-te-cavaquinho.pdf"
+                    },
+                    {
+                        titulo: "ANDRÉ DO SAPATO NOVO",
+                        artista: "André Vitor Correia",
+                        data: "2025-11-11",
+                        arquivo: "andre-do-sapato-novo.mp3",
+                        partitura: "https://exemplo.com/partituras/andre-do-sapato-novo.pdf"
+                    },
+                    {
+                        titulo: "AMOROSO",
+                        artista: "Garoto",
+                        data: "2025-11-11",
+                        arquivo: "amoroso.mp3",
+                        partitura: "https://exemplo.com/partituras/amoroso.pdf"
+                    },
+                    {
+                        titulo: "ALVORADA",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "alvorada.mp3",
+                        partitura: "https://exemplo.com/partituras/alvorada.pdf"
+                    },
+                    {
+                        titulo: "AGUENTA SEU FUGENCIO",
+                        artista: "Lourenço Lamartine",
+                        data: "2025-11-11",
+                        arquivo: "aguenta-seu-fugencio.mp3",
+                        partitura: "https://exemplo.com/partituras/aguenta-seu-fugencio.pdf"
+                    },
+                    {
+                        titulo: "BRASILEIRINHO PARA BANDOLIM",
+                        artista: "Waldir Azevedo em A",
+                        data: "2025-11-11",
+                        arquivo: "brasileirinho-a.mp3",
+                        partitura: "https://exemplo.com/partituras/brasileirinho-a.pdf"
+                    },
                     {
                         titulo: "Brasileirinho",
                         artista: "Waldir Azevedo",
@@ -332,6 +969,4 @@
     <!-- Mantém os scripts originais para funcionalidades básicas -->
     <script type="module" src="./firebase-config.js"></script>
     </body>
-
 </html>
-
