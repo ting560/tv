@@ -24,13 +24,6 @@
         .form-group label { display: block; margin-bottom: 8px; font-weight: bold; }
         .form-group input:not([type="checkbox"]) { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; }
         .form-group input[type="file"] { padding: 10px 0; border: none; }
-        
-        /* Estilos para mensagens */
-        .alert { padding: 12px; border-radius: 5px; margin-bottom: 15px; }
-        .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .btn-submit { background: #667eea; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%; }
-        .btn-submit:hover { background: #5a6fd8; }
     </style>
 </head>
 <body>
@@ -59,50 +52,173 @@
         </div>
 
         <div class="upload-screen" id="uploadScreen" style="display: none;">
-            <h2>Painel Administrativo Carregado</h2>
-            <p>✅ Acesso concedido com sucesso!</p>
-            <p>Para funcionalidades completas, certifique-se de que os arquivos JavaScript estão carregados corretamente.</p>
-        </div>
+            <h2>Cadastro de Nova Música 📤</h2>
+            <form id="uploadForm">
+                <p>⚠️ <b>Atenção:</b> O arquivo MP3 será apenas simulado. Após o cadastro, mova-o manualmente para a pasta <b>/musicas</b> no seu servidor.</p>
+                <div class="form-group">
+                    <label for="file">Arquivo MP3 (para nome):</label>
+                    <input type="file" id="file" accept="audio/mp3"> 
+                </div>
+                <div class="form-group">
+                    <label for="dirInput">Importar Pasta (vários arquivos):</label>
+                    <input type="file" id="dirInput" webkitdirectory directory multiple accept="audio/*">
+                    <small>Selecione a pasta que contém todos os MP3s (o navegador irá listar os arquivos). O sistema tentará extrair Título e Artista do nome do arquivo, ex: <code>MARCA (Autor).mp3</code>.</small>
+                </div>
+                <div class="form-group">
+                    <label>Progresso de Importação:</label>
+                    <div id="bulkProgress" style="font-size:0.9em; color:#666;">Aguardando seleção de pasta...</div>
+                </div>
+                <hr style="margin: 20px 0;">
+
+                <div class="form-group">
+                    <label for="titulo">Título da Música:</label>
+                    <input type="text" id="titulo" required>
+                </div>
+                <div class="form-group">
+                    <label for="artista">Artista/Autor:</label>
+                    <input type="text" id="artista" required>
+                </div>
+                <div class="form-group">
+                    <label for="data">Data de Lançamento:</label>
+                    <input type="date" id="data" value="2025-01-01" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="partitura">Link da Partitura (opcional, PDF ou imagem):</label>
+                    <input type="url" id="partitura" name="partitura" placeholder="Ex: https://link.para.partitura.pdf">
+                    <small id="partituraStatus"></small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="partituraFile">Upload de Partitura (opcional, PDF ou imagem):</label>
+                    <input type="file" id="partituraFile" accept=".pdf,.jpg,.jpeg,.png">
+                    <small id="partituraFileStatus"></small>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" id="testarPartitura" style="background:#4b5fc2; margin-top:10px;">Testar Busca de Partitura</button>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="nova"><label for="nova" style="display: inline; margin-left: 10px; font-weight: normal;">Marcar como Novo Lançamento</label>
+                </div>
+                <button type="submit" class="btn-submit">Cadastrar Música</button>
+                <button type="button" class="btn-submit" onclick="novaMusica()" style="background:#4b5fc2; margin-top:10px;">Novo/Limpar</button>
+            </form>
+            
+            <hr style="margin: 30px 0;">
+            
+            <h2>Gerenciar Músicas Cadastradas</h2>
+            <div id="musicasAdminList">
+                <div style="text-align:center; color:#888; padding:16px;">Carregando músicas...</div>
+            </div>
+            <style>
+            #musicasAdminList table { 
+                width: 100%; 
+                border-collapse: collapse; 
+                margin-top: 8px; 
+                background: #fff; 
+                font-size: 1em; 
+                box-shadow: 0 2px 8px rgba(0,0,0,0.04); 
+            }
+            #musicasAdminList th, #musicasAdminList td {
+                padding: 10px;
+                border: 1px solid #eee;
+                text-align: left;
+                word-break: break-word;
+            }
+            #musicasAdminList th {
+                background: #f4f7f6;
+                font-weight: 700;
+                color: #667eea;
+                font-size: 1.05em;
+            }
+            #musicasAdminList tr:nth-child(even) {
+                background: #fafbfc;
+            }
+            #musicasAdminList tr:hover {
+                background: #eef2ff;
+            }
+            .btn-edit, .btn-remove {
+                padding: 6px 14px;
+                border: none;
+                border-radius: 5px;
+                font-size: 0.97em;
+                font-weight: 600;
+                cursor: pointer;
+                margin-bottom: 2px;
+                transition: background 0.2s;
+            }
+            .btn-edit {
+                background: #667eea;
+                color: #fff;
+                margin-right: 6px;
+            }
+            .btn-edit:hover {
+                background: #4b5fc2;
+            }
+            .btn-remove {
+                background: #ff6b6b;
+                color: #fff;
+            }
+            .btn-remove:hover {
+                background: #d43c3c;
+            }
+            
+            .btn-partitura-exists {
+                padding: 6px 14px;
+                border: none;
+                border-radius: 5px;
+                font-size: 0.97em;
+                font-weight: 600;
+                cursor: pointer;
+                margin-bottom: 2px;
+                transition: background 0.2s;
+                background: #FFC107;
+                color: #000;
+                margin-left: 6px;
+            }
+            
+            .btn-partitura-exists:hover {
+                background: #e0a800;
+            }
+            
+            .btn-partitura-none {
+                padding: 6px 14px;
+                border: none;
+                border-radius: 5px;
+                font-size: 0.97em;
+                font-weight: 600;
+                cursor: pointer;
+                margin-bottom: 2px;
+                transition: background 0.2s;
+                background: #4CAF50;
+                color: #fff;
+                margin-left: 6px;
+            }
+            
+            .btn-partitura-none:hover {
+                background: #45a049;
+            }
+            </style>
+            
+            <hr style="margin: 30px 0;">
+
+            <h2>Cadastro de Novo Usuário</h2>
+            <p>Utilize esta seção para criar contas para seus clientes.</p>
+            <form id="registerUserForm">
+                <div class="form-group"><label for="register-email">E-mail do Cliente:</label><input type="email" id="register-email" required></div>
+                <div class="form-group"><label for="register-password">Senha Provisória:</label><input type="password" id="register-password" required></div>
+                <button type="submit" class="btn-submit" style="background: var(--success-color);">Criar Conta</button>
+            </form>
+            </div>
     </div>
 
     <footer>
         <p>&copy; 2025 Chorinho Premium by Cristiano Ferreira | Música de qualidade.</p>
     </footer>
 
-    <script>
-    // Script de autenticação simplificado
-    document.addEventListener('DOMContentLoaded', function() {
-        const keyForm = document.getElementById('keyForm');
-        const adminKeyInput = document.getElementById('adminKey');
-        const messageEl = document.getElementById('message');
-        const loginScreen = document.getElementById('loginScreen');
-        const uploadScreen = document.getElementById('uploadScreen');
-        
-        if (keyForm) {
-            keyForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const enteredKey = adminKeyInput.value;
-                
-                // SENHA DEFINIDA AQUI
-                const ADMIN_PASSWORD = "Chorinho2025!";
-                
-                console.log('Senha digitada:', enteredKey);
-                console.log('Senha esperada:', ADMIN_PASSWORD);
-                
-                if (enteredKey === ADMIN_PASSWORD) {
-                    messageEl.innerHTML = '<div class="alert alert-success">✅ Acesso liberado! Painel administrativo desbloqueado.</div>';
-                    setTimeout(() => {
-                        loginScreen.style.display = 'none';
-                        uploadScreen.style.display = 'block';
-                        messageEl.innerHTML = '';
-                    }, 1200);
-                } else {
-                    messageEl.innerHTML = '<div class="alert alert-error">❌ Chave de acesso incorreta. Tente novamente.</div>';
-                    adminKeyInput.value = '';
-                }
-            });
-        }
-    });
-    </script>
+    <script type="module" src="./firebase-config.js"></script>
+    <script type="module" src="./admin.js"></script>
 </body>
 </html>
