@@ -6,6 +6,10 @@ import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, orderBy,
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"; // Importa função de cadastro
 
+// --- DEFINA SUA SENHA AQUI ---
+const ADMIN_PASSWORD = "Chorinho2025!"; // Altere para a senha que desejar
+// -----------------------------
+
 // --- Elementos da UI ---
 let loginScreen, uploadScreen, keyForm, adminKeyInput, uploadForm, messageEl, dirInput, bulkProgress;
 let registerUserForm; // Novo seletor
@@ -243,33 +247,17 @@ function setupKeyFormListener() {
         e.preventDefault();
         const enteredKey = adminKeyInput.value;
         
-        // Verifica a chave através do script PHP
-        try {
-            const response = await fetch('./verify_admin.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `admin_key=${encodeURIComponent(enteredKey)}`
-            });
-            
-            const result = await response.json();
-            
-            if (result.status === 'success') {
-                showMessage('✅ Acesso liberado! Painel administrativo desbloqueado.', 'alert-success', true);
-                setTimeout(() => {
-                    loginScreen.style.display = 'none';
-                    uploadScreen.style.display = 'block';
-                    carregarMusicasAdmin();
-                    messageEl.innerHTML = '';
-                }, 1200);
-            } else {
-                showMessage('❌ Chave de acesso incorreta. Tente novamente.', 'alert-error', true);
-                adminKeyInput.value = '';
-            }
-        } catch (error) {
-            console.error("Erro ao verificar chave de acesso:", error);
-            showMessage('❌ Erro ao verificar chave de acesso. Tente novamente.', 'alert-error', true);
+        // Verificação direta da senha
+        if (enteredKey === ADMIN_PASSWORD) {
+            showMessage('✅ Acesso liberado! Painel administrativo desbloqueado.', 'alert-success', true);
+            setTimeout(() => {
+                loginScreen.style.display = 'none';
+                uploadScreen.style.display = 'block';
+                carregarMusicasAdmin();
+                messageEl.innerHTML = '';
+            }, 1200);
+        } else {
+            showMessage('❌ Chave de acesso incorreta. Tente novamente.', 'alert-error', true);
             adminKeyInput.value = '';
         }
     });
