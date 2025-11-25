@@ -4,7 +4,7 @@ import re
 import random
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.common.exceptions import WebDriverException, TimeoutException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -75,10 +75,9 @@ def inicializar_driver():
         chrome_options.add_argument("--disable-blink-features=AutomationControlled")
         chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
         
-        # Opções de Otimização (mantidas as que permitem o funcionamento do JS)
+        # Opções de Otimização
         chrome_options.add_argument("--disable-extensions")
         chrome_options.add_argument("--disable-plugins")
-        # Removido --disable-images e --disable-javascript para permitir o carregamento do link M3U8
         chrome_options.add_argument("--disable-web-security")
         chrome_options.add_argument("--allow-running-insecure-content")
         chrome_options.add_argument("--ignore-certificate-errors")
@@ -87,7 +86,6 @@ def inicializar_driver():
         chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
         chrome_options.add_experimental_option('useAutomationExtension', False)
         
-        # O ChromeDriver está no PATH graças ao browser-actions/setup-chrome
         driver = webdriver.Chrome(options=chrome_options)
         driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
         return driver
@@ -98,7 +96,8 @@ def inicializar_driver():
 def get_channel_name(url):
     """Extrai o nome do canal do final da URL."""
     nome_canal_raw = url.split('/')[-1]
-    return nome_canal_raw.replace(' ', '').title()
+    # Usando f-string para retornar o nome formatado
+    return f"{nome_canal_raw.replace(' ', '').title()}"
 
 
 def salvar_no_github(lista_m3u_final):
@@ -108,7 +107,6 @@ def salvar_no_github(lista_m3u_final):
         return
 
     try:
-        # Inicializa o GitHub
         g = Github(GITHUB_TOKEN)
         repo = g.get_repo(REPO_NAME)
         
@@ -119,7 +117,7 @@ def salvar_no_github(lista_m3u_final):
             # Tenta buscar o arquivo existente
             conteudo_arquivo = repo.get_contents(ARQUIVO_SAIDA, ref="main")
             
-            # Atualiza o arquivo (usando f-string para o commit message)
+            # Atualiza o arquivo
             repo.update_file(conteudo_arquivo.path, 
                              f"Atualização automática da lista de canais - {data_hora}", 
                              novo_conteudo, 
@@ -136,7 +134,7 @@ def salvar_no_github(lista_m3u_final):
                                  branch="main")
                 print(f"✅ Arquivo '{ARQUIVO_SAIDA}' CRIADO com sucesso no GitHub!")
             else:
-                 print(f"❌ ERRO ao fazer commit no GitHub: {e}")
+                print(f"❌ ERRO ao fazer commit no GitHub: {e}")
 
     except Exception as e:
         print(f"❌ ERRO geral no GitHub: {e}")
@@ -156,8 +154,9 @@ def extrair_m3u8(url):
     try:
         print(f"🔎 [Canal {nome_canal}] Escaneando: {url}")
         
-        # Adicionar delay aleatório para evitar detecção de bot
-        time.sleep(random.uniform(1, 3))
+        # Adicionar delay aleatório e ligeiramente maior para evitar detecção de bot
+        delay = random.uniform(2.5, 5.0) 
+        time.sleep(delay)
         
         driver.get(url)
         
@@ -189,8 +188,8 @@ def extrair_m3u8(url):
         print(f"    ❌ [Canal {nome_canal}] ERRO GERAL: {e}")
         return None
     finally:
+        # Garante que o driver feche
         if driver:
-            # Garante que o driver feche, mesmo em caso de erro
             driver.quit()
 
 # ==============================================================================
@@ -206,7 +205,6 @@ def processar_lista_canais_paralelo():
 
     # Executa a função extrair_m3u8 em paralelo
     with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
-        # O executor.map é ideal para mapear a função sobre a lista de URLs
         resultados = list(executor.map(extrair_m3u8, URLS_CANAIS))
     
     # Filtra apenas os resultados válidos (que não são None)
@@ -238,5 +236,3 @@ def processar_lista_canais_paralelo():
 # ==============================================================================
 if __name__ == "__main__":
     processar_lista_canais_paralelo()
-
-
