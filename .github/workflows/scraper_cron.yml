@@ -17,6 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          # Use o token do Secret para permitir o commit de volta ao repo
           token: ${{ secrets.CRON_GITHUB_TOKEN }}
 
       # Passo 2: Configura o ambiente Python 3.10
@@ -25,17 +26,15 @@ jobs:
         with:
           python-version: '3.10' 
 
-      # PASSO 3 (NOVO): Instala o Chrome e o ChromeDriver (MAIS ESTÁVEL)
+      # PASSO 3: Instala o Chrome e o ChromeDriver (ESSENCIAL para Selenium headless)
       - name: Setup Google Chrome and ChromeDriver
-        uses: browser-actions/setup-chrome@v1 # Usa uma Action dedicada!
+        uses: browser-actions/setup-chrome@v1 
         with:
-          # Versão 'stable' garantida
           chrome-version: 'stable' 
 
-      # Passo 4: Instala as dependências Python (apenas Selenium e PyGithub)
+      # Passo 4: Instala as dependências Python
       - name: Install Python dependencies
         run: |
-          # Não precisa mais do webdriver-manager
           pip install selenium PyGithub
           
       # Passo 5: Executa o script Python
@@ -43,4 +42,5 @@ jobs:
         # 'env' injeta o Token que você salvou no Secret do GitHub
         env:
           CRON_GITHUB_TOKEN: ${{ secrets.CRON_GITHUB_TOKEN }}
+        # Nome do arquivo Python deve ser EXATO
         run: python scraper_canais.py
