@@ -57,6 +57,15 @@
                 width: 100%;
                 margin-bottom: 5px;
             }
+            
+            /* Ajustes para campos de upload em dispositivos móveis */
+            .form-group input[type="file"] {
+                font-size: 14px;
+            }
+            
+            .form-group small {
+                font-size: 0.8em;
+            }
         }
         .login-screen, .upload-screen { padding: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: bold; }
@@ -297,11 +306,12 @@
                 <div class="form-group">
                     <label for="dirInput">Importar Pasta (vários arquivos):</label>
                     <input type="file" id="dirInput" webkitdirectory directory multiple accept="audio/*">
-                    <small>Selecione a pasta que contém todos os MP3s (o navegador irá listar os arquivos). O sistema tentará extrair Título e Artista do nome do arquivo, ex: <code>MARCA (Autor).mp3</code>.</small>
+                    <small>Selecione a pasta que contém todos os MP3s (o navegador irá listar os arquivos). O sistema tentará extrair Título e Artista do nome do arquivo, ex: <code>MARCA (Autor).mp3</code>. Após selecionar, clique em "Cadastrar Todas as Músicas".</small>
                 </div>
                 <div class="form-group">
                     <label>Progresso de Importação:</label>
                     <div id="bulkProgress" style="font-size:0.9em; color:#666;">Aguardando seleção de pasta...</div>
+                    <button type="button" id="cadastrarEmMassaBtn" class="btn-submit" style="background:#4CAF50; margin-top:10px; display:none;">Cadastrar Todas as Músicas</button>
                 </div>
                 <hr style="margin: 20px 0;">
 

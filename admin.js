@@ -338,11 +338,59 @@ function setupUploadFormListener() {
     
     // Listener para o campo de diretório
     if (dirInput) {
-        dirInput.addEventListener('change', (e) => {
+        dirInput.addEventListener('change', async (e) => {
             const files = e.target.files;
             if (files.length > 0) {
                 bulkProgress.innerHTML = `Processando ${files.length} arquivos...`;
-                // Aqui você pode adicionar a lógica para processar múltiplos arquivos
+                
+                // Armazena os arquivos processados
+                window.processedFiles = [];
+                
+                // Processa cada arquivo individualmente
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    
+                    // Verifica se é um arquivo MP3
+                    if (file.name.toLowerCase().endsWith('.mp3')) {
+                        try {
+                            // Atualiza o progresso
+                            bulkProgress.innerHTML = `Processando ${i + 1} de ${files.length}: ${file.name}`;
+                            
+                            // Extrai título e artista do nome do arquivo
+                            const { titulo, artista } = parseFileName(file.name);
+                            
+                            // Procura partitura automaticamente
+                            const partituraUrl = await procurarPartitura(titulo);
+                            const convertedUrl = partituraUrl ? convertGitHubToJsDelivr(partituraUrl) : null;
+                            
+                            // Armazena os dados do arquivo processado
+                            window.processedFiles.push({
+                                titulo,
+                                artista,
+                                partitura: convertedUrl,
+                                arquivo: file.name
+                            });
+                            
+                            // Pequeno delay para evitar sobrecarga
+                            await new Promise(resolve => setTimeout(resolve, 100));
+                        } catch (error) {
+                            console.error(`Erro ao processar arquivo ${file.name}:`, error);
+                        }
+                    }
+                }
+                
+                // Finaliza o processo
+                bulkProgress.innerHTML = `Processamento concluído! ${window.processedFiles.length} arquivos MP3 encontrados.`;
+                
+                // Mostra o botão de cadastro em massa se houver arquivos
+                const cadastrarEmMassaBtn = document.getElementById('cadastrarEmMassaBtn');
+                if (window.processedFiles.length > 0) {
+                    cadastrarEmMassaBtn.style.display = 'block';
+                    showMessage(`${window.processedFiles.length} arquivos MP3 processados com sucesso! Clique em "Cadastrar Todas as Músicas" para registrar todas.`, 'success');
+                } else {
+                    cadastrarEmMassaBtn.style.display = 'none';
+                    showMessage('Nenhum arquivo MP3 encontrado na pasta selecionada.', 'alert-error');
+                }
             }
         });
     }
@@ -357,6 +405,73 @@ function setupUploadFormListener() {
                 document.getElementById('partituraFileStatus').style.color = 'green';
             } else {
                 document.getElementById('partituraFileStatus').textContent = '';
+            }
+        });
+    }
+    
+    // Listener para o botão de cadastro em massa
+    const cadastrarEmMassaBtn = document.getElementById('cadastrarEmMassaBtn');
+    if (cadastrarEmMassaBtn) {
+        cadastrarEmMassaBtn.addEventListener('click', async () => {
+            if (!window.processedFiles || window.processedFiles.length === 0) {
+                showMessage('Nenhum arquivo para cadastrar.', 'alert-error');
+                return;
+            }
+            
+            // Desabilita o botão durante o processo
+            cadastrarEmMassaBtn.disabled = true;
+            cadastrarEmMassaBtn.textContent = 'Cadastrando...';
+            
+            try {
+                let cadastradas = 0;
+                
+                // Cadastra cada música processada
+                for (let i = 0; i < window.processedFiles.length; i++) {
+                    const fileData = window.processedFiles[i];
+                    
+                    // Atualiza o progresso
+                    bulkProgress.innerHTML = `Cadastrando ${i + 1} de ${window.processedFiles.length}: ${fileData.titulo}`;
+                    
+                    try {
+                        // Adiciona o documento ao Firestore
+                        await addDoc(collection(db, 'musicas'), {
+                            titulo: fileData.titulo,
+                            artista: fileData.artista,
+                            data: new Date(document.getElementById('data').value),
+                            partitura: fileData.partitura,
+                            nova: document.getElementById('nova').checked,
+                            arquivo: fileData.arquivo
+                        });
+                        
+                        cadastradas++;
+                    } catch (error) {
+                        console.error(`Erro ao cadastrar música ${fileData.titulo}:`, error);
+                    }
+                }
+                
+                // Finaliza o processo
+                bulkProgress.innerHTML = `Cadastro em massa concluído! ${cadastradas} de ${window.processedFiles.length} músicas cadastradas.`;
+                
+                // Reabilita o botão
+                cadastrarEmMassaBtn.disabled = false;
+                cadastrarEmMassaBtn.textContent = 'Cadastrar Todas as Músicas';
+                
+                // Limpa os dados processados
+                window.processedFiles = [];
+                cadastrarEmMassaBtn.style.display = 'none';
+                
+                // Mostra mensagem de sucesso
+                showMessage(`${cadastradas} músicas cadastradas com sucesso!`, 'success');
+                
+                // Recarrega a lista de músicas
+                carregarMusicasAdmin();
+            } catch (error) {
+                console.error('Erro no cadastro em massa:', error);
+                showMessage('Erro ao cadastrar músicas em massa. Tente novamente.', 'error');
+                
+                // Reabilita o botão em caso de erro
+                cadastrarEmMassaBtn.disabled = false;
+                cadastrarEmMassaBtn.textContent = 'Cadastrar Todas as Músicas';
             }
         });
     }
