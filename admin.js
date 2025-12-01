@@ -466,63 +466,77 @@ async function carregarMusicasAdmin() {
     if (!musicasAdminList) return;
     
     try {
-        musicasAdminList.innerHTML = '<div style="text-align:center; color:#888; padding:16px;">Carregando músicas...</div>';
+        musicasAdminList.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#888; padding:20px;">Carregando músicas...</td></tr>';
         
         // Consulta as músicas ordenadas por data descendente
         const q = query(collection(db, 'musicas'), orderBy('data', 'desc'));
         const querySnapshot = await getDocs(q);
         
+        // Atualiza as estatísticas
+        atualizarEstatisticas(querySnapshot);
+        
         if (querySnapshot.empty) {
-            musicasAdminList.innerHTML = '<div style="text-align:center; color:#888; padding:16px;">Nenhuma música cadastrada.</div>';
+            musicasAdminList.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#888; padding:20px;">Nenhuma música cadastrada.</td></tr>';
             return;
         }
         
-        // Monta a tabela com as músicas
-        let tableHtml = `
-            <table>
-                <thead>
-                    <tr>
-                        <th>Título</th>
-                        <th>Artista</th>
-                        <th>Data</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-        `;
+        // Monta a tabela com as músicas numeradas
+        let tableHtml = '';
+        let numero = 1;
         
         querySnapshot.forEach((doc) => {
             const musica = doc.data();
             const dataFormatada = musica.data ? new Date(musica.data.seconds * 1000).toLocaleDateString('pt-BR') : 'N/A';
             
-            // Define a cor do botão de partituras com base na existência de partitura
-            const partituraButtonClass = musica.partitura ? 'btn-partitura-exists' : 'btn-partitura-none';
-            const partituraButtonText = musica.partitura ? 'Partituras (Editar)' : 'Partituras (Adicionar)';
+            // Define a classe do botão de partituras com base na existência de partitura
+            const partituraButtonClass = musica.partitura ? 'btn-partitura-existente' : 'btn-partitura';
+            const partituraButtonText = musica.partitura ? 'Editar Partitura' : 'Adicionar Partitura';
             
             tableHtml += `
                 <tr>
-                    <td>${musica.titulo || 'N/A'}</td>
-                    <td>${musica.artista || 'N/A'}</td>
-                    <td>${dataFormatada}</td>
-                    <td>
-                        <button class="btn-edit" onclick="editarMusica('${doc.id}')">Editar</button>
-                        <button class="btn-remove" onclick="removerMusica('${doc.id}')">Remover</button>
-                        <button class="${partituraButtonClass}" onclick="gerenciarPartitura('${doc.id}')">${partituraButtonText}</button>
+                    <td class="numero">${numero}</td>
+                    <td class="titulo">${musica.titulo || 'N/A'}</td>
+                    <td class="artista">${musica.artista || 'N/A'}</td>
+                    <td class="data">${dataFormatada}</td>
+                    <td class="acoes-cell">
+                        <button class="btn-acao btn-editar" onclick="editarMusica('${doc.id}')">Editar</button>
+                        <button class="btn-acao btn-remover" onclick="removerMusica('${doc.id}')">Remover</button>
+                        <button class="btn-acao ${partituraButtonClass}" onclick="gerenciarPartitura('${doc.id}')">${partituraButtonText}</button>
                     </td>
                 </tr>
             `;
+            
+            numero++;
         });
-        
-        tableHtml += `
-                </tbody>
-            </table>
-        `;
         
         musicasAdminList.innerHTML = tableHtml;
     } catch (error) {
         console.error("Erro ao carregar músicas:", error);
-        musicasAdminList.innerHTML = '<div style="text-align:center; color:#d43c3c; padding:16px;">Erro ao carregar músicas.</div>';
+        musicasAdminList.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#d43c3c; padding:20px;">Erro ao carregar músicas.</td></tr>';
     }
+}
+
+// Função para atualizar as estatísticas
+function atualizarEstatisticas(querySnapshot) {
+    const totalMusicas = querySnapshot.size;
+    
+    let novasMusicas = 0;
+    let musicasComPartitura = 0;
+    
+    querySnapshot.forEach((doc) => {
+        const musica = doc.data();
+        if (musica.nova) novasMusicas++;
+        if (musica.partitura) musicasComPartitura++;
+    });
+    
+    // Atualiza os elementos de estatísticas
+    document.getElementById('totalMusicas').textContent = totalMusicas;
+    document.getElementById('novasMusicas').textContent = novasMusicas;
+    document.getElementById('musicasComPartitura').textContent = musicasComPartitura;
+    
+    // Atualiza o contador no título
+    const textoPlural = totalMusicas === 1 ? 'música' : 'músicas';
+    document.getElementById('totalMusicasHeader').textContent = `(${totalMusicas} ${textoPlural})`;
 }
 
 // Função para editar uma música
@@ -653,7 +667,7 @@ window.removerMusica = async function(musicaId) {
     try {
         await deleteDoc(doc(db, 'musicas', musicaId));
         showMessage('Música removida com sucesso!', 'success');
-        carregarMusicasAdmin(); // Recarrega a lista
+        await carregarMusicasAdmin(); // Recarrega a lista
     } catch (error) {
         console.error("Erro ao remover música:", error);
         showMessage('❌ Erro ao remover música. Tente novamente.', 'error');
@@ -758,7 +772,7 @@ window.gerenciarPartitura = async function(musicaId) {
                     
                     showMessage('Partitura atualizada com sucesso!', 'success');
                     modal.remove();
-                    carregarMusicasAdmin(); // Recarrega a lista
+                    await carregarMusicasAdmin(); // Recarrega a lista
                 } catch (error) {
                     console.error("Erro ao atualizar partitura:", error);
                     showMessage('❌ Erro ao atualizar partitura. Tente novamente.', 'error');
@@ -775,7 +789,7 @@ window.gerenciarPartitura = async function(musicaId) {
                         
                         showMessage('Partitura removida com sucesso!', 'success');
                         modal.remove();
-                        carregarMusicasAdmin(); // Recarrega a lista
+                        await carregarMusicasAdmin(); // Recarrega a lista
                     } catch (error) {
                         console.error("Erro ao remover partitura:", error);
                         showMessage('❌ Erro ao remover partitura. Tente novamente.', 'error');
