@@ -365,6 +365,14 @@ function setupUploadFormListener() {
     uploadForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
+        // Verifica se estamos no modo de edição
+        const musicaId = uploadForm.getAttribute('data-editing-id');
+        if (musicaId) {
+            // Estamos no modo de edição
+            await atualizarMusica(musicaId);
+            return;
+        }
+        
         // Coleta os dados do formulário
         const titulo = document.getElementById('titulo').value;
         const artista = document.getElementById('artista').value;
@@ -546,26 +554,12 @@ window.editarMusica = async function(musicaId) {
             document.getElementById('partituraFile').value = '';
             document.getElementById('partituraFileStatus').textContent = '';
             
-            // Armazena o ID da música sendo editada em um atributo oculto
-            let hiddenIdInput = document.getElementById('editingMusicId');
-            if (!hiddenIdInput) {
-                hiddenIdInput = document.createElement('input');
-                hiddenIdInput.type = 'hidden';
-                hiddenIdInput.id = 'editingMusicId';
-                document.getElementById('uploadForm').appendChild(hiddenIdInput);
-            }
-            hiddenIdInput.value = musicaId;
+            // Armazena o ID da música sendo editada em um atributo data
+            uploadForm.setAttribute('data-editing-id', musicaId);
             
             // Altera o texto do botão de submit
             const submitButton = document.querySelector('#uploadForm .btn-submit');
             submitButton.textContent = 'Atualizar Música';
-            
-            // Substitui o evento de submit para atualizar em vez de criar nova
-            const originalSubmitHandler = uploadForm.onsubmit;
-            uploadForm.onsubmit = async function(e) {
-                e.preventDefault();
-                await atualizarMusica(musicaId);
-            };
             
             // Exibe mensagem de sucesso
             showMessage('Música carregada para edição. Faça as alterações e clique em "Atualizar Música".', 'success');
@@ -624,18 +618,12 @@ async function atualizarMusica(musicaId) {
             nova: nova || false
         });
         
-        // Restaura o formulário e o botão
+        // Remove o atributo de ID de edição
+        uploadForm.removeAttribute('data-editing-id');
+        
+        // Restaura o texto do botão de submit
         const submitButton = document.querySelector('#uploadForm .btn-submit');
         submitButton.textContent = 'Cadastrar Música';
-        
-        // Remove o campo oculto de ID
-        const hiddenIdInput = document.getElementById('editingMusicId');
-        if (hiddenIdInput) {
-            hiddenIdInput.remove();
-        }
-        
-        // Restaura o handler original do formulário
-        uploadForm.onsubmit = null;
         
         showMessage('Música atualizada com sucesso!', 'success');
         uploadForm.reset();
@@ -811,10 +799,7 @@ window.novaMusica = function() {
     document.getElementById('partituraFileStatus').textContent = '';
     
     // Remove o modo de edição se estiver ativo
-    const hiddenIdInput = document.getElementById('editingMusicId');
-    if (hiddenIdInput) {
-        hiddenIdInput.remove();
-    }
+    uploadForm.removeAttribute('data-editing-id');
     
     // Restaura o texto do botão de submit
     const submitButton = document.querySelector('#uploadForm .btn-submit');
@@ -855,35 +840,6 @@ document.getElementById('titulo').addEventListener('blur', async (e) => {
 document.getElementById('artista').addEventListener('blur', async (e) => {
     const artista = e.target.value;
     const titulo = document.getElementById('titulo').value;
-    
-    if (titulo && artista) {
-        // Combina título e artista para uma busca mais precisa
-        const buscaCombinada = `${titulo} ${artista}`;
-        
-        // Limpa qualquer valor anterior no campo de link
-        document.getElementById('partitura').value = '';
-        
-        // Procura partitura automaticamente
-        const partituraUrl = await procurarPartitura(buscaCombinada);
-        if (partituraUrl) {
-            const convertedUrl = convertGitHubToJsDelivr(partituraUrl);
-            document.getElementById('partitura').value = convertedUrl;
-            document.getElementById('partituraStatus').textContent = `Partitura encontrada automaticamente: ${convertedUrl}`;
-            document.getElementById('partituraStatus').style.color = 'green';
-        } else {
-            document.getElementById('partituraStatus').textContent = 'Nenhuma partitura encontrada automaticamente.';
-            document.getElementById('partituraStatus').style.color = 'orange';
-        }
-    }
-});
-
-// Adiciona listener para procurar partituras quando o botão de submit é clicado
-document.querySelector('#uploadForm .btn-submit').addEventListener('click', async (e) => {
-    e.preventDefault();
-    
-    // Coleta os dados do formulário
-    const titulo = document.getElementById('titulo').value;
-    const artista = document.getElementById('artista').value;
     
     if (titulo && artista) {
         // Combina título e artista para uma busca mais precisa
