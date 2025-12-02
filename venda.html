@@ -203,6 +203,24 @@
       50%{transform:scale(1.05);box-shadow: 0 6px 25px rgba(229, 57, 53, 0.4);}
       100%{transform:scale(1);box-shadow: 0 4px 20px rgba(229, 57, 53, 0.3);}
     }
+    
+    /* Animações para a notificação */
+    @keyframes slideInDown {
+      0% {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes notificationPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
     .original-price{
       opacity:.85;
       text-decoration:line-through;
@@ -570,6 +588,27 @@
 
 <body>
 
+  <!-- Notificação de promoção estendida -->
+  <div id="promoNotification" style="
+    background: linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
+    color: #1a237e;
+    text-align: center;
+    padding: 15px 20px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    animation: slideInDown 0.8s ease-out, notificationPulse 2s infinite;
+    border-bottom: 3px solid #e53935;
+  ">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+      <span style="font-size: 1.4rem;">🎉</span>
+      <span>PROMOÇÃO ESTENDIDA! Black Friday agora vai até 31 de dezembro! Aproveite os preços especiais!</span>
+      <span style="font-size: 1.4rem;">🔥</span>
+    </div>
+  </div>
+  
   <header>
     <div class="container">
       <h1>Base de Chorinho</h1>
@@ -609,7 +648,7 @@
       <p class="original-price" aria-hidden="true">De: R$ 350 (primeiro mês) + R$ 100/mês</p>
       <p class="promo-price"><span class="primeiro">Por apenas R$ 120 no primeiro mês</span><br><span style="font-size:1.2rem;color:#ffd700">e R$ 50 nos próximos!</span></p>
 
-      <p class="promo-details">Acesso ilimitado + nova música toda semana. <strong>Oferta válida apenas até 1º de dezembro!</strong></p>
+      <p class="promo-details">Acesso ilimitado + nova música toda semana. <strong>Oferta válida apenas até 31 de dezembro!</strong></p>
 
       <div id="countdown" aria-live="polite" aria-atomic="true">Aguardando Contagem...</div>
 
@@ -828,9 +867,9 @@
   </footer>
 
   <script>
-    // Contador até 1º de dezembro de 2025 23:59:59
+    // Contador até 31 de dezembro de 2025 23:59:59
     const countdownEl = document.getElementById('countdown');
-    const countdownDate = new Date('2025-12-01T23:59:59').getTime();
+    const countdownDate = new Date('2025-12-31T23:59:59').getTime();
 
     function updateCountdown() {
       const now = Date.now();
