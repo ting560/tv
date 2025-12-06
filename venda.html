@@ -22,12 +22,10 @@
     /* Header / Footer */
     header, footer{background:linear-gradient(135deg, #1a237e 0%, #3949ab 100%);color:#fff}
     
-    /* CORREÇÃO DE LEGIBILIDADE PARA HEADER E FOOTER */
     header p, header strong, footer p, footer strong, footer a { 
-        color: #fff !important; /* Força todo o texto para branco */
-        opacity: 1 !important; /* Garante que não haja transparência excessiva */
+        color: #fff !important; 
+        opacity: 1 !important; 
     }
-    /* Exceção: Links do footer com cor mais clara para contraste, mas ainda legíveis */
     footer a { 
         color: #e8eaf6 !important; 
     }
@@ -53,7 +51,7 @@
       margin-bottom:8px;
       text-shadow: 0 2px 8px rgba(0,0,0,0.2);
       position: relative;
-      color: #fff !important; /* Força o H1 para branco */
+      color: #fff !important;
     }
     header p{
       font-size:1.1rem;
@@ -66,8 +64,6 @@
     footer p{max-width:800px;margin:0 auto 12px;}
     footer a{color:#e8eaf6;margin:0 12px;text-decoration:none;font-weight:500}
     footer a:hover{color:#fff;text-decoration:underline}
-    /* FIM DAS CORREÇÕES DE LEGIBILIDADE */
-
 
     /* Sections */
     section{padding:64px 0;position:relative}
@@ -132,6 +128,23 @@
       box-shadow:0 8px 25px rgba(229, 57, 53, 0.4);
     }
 
+    /* --- NOVO: Botão Secundário para o Tour --- */
+    .btn--secondary {
+      background: transparent;
+      border: 2px solid #1a237e;
+      color: #1a237e;
+      box-shadow: none;
+    }
+    .btn--secondary:hover {
+      background: #1a237e;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(26, 35, 126, 0.2);
+    }
+    .btn--secondary::before {
+      display: none;
+    }
+    /* ------------------------------------------ */
+
     /* Intro (vídeo + texto) */
     #intro{
       background:linear-gradient(135deg, #f9fafb 0%, #eef2f7 100%);
@@ -163,6 +176,23 @@
       transform: none;
     }
     .intro-text p{font-size:1.1rem;color:#4b5563;line-height:1.8}
+
+    /* --- NOVO: Estilo da Seção de Tour --- */
+    #tour-virtual {
+      background: #fff;
+      border-top: 1px solid #e8eaf6;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .tour-box {
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    /* ------------------------------------ */
 
     /* Hero promocional */
     #hero{
@@ -204,16 +234,9 @@
       100%{transform:scale(1);box-shadow: 0 4px 20px rgba(229, 57, 53, 0.3);}
     }
     
-    /* Animações para a notificação */
     @keyframes slideInDown {
-      0% {
-        transform: translateY(-100%);
-        opacity: 0;
-      }
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      0% { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
     }
     
     @keyframes notificationPulse {
@@ -250,15 +273,15 @@
         color: #ffd700;
     }
 
-    /* NOVO CSS PARA FORMATAR O CRONÔMETRO COM TEXTO */
+    /* Cronômetro */
     #countdown{
-      display:flex; /* Usa flexbox para alinhar os blocos */
+      display:flex; 
       justify-content:center;
       gap:20px;
       font-weight:800;
       margin-bottom:24px;
       color: #fff;
-      flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
+      flex-wrap: wrap; 
     }
     .timer-unit{
       background:rgba(255,255,255,0.1);
@@ -272,7 +295,7 @@
       display:block;
       font-size:2rem;
       font-weight:900;
-      color:#ffd700; /* Número em destaque */
+      color:#ffd700; 
       line-height: 1;
       margin-bottom: 4px;
     }
@@ -284,38 +307,25 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-    /* FIM NOVO CSS PARA CRONÔMETRO */
-
 
     /* Banner da Black Friday */
     .black-friday-banner {
       width: 100%;
-      max-width: 100%; /* Garante que ocupe a largura total */
-      display: block; /* Remove espaços extras abaixo da imagem */
+      max-width: 100%;
+      display: block; 
       height: auto;
-      margin: 40px auto; /* Espaçamento para cima e para baixo */
-      border-radius: 12px; /* Bordas arredondadas */
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); /* Sombra suave */
-      animation: pulse-banner 2s infinite ease-in-out; /* Animação de pulso */
-      cursor: pointer; /* Indica que é clicável */
+      margin: 40px auto; 
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      animation: pulse-banner 2s infinite ease-in-out;
+      cursor: pointer;
     }
 
-    /* Animação para o banner */
     @keyframes pulse-banner {
-      0% {
-        transform: scale(1);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-      }
-      50% {
-        transform: scale(1.01);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-      }
-      100% {
-        transform: scale(1);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-      }
+      0% { transform: scale(1); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); }
+      50% { transform: scale(1.01); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2); }
+      100% { transform: scale(1); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); }
     }
-
 
     /* Benefits */
     .benefits{
@@ -532,18 +542,16 @@
       .intro-text{order:2}
       .intro-video{order:1}
       .promo-price{font-size:2rem}
-      /* Ajuste responsivo para o novo cronômetro */
       #countdown{gap:10px}
       .timer-unit{padding:8px 10px; min-width: 60px;}
       .timer-unit .number{font-size:1.5rem}
       .timer-unit .label{font-size:0.7rem}
-      /* Fim Ajuste responsivo para o novo cronômetro */
       .players{grid-template-columns:1fr}
       .promo-price{font-size:2.2rem}
       .price{font-size:2rem}
       h2{font-size:1.8rem}
       .black-friday-banner {
-          margin: 20px auto; /* Reduz o espaçamento em telas menores */
+          margin: 20px auto; 
           border-radius: 8px;
       }
     }
@@ -559,25 +567,15 @@
 
     /* Animações adicionais */
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .benefit-item, .player-item, .testimonial, .step {
       animation: fadeInUp 0.6s ease-out;
     }
 
-    /* Ícones para benefícios */
-    .benefit-item h3::before {
-      content: '🎵';
-      font-size: 1.5rem;
-    }
+    .benefit-item h3::before { content: '🎵'; font-size: 1.5rem; }
     .benefit-item:nth-child(2) h3::before { content: '📅'; }
     .benefit-item:nth-child(3) h3::before { content: '▶️'; }
     .benefit-item:nth-child(4) h3::before { content: '📋'; }
@@ -588,7 +586,6 @@
 
 <body>
 
-  <!-- Notificação de promoção estendida -->
   <div id="promoNotification" style="
     background: linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
     color: #1a237e;
@@ -640,6 +637,32 @@
     </div>
   </section>
 
+  <section id="tour-virtual" aria-labelledby="demo-title">
+    <div class="container">
+      <div class="tour-box">
+        <h2 id="demo-title" style="font-size: 1.8rem; margin-bottom: 16px; padding-bottom: 0;">Quer ver como a plataforma é por dentro?</h2>
+        <h2 style="font-size: 1.8rem; margin-bottom: 16px; border:none; padding-bottom:0;">👀</h2>
+        
+        <p style="margin: 0 auto 24px;">
+          Queremos que você tenha certeza da sua compra. Por isso, liberamos um acesso de <strong>visitante</strong> para você navegar pelo site, 
+          ver todas as categorias e conhecer a organização do nosso acervo.
+        </p>
+
+        <div style="background: #eef2f7; display: inline-block; padding: 12px 24px; border-radius: 8px; margin-bottom: 24px; border: 1px solid #cbd5e1;">
+          <p style="margin: 0; font-size: 0.95rem; color: #475569;">
+            <strong>ℹ️ Como funciona:</strong> Neste site de teste você pode visualizar tudo, <br>
+            mas os <em>players de música e as Partituras estão desativados</em>.
+          </p>
+        </div>
+
+        <div>
+          <a class="btn btn--secondary" href="https://www.basesdechorinho.com.br/" target="_blank" rel="noopener noreferrer">
+            FAZER UM TOUR VISUAL AGORA
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
   <section id="hero" aria-labelledby="promo-title">
     <div class="container">
       <div class="promo-badge" role="status" aria-live="polite">PROMOÇÃO RELÂMPAGO</div>
@@ -886,36 +909,28 @@
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      // --- MUDANÇA AQUI: NOVO FORMATO COM TEXTO ---
       countdownEl.innerHTML =
-        // Dias
         `<div class="timer-unit">
           <span class="number">${String(days).padStart(2,'0')}</span>
           <span class="label">Dias</span>
         </div>` +
-        // Horas
         `<div class="timer-unit">
           <span class="number">${String(hours).padStart(2,'0')}</span>
           <span class="label">Horas</span>
         </div>` +
-        // Minutos
         `<div class="timer-unit">
           <span class="number">${String(minutes).padStart(2,'0')}</span>
           <span class="label">Minutos</span>
         </div>` +
-        // Segundos (opcional, mantido para completar o formato do cronômetro)
         `<div class="timer-unit">
           <span class="number">${String(seconds).padStart(2,'0')}</span>
           <span class="label">Segundos</span>
         </div>`;
-        // ------------------------------------------
     }
 
-    // Atualiza imediatamente e depois a cada segundo
     updateCountdown();
     const timer = setInterval(updateCountdown, 1000);
 
-    // Limpeza caso já tenha expirado
     if (Date.now() > countdownDate) {
       clearInterval(timer);
       countdownEl.textContent = 'OFERTA ENCERRADA';
