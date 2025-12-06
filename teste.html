@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chorinho Premium 🎶 - Conteúdo Exclusivo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo-with-image">
+                Chorinho Premium 
+            </div>
+            <div class="nav-links">
+                <!-- Botão de logout removido pois não é necessário nesta página -->
+            </div>
+        </nav>
+    </header>
+
+    <div id="message"></div>
+    
+    <!-- Conteúdo principal da página -->
+    <main class="app-container" id="app-container">
+        <section class="hero">
+            <h1>Bem-vindo ao Clube do Chorinho</h1>
+            <p>O melhor acervo de músicas exclusivas, atualizado semanalmente.</p>
+        </section>
+
+        <section class="music-list-section">
+            <h2>Lançamentos e Clássicos</h2>
+                <div style="text-align:center; margin-bottom:16px;">
+                    <button id="openPlayerListBtn" style="padding:12px 24px; border-radius:8px; background:#222; color:#fff; font-size:1rem; border:none; cursor:pointer; font-weight:600;">Abrir Player Lista</button>
+                </div>
+            <div class="music-controls" style="margin-bottom:24px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:center;">
+                <input type="text" id="searchInput" placeholder="Buscar música ou artista..." style="padding:10px; border-radius:6px; border:1px solid #ccc; min-width:220px;">
+                <select id="orderSelect" style="padding:10px; border-radius:6px; border:1px solid #ccc;">
+                    <option value="recent">Recém adicionadas</option>
+                    <option value="alpha">Ordem alfabética (título)</option>
+                    <option value="artista">Por artista</option>
+                </select>
+            </div>
+            
+            <div class="music-grid" id="musicList">
+                </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Chorinho Premium by Cristiano Ferreira | Música de qualidade.</p>
+    </footer>
+
+    <div id="playerListModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; animation:fadeIn 0.3s;">
+        <div class="modal-player-content">
+            <button id="closePlayerListModal" class="modal-close-button">&times;</button>
+            <h3 class="modal-title">Sua Lista de Reprodução</h3>
+            
+            <div id="modalPlayerControls" class="modal-player-controls">
+                </div>
+            
+            <div class="modal-music-list" id="modalMusicList">
+                </div>
+        </div>
+    </div>
+    
+    <div id="sheetModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); z-index:10000; align-items:center; justify-content:center;">
+        <div class="sheet-modal-content">
+            <button id="closeSheetModal" class="modal-close-button" style="color: white; border: 2px solid white; border-radius: 50%; width: 30px; height: 30px; line-height: 1; padding: 0;">&times;</button>
+            <iframe id="sheetViewer" src="" frameborder="0" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+
+    <!-- Modal de redirecionamento -->
+    <div id="redirectModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); z-index:10001; align-items:center; justify-content:center;">
+        <div style="background:#fff; padding:30px; border-radius:10px; max-width:500px; width:90%; text-align:center;">
+            <h3 style="margin-bottom:20px; color:#333;">Acesso Exclusivo</h3>
+            <p style="margin-bottom:25px; color:#666;">Para ouvir, adicionar à lista ou acessar partituras, você precisa fazer parte do nosso clube.</p>
+            <button id="redirectToVenda" style="padding:12px 24px; background:#ff6b6b; color:#fff; border:none; border-radius:6px; font-size:1rem; cursor:pointer; font-weight:600;">Acessar a Plataforma</button>
+            <button id="closeRedirectModal" style="margin-left:15px; padding:12px 24px; background:#ccc; color:#333; border:none; border-radius:6px; font-size:1rem; cursor:pointer;">Cancelar</button>
+        </div>
+    </div>
+
+    <style>
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal-player-content { 
+            background: var(--background-light); 
+            padding: 30px; 
+            border-radius: 12px; 
+            max-width: 500px; 
+            width: 90%; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            max-height: 90vh; 
+            overflow-y: auto;
+        }
+        .modal-close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+        }
+        .modal-title {
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        #modalAudioPlayer {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .modal-music-list { width: 100%; margin-top: 10px; max-height: 200px; overflow-y: auto; padding-right: 5px; }
+        .modal-music-list > div { 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            margin-bottom: 8px; 
+            background: #fff; 
+            border-radius: 8px; 
+            padding: 8px 12px; 
+            box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+        }
+        .modal-music-list span { flex: 1; font-size: 0.9em; }
+        
+        .modal-music-list button { 
+            border: none; 
+            border-radius: 4px; 
+            padding: 4px 8px; 
+            cursor: pointer; 
+            font-size: 0.8rem; 
+            transition: background 0.2s; 
+        }
+        .modal-music-list button.remove { background: #ff5252; color:#fff; }
+        .modal-music-list button.remove:hover { background: #e53935; }
+        .modal-music-list button:not(.remove) { background: #667eea; color:#fff; }
+        .modal-music-list button:not(.remove):hover { background: #5a6edb; }
+        .modal-music-list button:disabled { background: #bdbdbd; cursor: not-allowed; }
+        
+        @media (max-width: 600px) { 
+            .modal-player-content { max-width: 98vw; padding: 18px 4vw 12px 4vw; } 
+            .modal-title { font-size: 1.3rem; } 
+            .modal-music-list > div { font-size: 0.95rem; } 
+        }
+        
+        /* Estilos do Modal de Partitura */
+        .sheet-modal-content {
+            background: var(--background-dark); 
+            padding: 10px; 
+            border-radius: 12px; 
+            max-width: 90%; 
+            max-height: 90%; 
+            width: 900px; 
+            height: 90vh;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        #closeSheetModal {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: 1.5rem;
+            background: #ff6b6b;
+            z-index: 10001; 
+            color: white !important;
+        }
+        @media (max-width: 768px) {
+             .sheet-modal-content {
+                max-width: 95%; 
+                max-height: 95%; 
+                height: 95vh;
+             }
+             #closeSheetModal {
+                top: 5px; 
+                right: 5px;
+                background: #ff6b6b;
+             }
+        }
+    </style>
+
+    <script>
+        // Função para carregar a lista de músicas
+        function loadMusicList() {
+            const musicListContainer = document.getElementById('musicList');
+            musicListContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #888;">Carregando músicas...</p>';
+            
+            // Simular carregamento de músicas (em uma implementação real, isso viria do Firebase)
+            setTimeout(() => {
+                // Dados de músicas atualizados
+                const musicas = [
+                    {
+                        titulo: "WAVE",
+                        artista: "Tom Jobim",
+                        data: "2025-11-11",
+                        arquivo: "wave.mp3",
+                        partitura: "https://exemplo.com/partituras/wave.pdf"
+                    },
+                    {
+                        titulo: "VOU VIVENDO",
+                        artista: "em tom de G",
+                        data: "2025-11-11",
+                        arquivo: "vou-vivendo-g.mp3",
+                        partitura: "https://exemplo.com/partituras/vou-vivendo-g.pdf"
+                    },
+                    {
+                        titulo: "VOU VIVENDO",
+                        artista: "em tom de F",
+                        data: "2025-11-11",
+                        arquivo: "vou-vivendo-f.mp3",
+                        partitura: "https://exemplo.com/partituras/vou-vivendo-f.pdf"
+                    },
+                    {
+                        titulo: "VIBRAÇÕES",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "vibracoes.mp3",
+                        partitura: "https://exemplo.com/partituras/vibracoes.pdf"
+                    },
+                    {
+                        titulo: "VE SE GOSTAS",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "ve-se-gostas.mp3",
+                        partitura: "https://exemplo.com/partituras/ve-se-gostas.pdf"
+                    },
+                    {
+                        titulo: "VAMOS ACABAR COM O BAILE",
+                        artista: "Garoto",
+                        data: "2025-11-11",
+                        arquivo: "vamos-acabar-com-o-baile.mp3",
+                        partitura: "https://exemplo.com/partituras/vamos-acabar-com-o-baile.pdf"
+                    },
+                    {
+                        titulo: "URUBU MALANDRO",
+                        artista: "Lourival Ignácio de Carvalho",
+                        data: "2025-11-11",
+                        arquivo: "urubu-malandro.mp3",
+                        partitura: "https://exemplo.com/partituras/urubu-malandro.pdf"
+                    },
+                    {
+                        titulo: "UM CHORINHO PRA VOCE",
+                        artista: "Severino Araújo",
+                        data: "2025-11-11",
+                        arquivo: "um-chorinho-pra-voce.mp3",
+                        partitura: "https://exemplo.com/partituras/um-chorinho-pra-voce.pdf"
+                    },
+                    {
+                        titulo: "UM A ZERO",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "um-a-zero.mp3",
+                        partitura: "https://exemplo.com/partituras/um-a-zero.pdf"
+                    },
+                    {
+                        titulo: "TREM DAS 11",
+                        artista: "Adoniram Barbosa",
+                        data: "2025-11-11",
+                        arquivo: "trem-das-11.mp3",
+                        partitura: "https://exemplo.com/partituras/trem-das-11.pdf"
+                    },
+                    {
+                        titulo: "TICO TICO NO FUBÁ",
+                        artista: "Zequinha Abreu",
+                        data: "2025-11-11",
+                        arquivo: "tico-tico.mp3",
+                        partitura: "https://exemplo.com/partituras/tico-tico.pdf"
+                    },
+                    {
+                        titulo: "TARANTELA",
+                        artista: "Luigi Ricci",
+                        data: "2025-11-11",
+                        arquivo: "tarantela.mp3",
+                        partitura: "https://exemplo.com/partituras/tarantela.pdf"
+                    },
+                    {
+                        titulo: "SUPLICA CEARENSE",
+                        artista: "Gordurinha",
+                        data: "2025-11-11",
+                        arquivo: "suplica-cearense.mp3",
+                        partitura: "https://exemplo.com/partituras/suplica-cearense.pdf"
+                    },
+                    {
+                        titulo: "SONOROSO",
+                        artista: "K-Ximbinho",
+                        data: "2025-11-11",
+                        arquivo: "sonoroso.mp3",
+                        partitura: "https://exemplo.com/partituras/sonoroso.pdf"
+                    },
+                    {
+                        titulo: "SOM DE CARRILHOES",
+                        artista: "Artista Desconhecido",
+                        data: "2025-11-11",
+                        arquivo: "som-de-carrilhoes.mp3",
+                        partitura: "https://exemplo.com/partituras/som-de-carrilhoes.pdf"
+                    },
+                    {
+                        titulo: "SOLUÇOS",
+                        artista: "Pixinguinha e Benedito Lacerda",
+                        data: "2025-11-11",
+                        arquivo: "solucos.mp3",
+                        partitura: "https://exemplo.com/partituras/solucos.pdf"
+                    },
+                    {
+                        titulo: "SOBE E DESCE",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "sobe-e-desce.mp3",
+                        partitura: "https://exemplo.com/partituras/sobe-e-desce.pdf"
+                    },
+                    {
+                        titulo: "SIMPLICIDADE",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "simplicidade.mp3",
+                        partitura: "https://exemplo.com/partituras/simplicidade.pdf"
+                    },
+                    {
+                        titulo: "SENTIDO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "sentido.mp3",
+                        partitura: "https://exemplo.com/partituras/sentido.pdf"
+                    },
+                    {
+                        titulo: "SEMPRE",
+                        artista: "K-XImbinho",
+                        data: "2025-11-11",
+                        arquivo: "sempre.mp3",
+                        partitura: "https://exemplo.com/partituras/sempre.pdf"
+                    },
+                    {
+                        titulo: "SAXOFONE, POR QUE CHORAS",
+                        artista: "Ratinho",
+                        data: "2025-11-11",
+                        arquivo: "saxofone-porque-choras.mp3",
+                        partitura: "https://exemplo.com/partituras/saxofone-porque-choras.pdf"
+                    },
+                    {
+                        titulo: "SAMPA",
+                        artista: "Caetano Veloso",
+                        data: "2025-11-11",
+                        arquivo: "sampa.mp3",
+                        partitura: "https://exemplo.com/partituras/sampa.pdf"
+                    },
+                    {
+                        titulo: "SAMBA DE VERÃO",
+                        artista: "Artista Desconhecido",
+                        data: "2025-11-11",
+                        arquivo: "samba-de-verao.mp3",
+                        partitura: "https://exemplo.com/partituras/samba-de-verao.pdf"
+                    },
+                    {
+                        titulo: "ROSA",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "rosa.mp3",
+                        partitura: "https://exemplo.com/partituras/rosa.pdf"
+                    },
+                    {
+                        titulo: "RONDA",
+                        artista: "Paulo Vanzolini",
+                        data: "2025-11-11",
+                        arquivo: "ronda.mp3",
+                        partitura: "https://exemplo.com/partituras/ronda.pdf"
+                    },
+                    {
+                        titulo: "RECEITA DE SAMBA",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "receita-de-samba.mp3",
+                        partitura: "https://exemplo.com/partituras/receita-de-samba.pdf"
+                    },
+                    {
+                        titulo: "PROEZAS DE SOLON",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "proezas-de-solon.mp3",
+                        partitura: "https://exemplo.com/partituras/proezas-de-solon.pdf"
+                    },
+                    {
+                        titulo: "PRETENCIOSO",
+                        artista: "Pixinguinha & Benedito Lacerda",
+                        data: "2025-11-11",
+                        arquivo: "pretensioso.mp3",
+                        partitura: "https://exemplo.com/partituras/pretensioso.pdf"
+                    },
+                    {
+                        titulo: "PRANTOS (Izaias Bueno) PLAYBACK",
+                        artista: "Artista Desconhecido",
+                        data: "2025-11-11",
+                        arquivo: "prantos-playback.mp3",
+                        partitura: "https://exemplo.com/partituras/prantos-playback.pdf"
+                    },
+                    {
+                        titulo: "PEDACINHO DO CEU",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "pedacinho-do-ceu.mp3",
+                        partitura: "https://exemplo.com/partituras/pedacinho-do-ceu.pdf"
+                    },
+                    {
+                        titulo: "ODEON",
+                        artista: "Ernesto Nazareth",
+                        data: "2025-11-11",
+                        arquivo: "odeon.mp3",
+                        partitura: "https://exemplo.com/partituras/odeon.pdf"
+                    },
+                    {
+                        titulo: "O MUNDO É UM MOINHO",
+                        artista: "Cartola",
+                        data: "2025-11-11",
+                        arquivo: "o-mundo-e-um-moinho.mp3",
+                        partitura: "https://exemplo.com/partituras/o-mundo-e-um-moinho.pdf"
+                    },
+                    {
+                        titulo: "O BOEMIO",
+                        artista: "Anacleto de Medeiros",
+                        data: "2025-11-11",
+                        arquivo: "o-boemio.mp3",
+                        partitura: "https://exemplo.com/partituras/o-boemio.pdf"
+                    },
+                    {
+                        titulo: "NOITES CARIOCAS",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "noites-cariocas.mp3",
+                        partitura: "https://exemplo.com/partituras/noites-cariocas.pdf"
+                    },
+                    {
+                        titulo: "NAQUELE TEMPO",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "naquele-tempo.mp3",
+                        partitura: "https://exemplo.com/partituras/naquele-tempo.pdf"
+                    },
+                    {
+                        titulo: "NAQUELA MESA",
+                        artista: "Sergio Bitencourt",
+                        data: "2025-11-11",
+                        arquivo: "naquela-mesa.mp3",
+                        partitura: "https://exemplo.com/partituras/naquela-mesa.pdf"
+                    },
+                    {
+                        titulo: "NA GLORIA",
+                        artista: "Raul de Barros",
+                        data: "2025-11-11",
+                        arquivo: "na-gloria.mp3",
+                        partitura: "https://exemplo.com/partituras/na-gloria.pdf"
+                    },
+                    {
+                        titulo: "MURMURANDO",
+                        artista: "Maestro Fonfon",
+                        data: "2025-11-11",
+                        arquivo: "murmurando.mp3",
+                        partitura: "https://exemplo.com/partituras/murmurando.pdf"
+                    },
+                    {
+                        titulo: "MINHAS MAOS MEU CAVAQUINHO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "minhas-maos-meu-cavaquinho.mp3",
+                        partitura: "https://exemplo.com/partituras/minhas-maos-meu-cavaquinho.pdf"
+                    },
+                    {
+                        titulo: "MEU DOCE CHORINHO",
+                        artista: "Mestro Portinho",
+                        data: "2025-11-11",
+                        arquivo: "meu-doce-chorinho.mp3",
+                        partitura: "https://exemplo.com/partituras/meu-doce-chorinho.pdf"
+                    },
+                    {
+                        titulo: "MEDLEY ARI BARROSO",
+                        artista: "Aquarela do Brasil-Canta Brasil-Isso Aqui, o que é",
+                        data: "2025-11-11",
+                        arquivo: "medley-ari-barroso.mp3",
+                        partitura: "https://exemplo.com/partituras/medley-ari-barroso.pdf"
+                    },
+                    {
+                        titulo: "MAGOADO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "magoado.mp3",
+                        partitura: "https://exemplo.com/partituras/magoado.pdf"
+                    },
+                    {
+                        titulo: "LUA BRANCA",
+                        artista: "Chiquinha Gonzaga",
+                        data: "2025-11-11",
+                        arquivo: "lua-branca.mp3",
+                        partitura: "https://exemplo.com/partituras/lua-branca.pdf"
+                    },
+                    {
+                        titulo: "LAMENTOS",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "lamentos.mp3",
+                        partitura: "https://exemplo.com/partituras/lamentos.pdf"
+                    },
+                    {
+                        titulo: "INGENUO",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "ingenuo.mp3",
+                        partitura: "https://exemplo.com/partituras/ingenuo.pdf"
+                    },
+                    {
+                        titulo: "HOMENAGEM A VELHA GUARDA",
+                        artista: "Sivuca",
+                        data: "2025-11-11",
+                        arquivo: "homenagem-a-velha-guarda.mp3",
+                        partitura: "https://exemplo.com/partituras/homenagem-a-velha-guarda.pdf"
+                    },
+                    {
+                        titulo: "GOSTOSINHO",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "gostosinho.mp3",
+                        partitura: "https://exemplo.com/partituras/gostosinho.pdf"
+                    },
+                    {
+                        titulo: "GAROTA DE IPANEMA Tom Jobim)",
+                        artista: "Artista Desconhecido",
+                        data: "2025-11-11",
+                        arquivo: "garota-de-ipanema.mp3",
+                        partitura: "https://exemplo.com/partituras/garota-de-ipanema.pdf"
+                    },
+                    {
+                        titulo: "FLOR DO CERRADO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "flor-do-cerrado.mp3",
+                        partitura: "https://exemplo.com/partituras/flor-do-cerrado.pdf"
+                    },
+                    {
+                        titulo: "FLOR AMOROSA",
+                        artista: "Joaquim Calado",
+                        data: "2025-11-11",
+                        arquivo: "flor-amorosa.mp3",
+                        partitura: "https://exemplo.com/partituras/flor-amorosa.pdf"
+                    },
+                    {
+                        titulo: "FEITIÇO DA VILA",
+                        artista: "Noel Rosa",
+                        data: "2025-11-11",
+                        arquivo: "feitico-da-vila.mp3",
+                        partitura: "https://exemplo.com/partituras/feitico-da-vila.pdf"
+                    },
+                    {
+                        titulo: "FEITIÇO",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "feitico.mp3",
+                        partitura: "https://exemplo.com/partituras/feitico.pdf"
+                    },
+                    {
+                        titulo: "FEIA",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "feia.mp3",
+                        partitura: "https://exemplo.com/partituras/feia.pdf"
+                    },
+                    {
+                        titulo: "EVOCATIVO",
+                        artista: "Joel Nascimento",
+                        data: "2025-11-11",
+                        arquivo: "evocativo.mp3",
+                        partitura: "https://exemplo.com/partituras/evocativo.pdf"
+                    },
+                    {
+                        titulo: "EU SEI Q VOU TE AMAR",
+                        artista: "Tom Jobim",
+                        data: "2025-11-11",
+                        arquivo: "eu-sei-que-vou-te-amar.mp3",
+                        partitura: "https://exemplo.com/partituras/eu-sei-que-vou-te-amar.pdf"
+                    },
+                    {
+                        titulo: "ESPINHA DE BACALHAU",
+                        artista: "Severino Araújo",
+                        data: "2025-11-11",
+                        arquivo: "espinha-de-bacalhau-severino.mp3",
+                        partitura: "https://exemplo.com/partituras/espinha-de-bacalhau-severino.pdf"
+                    },
+                    {
+                        titulo: "ESPINHA DE BACALHAU",
+                        artista: "C",
+                        data: "2025-11-11",
+                        arquivo: "espinha-de-bacalhau-c.mp3",
+                        partitura: "https://exemplo.com/partituras/espinha-de-bacalhau-c.pdf"
+                    },
+                    {
+                        titulo: "EM QUE ÉPOCA",
+                        artista: "Aymoré",
+                        data: "2025-11-11",
+                        arquivo: "em-que-epoca.mp3",
+                        partitura: "https://exemplo.com/partituras/em-que-epoca.pdf"
+                    },
+                    {
+                        titulo: "DOCE DE COCO",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "doce-de-coco.mp3",
+                        partitura: "https://exemplo.com/partituras/doce-de-coco.pdf"
+                    },
+                    {
+                        titulo: "DIABINHO MALUCO",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "diabinho-maluco.mp3",
+                        partitura: "https://exemplo.com/partituras/diabinho-maluco.pdf"
+                    },
+                    {
+                        titulo: "DIA DE DOMINGO",
+                        artista: "Tim Maia",
+                        data: "2025-11-11",
+                        arquivo: "dia-de-domingo.mp3",
+                        partitura: "https://exemplo.com/partituras/dia-de-domingo.pdf"
+                    },
+                    {
+                        titulo: "DENGOSO",
+                        artista: "Jonas Pereira",
+                        data: "2025-11-11",
+                        arquivo: "dengoso.mp3",
+                        partitura: "https://exemplo.com/partituras/dengoso.pdf"
+                    },
+                    {
+                        titulo: "DELICADO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "delicado.mp3",
+                        partitura: "https://exemplo.com/partituras/delicado.pdf"
+                    },
+                    {
+                        titulo: "CONVERSA DE BOTEQUIM",
+                        artista: "Noel Rosa",
+                        data: "2025-11-11",
+                        arquivo: "conversa-de-botequim.mp3",
+                        partitura: "https://exemplo.com/partituras/conversa-de-botequim.pdf"
+                    },
+                    {
+                        titulo: "COCHICHANDO",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "cochichando.mp3",
+                        partitura: "https://exemplo.com/partituras/cochichando.pdf"
+                    },
+                    {
+                        titulo: "CINEMA MUDO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "cinema-mudo.mp3",
+                        partitura: "https://exemplo.com/partituras/cinema-mudo.pdf"
+                    },
+                    {
+                        titulo: "CHORO NEGRO",
+                        artista: "Paulinho da Viola",
+                        data: "2025-11-11",
+                        arquivo: "choro-negro.mp3",
+                        partitura: "https://exemplo.com/partituras/choro-negro.pdf"
+                    },
+                    {
+                        titulo: "CHORANDO BAIXINHO",
+                        artista: "Abel Ferreira",
+                        data: "2025-11-11",
+                        arquivo: "chorando-baixinho.mp3",
+                        partitura: "https://exemplo.com/partituras/chorando-baixinho.pdf"
+                    },
+                    {
+                        titulo: "CHIQUITA",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "chiquita.mp3",
+                        partitura: "https://exemplo.com/partituras/chiquita.pdf"
+                    },
+                    {
+                        titulo: "CHEGA DE SAUDADE - DESAFINADO",
+                        artista: "Tom Jobim",
+                        data: "2025-11-11",
+                        arquivo: "chega-de-saudade-desafinado.mp3",
+                        partitura: "https://exemplo.com/partituras/chega-de-saudade-desafinado.pdf"
+                    },
+                    {
+                        titulo: "CARIOQUINHA",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "carioquinha.mp3",
+                        partitura: "https://exemplo.com/partituras/carioquinha.pdf"
+                    },
+                    {
+                        titulo: "CARINHOSO",
+                        artista: "Pixinguinha",
+                        data: "2025-11-11",
+                        arquivo: "carinhoso.mp3",
+                        partitura: "https://exemplo.com/partituras/carinhoso.pdf"
+                    },
+                    {
+                        titulo: "CAMUNDONGO",
+                        artista: "Waldir Azevedo",
+                        data: "2025-11-11",
+                        arquivo: "camundongo.mp3",
+                        partitura: "https://exemplo.com/partituras/camundongo.pdf"
+                    },
+                    {
+                        titulo: "CADENCIA",
+                        artista: "Juventino Maciel",
+                        data: "2025-11-11",
+                        arquivo: "cadencia.mp3",
+                        partitura: "https://exemplo.com/partituras/cadencia.pdf"
+                    },
+                    {
+                        titulo: "BREJEIRO",
+                        artista: "Ernesto Nazareth",
+                        data: "2025-11-11",
+                        arquivo: "brejeiro.mp3",
+                        partitura: "https://exemplo.com/partituras/brejeiro.pdf"
+                    },
+                    {
+                        titulo: "BRASILEIRINHO",
+                        artista: "Waldir Azevedo em G",
+                        data: "2025-11-11",
+                        arquivo: "brasileirinho-g.mp3",
+                        partitura: "https://exemplo.com/partituras/brasileirinho-g.pdf"
+                    },
+                    {
+                        titulo: "BOLE BOLE",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "bole-bole.mp3",
+                        partitura: "https://exemplo.com/partituras/bole-bole.pdf"
+                    },
+                    {
+                        titulo: "BOLA PRETA",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "bola-preta.mp3",
+                        partitura: "https://exemplo.com/partituras/bola-preta.pdf"
+                    },
+                    {
+                        titulo: "BENZINHO",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "benzinho.mp3",
+                        partitura: "https://exemplo.com/partituras/benzinho.pdf"
+                    },
+                    {
+                        titulo: "BARRACÃO DE ZINCO",
+                        artista: "Antenor Borges & José Gonçalves",
+                        data: "2025-11-11",
+                        arquivo: "barracao-de-zinco.mp3",
+                        partitura: "https://exemplo.com/partituras/barracao-de-zinco.pdf"
+                    },
+                    {
+                        titulo: "AVE MARIA",
+                        artista: "Gnoud",
+                        data: "2025-11-11",
+                        arquivo: "ave-maria.mp3",
+                        partitura: "https://exemplo.com/partituras/ave-maria.pdf"
+                    },
+                    {
+                        titulo: "ASSIM MESMO",
+                        artista: "Luis Americano",
+                        data: "2025-11-11",
+                        arquivo: "assim-mesmo.mp3",
+                        partitura: "https://exemplo.com/partituras/assim-mesmo.pdf"
+                    },
+                    {
+                        titulo: "ASSANHADO",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "assanhado.mp3",
+                        partitura: "https://exemplo.com/partituras/assanhado.pdf"
+                    },
+                    {
+                        titulo: "AS ROSAS NAO FALAM",
+                        artista: "Cartola",
+                        data: "2025-11-11",
+                        arquivo: "as-rosas-nao-falam.mp3",
+                        partitura: "https://exemplo.com/partituras/as-rosas-nao-falam.pdf"
+                    },
+                    {
+                        titulo: "AQUARELA DE QUINXABAS",
+                        artista: "Hamilton de Holanda",
+                        data: "2025-11-11",
+                        arquivo: "aquarela-de-quinxabas.mp3",
+                        partitura: "https://exemplo.com/partituras/aquarela-de-quinxabas.pdf"
+                    },
+                    {
+                        titulo: "APANHEI-TE CAVAQUINHO (Ernesto Nazareth",
+                        artista: "Artista Desconhecido",
+                        data: "2025-11-11",
+                        arquivo: "apanhei-te-cavaquinho.mp3",
+                        partitura: "https://exemplo.com/partituras/apanhei-te-cavaquinho.pdf"
+                    },
+                    {
+                        titulo: "ANDRÉ DO SAPATO NOVO",
+                        artista: "André Vitor Correia",
+                        data: "2025-11-11",
+                        arquivo: "andre-do-sapato-novo.mp3",
+                        partitura: "https://exemplo.com/partituras/andre-do-sapato-novo.pdf"
+                    },
+                    {
+                        titulo: "AMOROSO",
+                        artista: "Garoto",
+                        data: "2025-11-11",
+                        arquivo: "amoroso.mp3",
+                        partitura: "https://exemplo.com/partituras/amoroso.pdf"
+                    },
+                    {
+                        titulo: "ALVORADA",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-11-11",
+                        arquivo: "alvorada.mp3",
+                        partitura: "https://exemplo.com/partituras/alvorada.pdf"
+                    },
+                    {
+                        titulo: "AGUENTA SEU FUGENCIO",
+                        artista: "Lourenço Lamartine",
+                        data: "2025-11-11",
+                        arquivo: "aguenta-seu-fugencio.mp3",
+                        partitura: "https://exemplo.com/partituras/aguenta-seu-fugencio.pdf"
+                    },
+                    {
+                        titulo: "BRASILEIRINHO PARA BANDOLIM",
+                        artista: "Waldir Azevedo em A",
+                        data: "2025-11-11",
+                        arquivo: "brasileirinho-a.mp3",
+                        partitura: "https://exemplo.com/partituras/brasileirinho-a.pdf"
+                    },
+                    {
+                        titulo: "Brasileirinho",
+                        artista: "Waldir Azevedo",
+                        data: "2025-01-15",
+                        arquivo: "brasileirinho.mp3",
+                        partitura: "https://exemplo.com/partituras/brasileirinho.pdf"
+                    },
+                    {
+                        titulo: "Tico-Tico no Fubá",
+                        artista: "Zequinha de Abreu",
+                        data: "2025-01-10",
+                        arquivo: "tico-tico.mp3",
+                        partitura: "https://exemplo.com/partituras/tico-tico.pdf"
+                    },
+                    {
+                        titulo: "Naquele Tempo",
+                        artista: "Jacob do Bandolim",
+                        data: "2025-01-05",
+                        arquivo: "naquele-tempo.mp3",
+                        partitura: "https://exemplo.com/partituras/naquele-tempo.pdf"
+                    }
+                ];
+                
+                renderMusicList(musicas);
+            }, 1000);
+        }
+        
+        // Função para renderizar a lista de músicas
+        function renderMusicList(musicas) {
+            const musicListContainer = document.getElementById('musicList');
+            musicListContainer.innerHTML = '';
+            
+            if (musicas.length === 0) {
+                musicListContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #888;">Nenhuma música encontrada.</p>';
+                return;
+            }
+            
+            musicas.forEach(musica => {
+                const card = document.createElement('div');
+                card.className = 'music-card';
+                
+                // Formata a data
+                const date = new Date(musica.data);
+                const formattedDate = isNaN(date.getTime()) ? 'N/A' : date.toLocaleDateString('pt-BR');
+                
+                card.innerHTML = `
+                    <h3>${musica.titulo || 'Título Desconhecido'}</h3>
+                    <p>Artista: ${musica.artista || 'N/A'}</p>
+                    <p>Lançamento: ${formattedDate}</p>
+                    
+                    <audio controls class="audio-player" 
+                           data-src="#"
+                           controlsList="nodownload" 
+                           preload="none"
+                           crossorigin="anonymous"
+                           style="width: 100%; height: 40px; margin-top: 10px;">
+                        Seu navegador não suporta o elemento de áudio.
+                    </audio>
+                    
+                    <button class="add-to-playlist-btn" 
+                            data-musica-arquivo="${musica.arquivo}" 
+                            title="Adicionar à Lista" 
+                            style="display: block; width: 100%; margin-top: 12px; background-color: var(--primary-color) !important; color: var(--text-light) !important; border: none; padding: 10px 15px !important; border-radius: 6px !important; cursor: pointer; font-size: 0.9em !important; font-weight: 600;">
+                        + Adicionar à Lista 
+                    </button>
+                    
+                    ${musica.partitura && musica.partitura !== '' ? `
+                        <button class="open-sheet-btn" 
+                                title="Abrir Partitura" 
+                                style="display: block; width: 100%; margin-top: 8px; background-color: #4CAF50 !important; color: var(--text-light) !important; border: none; padding: 10px 15px !important; border-radius: 6px !important; cursor: pointer; font-size: 0.9em !important; font-weight: 600;">
+                            Ver Partitura 🎼 
+                        </button>` : ''}
+                `;
+                
+                musicListContainer.appendChild(card);
+            });
+        }
+        
+        // Carregar a lista de músicas quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMusicList();
+        });
+        
+        // Mostrar o modal de redirecionamento quando os botões forem clicados
+        document.addEventListener('click', function(e) {
+            // Verifica se o clique foi em um botão de ação
+            if (e.target.classList.contains('add-to-playlist-btn') || 
+                e.target.classList.contains('open-sheet-btn') ||
+                e.target.id === 'openPlayerListBtn') {
+                e.preventDefault();
+                document.getElementById('redirectModal').style.display = 'flex';
+            }
+        });
+
+        // Fechar o modal de redirecionamento
+        document.getElementById('closeRedirectModal').addEventListener('click', function() {
+            document.getElementById('redirectModal').style.display = 'none';
+        });
+
+// Redirecionar para o WhatsApp
+document.getElementById('redirectToVenda').addEventListener('click', function() {
+    window.open('https://wa.me/5524988418135?text=Olá, Cristiano. Quero aproveitar a oferta da Base de Chorinho!', '_blank');
+});
+
+        // Fechar modais ao clicar fora
+        document.getElementById('redirectModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+        
+        // Fechar modal de player ao clicar fora
+        document.getElementById('playerListModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+        
+        // Fechar modal de partitura ao clicar fora
+        document.getElementById('sheetModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+                document.getElementById('sheetViewer').src = '';
+            }
+        });
+        
+        // Botões de fechar modais
+        document.getElementById('closePlayerListModal').addEventListener('click', function() {
+            document.getElementById('playerListModal').style.display = 'none';
+        });
+        
+        document.getElementById('closeSheetModal').addEventListener('click', function() {
+            document.getElementById('sheetModal').style.display = 'none';
+            document.getElementById('sheetViewer').src = '';
+        });
+    </script>
+
+    <!-- Mantém os scripts originais para funcionalidades básicas -->
+    <script type="module" src="./firebase-config.js"></script>
+    </body>
+</html>
