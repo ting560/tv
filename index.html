@@ -1,972 +1,940 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chorinho Premium 🎶 - Conteúdo Exclusivo</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Base de Chorinho - Playbacks Profissionais de Choro</title>
+  <meta name="description" content="Assinatura mensal de R$ 50 para acesso ilimitado a playbacks de chorinho com nova música toda semana. Curadoria de Cristiano Ferreira.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset básico e tipografia */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height:1.7;color:#2c3e50;background:#f9fafb;
+      -webkit-font-smoothing:antialiased;
+    }
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+    /* Header / Footer */
+    header, footer{background:linear-gradient(135deg, #1a237e 0%, #3949ab 100%);color:#fff}
+    
+    header p, header strong, footer p, footer strong, footer a { 
+        color: #fff !important; 
+        opacity: 1 !important; 
+    }
+    footer a { 
+        color: #e8eaf6 !important; 
+    }
+    footer a:hover{
+        color:#fff !important;
+        text-decoration:underline;
+    }
+
+    header{padding:32px 0;text-align:center;position:relative;overflow:hidden}
+    header::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      transform: rotate(30deg);
+    }
+    header h1{
+      font-family: 'Playfair Display', serif;
+      font-size:2.8rem;
+      margin-bottom:8px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      position: relative;
+      color: #fff !important;
+    }
+    header p{
+      font-size:1.1rem;
+      opacity:.95;
+      max-width:600px;
+      margin:0 auto;
+      position: relative;
+    }
+    footer{padding:32px 0 24px;font-size:1rem;text-align:center}
+    footer p{max-width:800px;margin:0 auto 12px;}
+    footer a{color:#e8eaf6;margin:0 12px;text-decoration:none;font-weight:500}
+    footer a:hover{color:#fff;text-decoration:underline}
+
+    /* Sections */
+    section{padding:64px 0;position:relative}
+    h2{
+      font-family: 'Playfair Display', serif;
+      font-size:2.2rem;
+      margin-bottom:24px;
+      color:#1a237e;
+      text-align:center;
+      position:relative;
+      padding-bottom:12px;
+    }
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #ffd700, #e53935);
+      border-radius: 2px;
+    }
+    p{margin-bottom:16px;color:#374151}
+
+    /* Buttons */
+    .btn{
+      display:inline-block;background:linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
+      color:#1a237e;padding:14px 32px;border-radius:12px;
+      font-weight:700;text-decoration:none;transition:all .2s ease;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+      font-size:1.05rem;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+    .btn:hover::before {
+      left: 100%;
+    }
+    .btn:focus,.btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 8px 25px rgba(255, 215, 0, 0.4);
+      text-decoration: none;
+    }
+    .btn--cta{
+      background:linear-gradient(135deg, #e53935 0%, #d81b60 100%);
+      color:#fff;
+      box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3);
+    }
+    .btn--cta:hover{
+      box-shadow:0 8px 25px rgba(229, 57, 53, 0.4);
+    }
+
+    /* --- NOVO: Botão Secundário para o Tour --- */
+    .btn--secondary {
+      background: transparent;
+      border: 2px solid #1a237e;
+      color: #1a237e;
+      box-shadow: none;
+    }
+    .btn--secondary:hover {
+      background: #1a237e;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(26, 35, 126, 0.2);
+    }
+    .btn--secondary::before {
+      display: none;
+    }
+    /* ------------------------------------------ */
+
+    /* Intro (vídeo + texto) */
+    #intro{
+      background:linear-gradient(135deg, #f9fafb 0%, #eef2f7 100%);
+      border-bottom:1px solid #e8eaf6;
+      padding-top:64px;
+      padding-bottom:64px;
+    }
+    .intro-grid{display:flex;gap:48px;align-items:center;flex-wrap:wrap}
+    .intro-video{flex:1;min-width:320px;text-align:center}
+    .intro-video iframe{
+      width:100%;max-width:600px;border-radius:16px;
+      box-shadow:0 12px 40px rgba(0,0,0,.15);
+      aspect-ratio:16/9;height:auto;border:0;
+      transition: transform 0.3s ease;
+    }
+    .intro-video iframe:hover {
+      transform: scale(1.02);
+    }
+    .intro-text{flex:1;min-width:320px}
+    .intro-text h2{
+      font-size:1.6rem;
+      color:#1a237e;
+      text-align:left;
+      margin-bottom:16px;
+      padding-bottom:8px;
+    }
+    .intro-text h2::after {
+      left: 0;
+      transform: none;
+    }
+    .intro-text p{font-size:1.1rem;color:#4b5563;line-height:1.8}
+
+    /* --- NOVO: Estilo da Seção de Tour --- */
+    #tour-virtual {
+      background: #fff;
+      border-top: 1px solid #e8eaf6;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .tour-box {
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    /* ------------------------------------ */
+
+    /* Hero promocional */
+    #hero{
+      background: linear-gradient(135deg, #1a237e 0%, #3949ab 50%, #5c6bc0 100%);
+      color:#fff;
+      text-align:center;
+      padding:80px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero h2 {
+        color: #fff !important;
+    }
+    #hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.05"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.05"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="90" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+    .promo-badge{
+      background:linear-gradient(135deg, #e53935 0%, #d81b60 100%);
+      display:inline-block;
+      padding:12px 24px;
+      border-radius:50px;
+      font-weight:800;
+      margin-bottom:16px;
+      animation:pulse 2200ms infinite;
+      box-shadow: 0 4px 20px rgba(229, 57, 53, 0.3);
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes pulse{
+      0%{transform:scale(1);box-shadow: 0 4px 20px rgba(229, 57, 53, 0.3);}
+      50%{transform:scale(1.05);box-shadow: 0 6px 25px rgba(229, 57, 53, 0.4);}
+      100%{transform:scale(1);box-shadow: 0 4px 20px rgba(229, 57, 53, 0.3);}
+    }
+    
+    @keyframes slideInDown {
+      0% { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes notificationPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    .original-price{
+      opacity:.85;
+      text-decoration:line-through;
+      margin-top:12px;
+      font-size:1.1rem;
+      color: #fff;
+    }
+    .promo-price{
+      font-size:2.8rem;
+      font-weight:800;
+      margin:16px 0;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      color: #fff;
+    }
+    .promo-price .primeiro{
+      color:#ffd700;
+      display: block;
+    }
+    .promo-details{
+      max-width:720px;
+      margin:0 auto 24px;
+      font-size:1.1rem;
+      line-height: 1.6;
+      color: #fff;
+    }
+    .promo-details strong { 
+        color: #ffd700;
+    }
+
+    /* Cronômetro */
+    #countdown{
+      display:flex; 
+      justify-content:center;
+      gap:20px;
+      font-weight:800;
+      margin-bottom:24px;
+      color: #fff;
+      flex-wrap: wrap; 
+    }
+    .timer-unit{
+      background:rgba(255,255,255,0.1);
+      padding:10px 15px;
+      border-radius:12px;
+      min-width: 80px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .timer-unit .number{
+      display:block;
+      font-size:2rem;
+      font-weight:900;
+      color:#ffd700; 
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .timer-unit .label{
+      display:block;
+      font-size:0.85rem;
+      font-weight:500;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Banner da Black Friday */
+    .black-friday-banner {
+      width: 100%;
+      max-width: 100%;
+      display: block; 
+      height: auto;
+      margin: 40px auto; 
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      animation: pulse-banner 2s infinite ease-in-out;
+      cursor: pointer;
+    }
+
+    @keyframes pulse-banner {
+      0% { transform: scale(1); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); }
+      50% { transform: scale(1.01); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2); }
+      100% { transform: scale(1); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); }
+    }
+
+    /* Benefits */
+    .benefits{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:24px;
+      margin-top:24px;
+    }
+    .benefit-item{
+      background:linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      padding:24px;
+      border-radius:16px;
+      box-shadow:0 8px 30px rgba(0,0,0,.08);
+      transition:all .3s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .benefit-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ffd700, #e53935);
+    }
+    .benefit-item:hover{
+      transform: translateY(-5px);
+      box-shadow:0 15px 40px rgba(0,0,0,.15);
+    }
+    .benefit-item h3{
+      color:#1a237e;
+      margin-bottom:12px;
+      font-size:1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .benefit-item p{
+      color:#4b5563;
+      line-height: 1.7;
+    }
+
+    /* Players */
+    .players{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:20px;
+      margin-top: 20px;
+    }
+    .player-item{
+      background:linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      padding:20px;
+      border-radius:16px;
+      box-shadow:0 6px 25px rgba(0,0,0,.06);
+      transition:all .3s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .player-item:hover{
+      transform: translateY(-3px);
+      box-shadow:0 12px 35px rgba(0,0,0,.12);
+    }
+    .player-item strong{
+      display:block;
+      color:#1a237e;
+      margin-bottom:12px;
+      font-size:1.1rem;
+      font-weight:600;
+    }
+    audio{
+      width:100%;
+      outline:none;
+      border-radius:8px;
+    }
+    audio::-webkit-media-controls-panel {
+      background: #f3f4f6;
+      border-radius: 8px;
+    }
+
+    /* Testimonials */
+    .testimonials{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:24px;
+      margin-top: 24px;
+    }
+    .testimonial{
+      background:linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      padding:24px;
+      border-radius:16px;
+      box-shadow:0 6px 25px rgba(0,0,0,.06);
+      font-style:italic;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .testimonial::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 4rem;
+      color: rgba(26, 35, 126, 0.1);
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+    }
+    .testimonial cite{
+      display:block;
+      margin-top:16px;
+      font-style:normal;
+      font-weight:600;
+      color:#1a237e;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Steps */
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:20px;
+      margin-top:20px;
+    }
+    .step{
+      background:linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      padding:24px;
+      border-radius:16px;
+      text-align:center;
+      box-shadow:0 6px 25px rgba(0,0,0,.06);
+      transition:all .3s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .step:hover{
+      transform: translateY(-5px);
+      box-shadow:0 12px 35px rgba(0,0,0,.12);
+    }
+    .step strong{
+      display:block;
+      font-size:2rem;
+      color:#3949ab;
+      margin-bottom:12px;
+      font-family: 'Playfair Display', serif;
+    }
+    .step p{
+      color:#4b5563;
+      line-height: 1.6;
+    }
+
+    /* Checkout */
+    .checkout-wrap{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:24px;
+    }
+    .checkout-form{
+      max-width:560px;
+      width:100%;
+      background:linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      padding:32px;
+      border-radius:20px;
+      box-shadow:0 12px 40px rgba(0,0,0,.12);
+      text-align:center;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .whatsapp-link{
+      display:inline-block;
+      width:100%;
+      padding:16px;
+      background:linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color:#fff;
+      border-radius:12px;
+      font-weight:700;
+      text-decoration:none;
+      font-size:1.1rem;
+      transition:all .3s ease;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+    }
+    .whatsapp-link:focus,.whatsapp-link:hover{
+      opacity:.95;
+      transform:translateY(-2px);
+      box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+    }
+    .price{
+      font-size:2.4rem;
+      font-weight:800;
+      color:#3949ab;
+      text-align:center;
+      margin-top:12px;
+      font-family: 'Playfair Display', serif;
+    }
+    .price .primeiro{
+      color:#e53935;
+      display: block;
+    }
+    .guarantee{
+      text-align:center;
+      color:#6b7280;
+      margin-top:16px;
+      font-size:1rem;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    /* Utility */
+    .muted{color:#6b7280;font-size:1rem}
+    .sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+
+    /* Responsividade */
+    @media (max-width:768px){
+      header h1{font-size:2rem}
+      header p{font-size:1rem}
+      .intro-text h2{text-align:center}
+      .intro-text{order:2}
+      .intro-video{order:1}
+      .promo-price{font-size:2rem}
+      #countdown{gap:10px}
+      .timer-unit{padding:8px 10px; min-width: 60px;}
+      .timer-unit .number{font-size:1.5rem}
+      .timer-unit .label{font-size:0.7rem}
+      .players{grid-template-columns:1fr}
+      .promo-price{font-size:2.2rem}
+      .price{font-size:2rem}
+      h2{font-size:1.8rem}
+      .black-friday-banner {
+          margin: 20px auto; 
+          border-radius: 8px;
+      }
+    }
+
+    @media (max-width:480px){
+      section{padding:48px 0}
+      .container{padding:0 16px}
+      .btn{padding:12px 24px; font-size:1rem}
+      .promo-badge{padding:8px 16px; font-size:0.9rem}
+      .benefit-item, .player-item, .testimonial, .step{padding:16px}
+      .checkout-form{padding:24px}
+    }
+
+    /* Animações adicionais */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .benefit-item, .player-item, .testimonial, .step {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .benefit-item h3::before { content: '🎵'; font-size: 1.5rem; }
+    .benefit-item:nth-child(2) h3::before { content: '📅'; }
+    .benefit-item:nth-child(3) h3::before { content: '▶️'; }
+    .benefit-item:nth-child(4) h3::before { content: '📋'; }
+    .benefit-item:nth-child(5) h3::before { content: '🎸'; }
+    .benefit-item:nth-child(6) h3::before { content: '📄'; }
+  </style>
 </head>
+
 <body>
 
-    <header>
-        <nav>
-            <div class="logo-with-image">
-                Chorinho Premium 
-            </div>
-            <div class="nav-links">
-                <!-- Botão de logout removido pois não é necessário nesta página -->
-            </div>
-        </nav>
-    </header>
-
-    <div id="message"></div>
-    
-    <!-- Conteúdo principal da página -->
-    <main class="app-container" id="app-container">
-        <section class="hero">
-            <h1>Bem-vindo ao Clube do Chorinho</h1>
-            <p>O melhor acervo de músicas exclusivas, atualizado semanalmente.</p>
-        </section>
-
-        <section class="music-list-section">
-            <h2>Lançamentos e Clássicos</h2>
-                <div style="text-align:center; margin-bottom:16px;">
-                    <button id="openPlayerListBtn" style="padding:12px 24px; border-radius:8px; background:#222; color:#fff; font-size:1rem; border:none; cursor:pointer; font-weight:600;">Abrir Player Lista</button>
-                </div>
-            <div class="music-controls" style="margin-bottom:24px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:center;">
-                <input type="text" id="searchInput" placeholder="Buscar música ou artista..." style="padding:10px; border-radius:6px; border:1px solid #ccc; min-width:220px;">
-                <select id="orderSelect" style="padding:10px; border-radius:6px; border:1px solid #ccc;">
-                    <option value="recent">Recém adicionadas</option>
-                    <option value="alpha">Ordem alfabética (título)</option>
-                    <option value="artista">Por artista</option>
-                </select>
-            </div>
-            
-            <div class="music-grid" id="musicList">
-                </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Chorinho Premium by Cristiano Ferreira | Música de qualidade.</p>
-    </footer>
-
-    <div id="playerListModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; animation:fadeIn 0.3s;">
-        <div class="modal-player-content">
-            <button id="closePlayerListModal" class="modal-close-button">&times;</button>
-            <h3 class="modal-title">Sua Lista de Reprodução</h3>
-            
-            <div id="modalPlayerControls" class="modal-player-controls">
-                </div>
-            
-            <div class="modal-music-list" id="modalMusicList">
-                </div>
-        </div>
+  <div id="promoNotification" style="
+    background: linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
+    color: #1a237e;
+    text-align: center;
+    padding: 15px 20px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    animation: slideInDown 0.8s ease-out, notificationPulse 2s infinite;
+    border-bottom: 3px solid #e53935;
+  ">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+      <span style="font-size: 1.4rem;">🎉</span>
+      <span>PROMOÇÃO ESTENDIDA! Black Friday agora vai até 31 de dezembro! Aproveite os preços especiais!</span>
+      <span style="font-size: 1.4rem;">🔥</span>
     </div>
-    
-    <div id="sheetModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); z-index:10000; align-items:center; justify-content:center;">
-        <div class="sheet-modal-content">
-            <button id="closeSheetModal" class="modal-close-button" style="color: white; border: 2px solid white; border-radius: 50%; width: 30px; height: 30px; line-height: 1; padding: 0;">&times;</button>
-            <iframe id="sheetViewer" src="" frameborder="0" style="width: 100%; height: 100%; border: none;"></iframe>
-        </div>
+  </div>
+  
+  <header>
+    <div class="container">
+      <h1>Base de Chorinho</h1>
+      <p><strong>Com Cristiano Ferreira</strong><br>Playbacks profissionais de choro para músicos e entusiastas</p>
     </div>
+  </header>
 
-    <!-- Modal de redirecionamento -->
-    <div id="redirectModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); z-index:10001; align-items:center; justify-content:center;">
-        <div style="background:#fff; padding:30px; border-radius:10px; max-width:500px; width:90%; text-align:center;">
-            <h3 style="margin-bottom:20px; color:#333;">Acesso Exclusivo</h3>
-            <p style="margin-bottom:25px; color:#666;">Para ouvir, adicionar à lista ou acessar partituras, você precisa fazer parte do nosso clube.</p>
-            <button id="redirectToVenda" style="padding:12px 24px; background:#ff6b6b; color:#fff; border:none; border-radius:6px; font-size:1rem; cursor:pointer; font-weight:600;">Acessar a Plataforma</button>
-            <button id="closeRedirectModal" style="margin-left:15px; padding:12px 24px; background:#ccc; color:#333; border:none; border-radius:6px; font-size:1rem; cursor:pointer;">Cancelar</button>
-        </div>
+  <div class="container" style="text-align: center;">
+    <a href="https://wa.me/5524988418135?text=Ol%C3%A1%2C%20Cristiano.%20Quero%20aproveitar%20a%20oferta%20da%20Base%20de%20Chorinho!" target="_blank" rel="noopener noreferrer">
+      <img src="https://raw.githubusercontent.com/ting560/tv/main/IMG-20251116-WA0103.jpg" alt="Super Oferta Black Friday: Assine nosso plano e tenha acesso a mais de 350 playbacks com partituras e cifras!" class="black-friday-banner">
+    </a>
+  </div>
+  
+  <section id="intro" aria-labelledby="intro-title">
+    <div class="container intro-grid">
+      <div class="intro-video" aria-hidden="false">
+        <iframe src="https://www.youtube.com/embed/6b2di7mIzvk"
+                title="Cristiano Ferreira apresenta a Base de Chorinho"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <p class="muted" style="margin-top:16px;"><em>Cristiano Ferreira apresenta a Base de Chorinho</em></p>
+      </div>
+
+      <div class="intro-text">
+        <h2 id="intro-title">Bases de Chorinho por Cristiano Ferreira</h2>
+        <p>O canal Bases de Chorinho foi criado por Cristiano Ferreira em 2020 e de lá pra cá vem sugerindo bases de apoio para quem estuda música, trabalha com choro e ama esse gênero musical centenário.</p>
+        <p>O canal teve início às suas atividades em julho de 2020 e a proposta é auxiliar músicos solistas como bandolinistas, cavaquinistas, saxofonistas, flautistas, clarinetistas e cantores ideal para estudos e apresentações.</p>
+      </div>
     </div>
+  </section>
 
-    <style>
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .modal-player-content { 
-            background: var(--background-light); 
-            padding: 30px; 
-            border-radius: 12px; 
-            max-width: 500px; 
-            width: 90%; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            position: relative;
-            max-height: 90vh; 
-            overflow-y: auto;
-        }
-        .modal-close-button {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.8rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #555;
-        }
-        .modal-title {
-            text-align: center;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-        #modalAudioPlayer {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        .modal-music-list { width: 100%; margin-top: 10px; max-height: 200px; overflow-y: auto; padding-right: 5px; }
-        .modal-music-list > div { 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            margin-bottom: 8px; 
-            background: #fff; 
-            border-radius: 8px; 
-            padding: 8px 12px; 
-            box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-        }
-        .modal-music-list span { flex: 1; font-size: 0.9em; }
+  <section id="tour-virtual" aria-labelledby="demo-title">
+    <div class="container">
+      <div class="tour-box">
+        <h2 id="demo-title" style="font-size: 1.8rem; margin-bottom: 16px; padding-bottom: 0;">Quer ver como a plataforma é por dentro?</h2>
+        <h2 style="font-size: 1.8rem; margin-bottom: 16px; border:none; padding-bottom:0;">👀</h2>
         
-        .modal-music-list button { 
-            border: none; 
-            border-radius: 4px; 
-            padding: 4px 8px; 
-            cursor: pointer; 
-            font-size: 0.8rem; 
-            transition: background 0.2s; 
-        }
-        .modal-music-list button.remove { background: #ff5252; color:#fff; }
-        .modal-music-list button.remove:hover { background: #e53935; }
-        .modal-music-list button:not(.remove) { background: #667eea; color:#fff; }
-        .modal-music-list button:not(.remove):hover { background: #5a6edb; }
-        .modal-music-list button:disabled { background: #bdbdbd; cursor: not-allowed; }
-        
-        @media (max-width: 600px) { 
-            .modal-player-content { max-width: 98vw; padding: 18px 4vw 12px 4vw; } 
-            .modal-title { font-size: 1.3rem; } 
-            .modal-music-list > div { font-size: 0.95rem; } 
-        }
-        
-        /* Estilos do Modal de Partitura */
-        .sheet-modal-content {
-            background: var(--background-dark); 
-            padding: 10px; 
-            border-radius: 12px; 
-            max-width: 90%; 
-            max-height: 90%; 
-            width: 900px; 
-            height: 90vh;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        #closeSheetModal {
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            font-size: 1.5rem;
-            background: #ff6b6b;
-            z-index: 10001; 
-            color: white !important;
-        }
-        @media (max-width: 768px) {
-             .sheet-modal-content {
-                max-width: 95%; 
-                max-height: 95%; 
-                height: 95vh;
-             }
-             #closeSheetModal {
-                top: 5px; 
-                right: 5px;
-                background: #ff6b6b;
-             }
-        }
-    </style>
+        <p style="margin: 0 auto 24px;">
+          Queremos que você tenha certeza da sua compra. Por isso, liberamos um acesso de <strong>visitante</strong> para você navegar pelo site, 
+          ver todas as categorias e conhecer a organização do nosso acervo.
+        </p>
 
-    <script>
-        // Função para carregar a lista de músicas
-        function loadMusicList() {
-            const musicListContainer = document.getElementById('musicList');
-            musicListContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #888;">Carregando músicas...</p>';
-            
-            // Simular carregamento de músicas (em uma implementação real, isso viria do Firebase)
-            setTimeout(() => {
-                // Dados de músicas atualizados
-                const musicas = [
-                    {
-                        titulo: "WAVE",
-                        artista: "Tom Jobim",
-                        data: "2025-11-11",
-                        arquivo: "wave.mp3",
-                        partitura: "https://exemplo.com/partituras/wave.pdf"
-                    },
-                    {
-                        titulo: "VOU VIVENDO",
-                        artista: "em tom de G",
-                        data: "2025-11-11",
-                        arquivo: "vou-vivendo-g.mp3",
-                        partitura: "https://exemplo.com/partituras/vou-vivendo-g.pdf"
-                    },
-                    {
-                        titulo: "VOU VIVENDO",
-                        artista: "em tom de F",
-                        data: "2025-11-11",
-                        arquivo: "vou-vivendo-f.mp3",
-                        partitura: "https://exemplo.com/partituras/vou-vivendo-f.pdf"
-                    },
-                    {
-                        titulo: "VIBRAÇÕES",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "vibracoes.mp3",
-                        partitura: "https://exemplo.com/partituras/vibracoes.pdf"
-                    },
-                    {
-                        titulo: "VE SE GOSTAS",
-                        artista: "Waldir Azevedo",
-                        data: "2025-11-11",
-                        arquivo: "ve-se-gostas.mp3",
-                        partitura: "https://exemplo.com/partituras/ve-se-gostas.pdf"
-                    },
-                    {
-                        titulo: "VAMOS ACABAR COM O BAILE",
-                        artista: "Garoto",
-                        data: "2025-11-11",
-                        arquivo: "vamos-acabar-com-o-baile.mp3",
-                        partitura: "https://exemplo.com/partituras/vamos-acabar-com-o-baile.pdf"
-                    },
-                    {
-                        titulo: "URUBU MALANDRO",
-                        artista: "Lourival Ignácio de Carvalho",
-                        data: "2025-11-11",
-                        arquivo: "urubu-malandro.mp3",
-                        partitura: "https://exemplo.com/partituras/urubu-malandro.pdf"
-                    },
-                    {
-                        titulo: "UM CHORINHO PRA VOCE",
-                        artista: "Severino Araújo",
-                        data: "2025-11-11",
-                        arquivo: "um-chorinho-pra-voce.mp3",
-                        partitura: "https://exemplo.com/partituras/um-chorinho-pra-voce.pdf"
-                    },
-                    {
-                        titulo: "UM A ZERO",
-                        artista: "Pixinguinha",
-                        data: "2025-11-11",
-                        arquivo: "um-a-zero.mp3",
-                        partitura: "https://exemplo.com/partituras/um-a-zero.pdf"
-                    },
-                    {
-                        titulo: "TREM DAS 11",
-                        artista: "Adoniram Barbosa",
-                        data: "2025-11-11",
-                        arquivo: "trem-das-11.mp3",
-                        partitura: "https://exemplo.com/partituras/trem-das-11.pdf"
-                    },
-                    {
-                        titulo: "TICO TICO NO FUBÁ",
-                        artista: "Zequinha Abreu",
-                        data: "2025-11-11",
-                        arquivo: "tico-tico.mp3",
-                        partitura: "https://exemplo.com/partituras/tico-tico.pdf"
-                    },
-                    {
-                        titulo: "TARANTELA",
-                        artista: "Luigi Ricci",
-                        data: "2025-11-11",
-                        arquivo: "tarantela.mp3",
-                        partitura: "https://exemplo.com/partituras/tarantela.pdf"
-                    },
-                    {
-                        titulo: "SUPLICA CEARENSE",
-                        artista: "Gordurinha",
-                        data: "2025-11-11",
-                        arquivo: "suplica-cearense.mp3",
-                        partitura: "https://exemplo.com/partituras/suplica-cearense.pdf"
-                    },
-                    {
-                        titulo: "SONOROSO",
-                        artista: "K-Ximbinho",
-                        data: "2025-11-11",
-                        arquivo: "sonoroso.mp3",
-                        partitura: "https://exemplo.com/partituras/sonoroso.pdf"
-                    },
-                    {
-                        titulo: "SOM DE CARRILHOES",
-                        artista: "Artista Desconhecido",
-                        data: "2025-11-11",
-                        arquivo: "som-de-carrilhoes.mp3",
-                        partitura: "https://exemplo.com/partituras/som-de-carrilhoes.pdf"
-                    },
-                    {
-                        titulo: "SOLUÇOS",
-                        artista: "Pixinguinha e Benedito Lacerda",
-                        data: "2025-11-11",
-                        arquivo: "solucos.mp3",
-                        partitura: "https://exemplo.com/partituras/solucos.pdf"
-                    },
-                    {
-                        titulo: "SOBE E DESCE",
-                        artista: "Waldir Azevedo",
-                        data: "2025-11-11",
-                        arquivo: "sobe-e-desce.mp3",
-                        partitura: "https://exemplo.com/partituras/sobe-e-desce.pdf"
-                    },
-                    {
-                        titulo: "SIMPLICIDADE",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "simplicidade.mp3",
-                        partitura: "https://exemplo.com/partituras/simplicidade.pdf"
-                    },
-                    {
-                        titulo: "SENTIDO",
-                        artista: "Waldir Azevedo",
-                        data: "2025-11-11",
-                        arquivo: "sentido.mp3",
-                        partitura: "https://exemplo.com/partituras/sentido.pdf"
-                    },
-                    {
-                        titulo: "SEMPRE",
-                        artista: "K-XImbinho",
-                        data: "2025-11-11",
-                        arquivo: "sempre.mp3",
-                        partitura: "https://exemplo.com/partituras/sempre.pdf"
-                    },
-                    {
-                        titulo: "SAXOFONE, POR QUE CHORAS",
-                        artista: "Ratinho",
-                        data: "2025-11-11",
-                        arquivo: "saxofone-porque-choras.mp3",
-                        partitura: "https://exemplo.com/partituras/saxofone-porque-choras.pdf"
-                    },
-                    {
-                        titulo: "SAMPA",
-                        artista: "Caetano Veloso",
-                        data: "2025-11-11",
-                        arquivo: "sampa.mp3",
-                        partitura: "https://exemplo.com/partituras/sampa.pdf"
-                    },
-                    {
-                        titulo: "SAMBA DE VERÃO",
-                        artista: "Artista Desconhecido",
-                        data: "2025-11-11",
-                        arquivo: "samba-de-verao.mp3",
-                        partitura: "https://exemplo.com/partituras/samba-de-verao.pdf"
-                    },
-                    {
-                        titulo: "ROSA",
-                        artista: "Pixinguinha",
-                        data: "2025-11-11",
-                        arquivo: "rosa.mp3",
-                        partitura: "https://exemplo.com/partituras/rosa.pdf"
-                    },
-                    {
-                        titulo: "RONDA",
-                        artista: "Paulo Vanzolini",
-                        data: "2025-11-11",
-                        arquivo: "ronda.mp3",
-                        partitura: "https://exemplo.com/partituras/ronda.pdf"
-                    },
-                    {
-                        titulo: "RECEITA DE SAMBA",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "receita-de-samba.mp3",
-                        partitura: "https://exemplo.com/partituras/receita-de-samba.pdf"
-                    },
-                    {
-                        titulo: "PROEZAS DE SOLON",
-                        artista: "Pixinguinha",
-                        data: "2025-11-11",
-                        arquivo: "proezas-de-solon.mp3",
-                        partitura: "https://exemplo.com/partituras/proezas-de-solon.pdf"
-                    },
-                    {
-                        titulo: "PRETENCIOSO",
-                        artista: "Pixinguinha & Benedito Lacerda",
-                        data: "2025-11-11",
-                        arquivo: "pretensioso.mp3",
-                        partitura: "https://exemplo.com/partituras/pretensioso.pdf"
-                    },
-                    {
-                        titulo: "PRANTOS (Izaias Bueno) PLAYBACK",
-                        artista: "Artista Desconhecido",
-                        data: "2025-11-11",
-                        arquivo: "prantos-playback.mp3",
-                        partitura: "https://exemplo.com/partituras/prantos-playback.pdf"
-                    },
-                    {
-                        titulo: "PEDACINHO DO CEU",
-                        artista: "Waldir Azevedo",
-                        data: "2025-11-11",
-                        arquivo: "pedacinho-do-ceu.mp3",
-                        partitura: "https://exemplo.com/partituras/pedacinho-do-ceu.pdf"
-                    },
-                    {
-                        titulo: "ODEON",
-                        artista: "Ernesto Nazareth",
-                        data: "2025-11-11",
-                        arquivo: "odeon.mp3",
-                        partitura: "https://exemplo.com/partituras/odeon.pdf"
-                    },
-                    {
-                        titulo: "O MUNDO É UM MOINHO",
-                        artista: "Cartola",
-                        data: "2025-11-11",
-                        arquivo: "o-mundo-e-um-moinho.mp3",
-                        partitura: "https://exemplo.com/partituras/o-mundo-e-um-moinho.pdf"
-                    },
-                    {
-                        titulo: "O BOEMIO",
-                        artista: "Anacleto de Medeiros",
-                        data: "2025-11-11",
-                        arquivo: "o-boemio.mp3",
-                        partitura: "https://exemplo.com/partituras/o-boemio.pdf"
-                    },
-                    {
-                        titulo: "NOITES CARIOCAS",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "noites-cariocas.mp3",
-                        partitura: "https://exemplo.com/partituras/noites-cariocas.pdf"
-                    },
-                    {
-                        titulo: "NAQUELE TEMPO",
-                        artista: "Pixinguinha",
-                        data: "2025-11-11",
-                        arquivo: "naquele-tempo.mp3",
-                        partitura: "https://exemplo.com/partituras/naquele-tempo.pdf"
-                    },
-                    {
-                        titulo: "NAQUELA MESA",
-                        artista: "Sergio Bitencourt",
-                        data: "2025-11-11",
-                        arquivo: "naquela-mesa.mp3",
-                        partitura: "https://exemplo.com/partituras/naquela-mesa.pdf"
-                    },
-                    {
-                        titulo: "NA GLORIA",
-                        artista: "Raul de Barros",
-                        data: "2025-11-11",
-                        arquivo: "na-gloria.mp3",
-                        partitura: "https://exemplo.com/partituras/na-gloria.pdf"
-                    },
-                    {
-                        titulo: "MURMURANDO",
-                        artista: "Maestro Fonfon",
-                        data: "2025-11-11",
-                        arquivo: "murmurando.mp3",
-                        partitura: "https://exemplo.com/partituras/murmurando.pdf"
-                    },
-                    {
-                        titulo: "MINHAS MAOS MEU CAVAQUINHO",
-                        artista: "Waldir Azevedo",
-                        data: "2025-11-11",
-                        arquivo: "minhas-maos-meu-cavaquinho.mp3",
-                        partitura: "https://exemplo.com/partituras/minhas-maos-meu-cavaquinho.pdf"
-                    },
-                    {
-                        titulo: "MEU DOCE CHORINHO",
-                        artista: "Mestro Portinho",
-                        data: "2025-11-11",
-                        arquivo: "meu-doce-chorinho.mp3",
-                        partitura: "https://exemplo.com/partituras/meu-doce-chorinho.pdf"
-                    },
-                    {
-                        titulo: "MEDLEY ARI BARROSO",
-                        artista: "Aquarela do Brasil-Canta Brasil-Isso Aqui, o que é",
-                        data: "2025-11-11",
-                        arquivo: "medley-ari-barroso.mp3",
-                        partitura: "https://exemplo.com/partituras/medley-ari-barroso.pdf"
-                    },
-                    {
-                        titulo: "MAGOADO",
-                        artista: "Waldir Azevedo",
-                        data: "2025-11-11",
-                        arquivo: "magoado.mp3",
-                        partitura: "https://exemplo.com/partituras/magoado.pdf"
-                    },
-                    {
-                        titulo: "LUA BRANCA",
-                        artista: "Chiquinha Gonzaga",
-                        data: "2025-11-11",
-                        arquivo: "lua-branca.mp3",
-                        partitura: "https://exemplo.com/partituras/lua-branca.pdf"
-                    },
-                    {
-                        titulo: "LAMENTOS",
-                        artista: "Pixinguinha",
-                        data: "2025-11-11",
-                        arquivo: "lamentos.mp3",
-                        partitura: "https://exemplo.com/partituras/lamentos.pdf"
-                    },
-                    {
-                        titulo: "INGENUO",
-                        artista: "Pixinguinha",
-                        data: "2025-11-11",
-                        arquivo: "ingenuo.mp3",
-                        partitura: "https://exemplo.com/partituras/ingenuo.pdf"
-                    },
-                    {
-                        titulo: "HOMENAGEM A VELHA GUARDA",
-                        artista: "Sivuca",
-                        data: "2025-11-11",
-                        arquivo: "homenagem-a-velha-guarda.mp3",
-                        partitura: "https://exemplo.com/partituras/homenagem-a-velha-guarda.pdf"
-                    },
-                    {
-                        titulo: "GOSTOSINHO",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "gostosinho.mp3",
-                        partitura: "https://exemplo.com/partituras/gostosinho.pdf"
-                    },
-                    {
-                        titulo: "GAROTA DE IPANEMA Tom Jobim)",
-                        artista: "Artista Desconhecido",
-                        data: "2025-11-11",
-                        arquivo: "garota-de-ipanema.mp3",
-                        partitura: "https://exemplo.com/partituras/garota-de-ipanema.pdf"
-                    },
-                    {
-                        titulo: "FLOR DO CERRADO",
-                        artista: "Waldir Azevedo",
-                        data: "2025-11-11",
-                        arquivo: "flor-do-cerrado.mp3",
-                        partitura: "https://exemplo.com/partituras/flor-do-cerrado.pdf"
-                    },
-                    {
-                        titulo: "FLOR AMOROSA",
-                        artista: "Joaquim Calado",
-                        data: "2025-11-11",
-                        arquivo: "flor-amorosa.mp3",
-                        partitura: "https://exemplo.com/partituras/flor-amorosa.pdf"
-                    },
-                    {
-                        titulo: "FEITIÇO DA VILA",
-                        artista: "Noel Rosa",
-                        data: "2025-11-11",
-                        arquivo: "feitico-da-vila.mp3",
-                        partitura: "https://exemplo.com/partituras/feitico-da-vila.pdf"
-                    },
-                    {
-                        titulo: "FEITIÇO",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "feitico.mp3",
-                        partitura: "https://exemplo.com/partituras/feitico.pdf"
-                    },
-                    {
-                        titulo: "FEIA",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "feia.mp3",
-                        partitura: "https://exemplo.com/partituras/feia.pdf"
-                    },
-                    {
-                        titulo: "EVOCATIVO",
-                        artista: "Joel Nascimento",
-                        data: "2025-11-11",
-                        arquivo: "evocativo.mp3",
-                        partitura: "https://exemplo.com/partituras/evocativo.pdf"
-                    },
-                    {
-                        titulo: "EU SEI Q VOU TE AMAR",
-                        artista: "Tom Jobim",
-                        data: "2025-11-11",
-                        arquivo: "eu-sei-que-vou-te-amar.mp3",
-                        partitura: "https://exemplo.com/partituras/eu-sei-que-vou-te-amar.pdf"
-                    },
-                    {
-                        titulo: "ESPINHA DE BACALHAU",
-                        artista: "Severino Araújo",
-                        data: "2025-11-11",
-                        arquivo: "espinha-de-bacalhau-severino.mp3",
-                        partitura: "https://exemplo.com/partituras/espinha-de-bacalhau-severino.pdf"
-                    },
-                    {
-                        titulo: "ESPINHA DE BACALHAU",
-                        artista: "C",
-                        data: "2025-11-11",
-                        arquivo: "espinha-de-bacalhau-c.mp3",
-                        partitura: "https://exemplo.com/partituras/espinha-de-bacalhau-c.pdf"
-                    },
-                    {
-                        titulo: "EM QUE ÉPOCA",
-                        artista: "Aymoré",
-                        data: "2025-11-11",
-                        arquivo: "em-que-epoca.mp3",
-                        partitura: "https://exemplo.com/partituras/em-que-epoca.pdf"
-                    },
-                    {
-                        titulo: "DOCE DE COCO",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "doce-de-coco.mp3",
-                        partitura: "https://exemplo.com/partituras/doce-de-coco.pdf"
-                    },
-                    {
-                        titulo: "DIABINHO MALUCO",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "diabinho-maluco.mp3",
-                        partitura: "https://exemplo.com/partituras/diabinho-maluco.pdf"
-                    },
-                    {
-                        titulo: "DIA DE DOMINGO",
-                        artista: "Tim Maia",
-                        data: "2025-11-11",
-                        arquivo: "dia-de-domingo.mp3",
-                        partitura: "https://exemplo.com/partituras/dia-de-domingo.pdf"
-                    },
-                    {
-                        titulo: "DENGOSO",
-                        artista: "Jonas Pereira",
-                        data: "2025-11-11",
-                        arquivo: "dengoso.mp3",
-                        partitura: "https://exemplo.com/partituras/dengoso.pdf"
-                    },
-                    {
-                        titulo: "DELICADO",
-                        artista: "Waldir Azevedo",
-                        data: "2025-11-11",
-                        arquivo: "delicado.mp3",
-                        partitura: "https://exemplo.com/partituras/delicado.pdf"
-                    },
-                    {
-                        titulo: "CONVERSA DE BOTEQUIM",
-                        artista: "Noel Rosa",
-                        data: "2025-11-11",
-                        arquivo: "conversa-de-botequim.mp3",
-                        partitura: "https://exemplo.com/partituras/conversa-de-botequim.pdf"
-                    },
-                    {
-                        titulo: "COCHICHANDO",
-                        artista: "Pixinguinha",
-                        data: "2025-11-11",
-                        arquivo: "cochichando.mp3",
-                        partitura: "https://exemplo.com/partituras/cochichando.pdf"
-                    },
-                    {
-                        titulo: "CINEMA MUDO",
-                        artista: "Waldir Azevedo",
-                        data: "2025-11-11",
-                        arquivo: "cinema-mudo.mp3",
-                        partitura: "https://exemplo.com/partituras/cinema-mudo.pdf"
-                    },
-                    {
-                        titulo: "CHORO NEGRO",
-                        artista: "Paulinho da Viola",
-                        data: "2025-11-11",
-                        arquivo: "choro-negro.mp3",
-                        partitura: "https://exemplo.com/partituras/choro-negro.pdf"
-                    },
-                    {
-                        titulo: "CHORANDO BAIXINHO",
-                        artista: "Abel Ferreira",
-                        data: "2025-11-11",
-                        arquivo: "chorando-baixinho.mp3",
-                        partitura: "https://exemplo.com/partituras/chorando-baixinho.pdf"
-                    },
-                    {
-                        titulo: "CHIQUITA",
-                        artista: "Waldir Azevedo",
-                        data: "2025-11-11",
-                        arquivo: "chiquita.mp3",
-                        partitura: "https://exemplo.com/partituras/chiquita.pdf"
-                    },
-                    {
-                        titulo: "CHEGA DE SAUDADE - DESAFINADO",
-                        artista: "Tom Jobim",
-                        data: "2025-11-11",
-                        arquivo: "chega-de-saudade-desafinado.mp3",
-                        partitura: "https://exemplo.com/partituras/chega-de-saudade-desafinado.pdf"
-                    },
-                    {
-                        titulo: "CARIOQUINHA",
-                        artista: "Waldir Azevedo",
-                        data: "2025-11-11",
-                        arquivo: "carioquinha.mp3",
-                        partitura: "https://exemplo.com/partituras/carioquinha.pdf"
-                    },
-                    {
-                        titulo: "CARINHOSO",
-                        artista: "Pixinguinha",
-                        data: "2025-11-11",
-                        arquivo: "carinhoso.mp3",
-                        partitura: "https://exemplo.com/partituras/carinhoso.pdf"
-                    },
-                    {
-                        titulo: "CAMUNDONGO",
-                        artista: "Waldir Azevedo",
-                        data: "2025-11-11",
-                        arquivo: "camundongo.mp3",
-                        partitura: "https://exemplo.com/partituras/camundongo.pdf"
-                    },
-                    {
-                        titulo: "CADENCIA",
-                        artista: "Juventino Maciel",
-                        data: "2025-11-11",
-                        arquivo: "cadencia.mp3",
-                        partitura: "https://exemplo.com/partituras/cadencia.pdf"
-                    },
-                    {
-                        titulo: "BREJEIRO",
-                        artista: "Ernesto Nazareth",
-                        data: "2025-11-11",
-                        arquivo: "brejeiro.mp3",
-                        partitura: "https://exemplo.com/partituras/brejeiro.pdf"
-                    },
-                    {
-                        titulo: "BRASILEIRINHO",
-                        artista: "Waldir Azevedo em G",
-                        data: "2025-11-11",
-                        arquivo: "brasileirinho-g.mp3",
-                        partitura: "https://exemplo.com/partituras/brasileirinho-g.pdf"
-                    },
-                    {
-                        titulo: "BOLE BOLE",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "bole-bole.mp3",
-                        partitura: "https://exemplo.com/partituras/bole-bole.pdf"
-                    },
-                    {
-                        titulo: "BOLA PRETA",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "bola-preta.mp3",
-                        partitura: "https://exemplo.com/partituras/bola-preta.pdf"
-                    },
-                    {
-                        titulo: "BENZINHO",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "benzinho.mp3",
-                        partitura: "https://exemplo.com/partituras/benzinho.pdf"
-                    },
-                    {
-                        titulo: "BARRACÃO DE ZINCO",
-                        artista: "Antenor Borges & José Gonçalves",
-                        data: "2025-11-11",
-                        arquivo: "barracao-de-zinco.mp3",
-                        partitura: "https://exemplo.com/partituras/barracao-de-zinco.pdf"
-                    },
-                    {
-                        titulo: "AVE MARIA",
-                        artista: "Gnoud",
-                        data: "2025-11-11",
-                        arquivo: "ave-maria.mp3",
-                        partitura: "https://exemplo.com/partituras/ave-maria.pdf"
-                    },
-                    {
-                        titulo: "ASSIM MESMO",
-                        artista: "Luis Americano",
-                        data: "2025-11-11",
-                        arquivo: "assim-mesmo.mp3",
-                        partitura: "https://exemplo.com/partituras/assim-mesmo.pdf"
-                    },
-                    {
-                        titulo: "ASSANHADO",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "assanhado.mp3",
-                        partitura: "https://exemplo.com/partituras/assanhado.pdf"
-                    },
-                    {
-                        titulo: "AS ROSAS NAO FALAM",
-                        artista: "Cartola",
-                        data: "2025-11-11",
-                        arquivo: "as-rosas-nao-falam.mp3",
-                        partitura: "https://exemplo.com/partituras/as-rosas-nao-falam.pdf"
-                    },
-                    {
-                        titulo: "AQUARELA DE QUINXABAS",
-                        artista: "Hamilton de Holanda",
-                        data: "2025-11-11",
-                        arquivo: "aquarela-de-quinxabas.mp3",
-                        partitura: "https://exemplo.com/partituras/aquarela-de-quinxabas.pdf"
-                    },
-                    {
-                        titulo: "APANHEI-TE CAVAQUINHO (Ernesto Nazareth",
-                        artista: "Artista Desconhecido",
-                        data: "2025-11-11",
-                        arquivo: "apanhei-te-cavaquinho.mp3",
-                        partitura: "https://exemplo.com/partituras/apanhei-te-cavaquinho.pdf"
-                    },
-                    {
-                        titulo: "ANDRÉ DO SAPATO NOVO",
-                        artista: "André Vitor Correia",
-                        data: "2025-11-11",
-                        arquivo: "andre-do-sapato-novo.mp3",
-                        partitura: "https://exemplo.com/partituras/andre-do-sapato-novo.pdf"
-                    },
-                    {
-                        titulo: "AMOROSO",
-                        artista: "Garoto",
-                        data: "2025-11-11",
-                        arquivo: "amoroso.mp3",
-                        partitura: "https://exemplo.com/partituras/amoroso.pdf"
-                    },
-                    {
-                        titulo: "ALVORADA",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-11-11",
-                        arquivo: "alvorada.mp3",
-                        partitura: "https://exemplo.com/partituras/alvorada.pdf"
-                    },
-                    {
-                        titulo: "AGUENTA SEU FUGENCIO",
-                        artista: "Lourenço Lamartine",
-                        data: "2025-11-11",
-                        arquivo: "aguenta-seu-fugencio.mp3",
-                        partitura: "https://exemplo.com/partituras/aguenta-seu-fugencio.pdf"
-                    },
-                    {
-                        titulo: "BRASILEIRINHO PARA BANDOLIM",
-                        artista: "Waldir Azevedo em A",
-                        data: "2025-11-11",
-                        arquivo: "brasileirinho-a.mp3",
-                        partitura: "https://exemplo.com/partituras/brasileirinho-a.pdf"
-                    },
-                    {
-                        titulo: "Brasileirinho",
-                        artista: "Waldir Azevedo",
-                        data: "2025-01-15",
-                        arquivo: "brasileirinho.mp3",
-                        partitura: "https://exemplo.com/partituras/brasileirinho.pdf"
-                    },
-                    {
-                        titulo: "Tico-Tico no Fubá",
-                        artista: "Zequinha de Abreu",
-                        data: "2025-01-10",
-                        arquivo: "tico-tico.mp3",
-                        partitura: "https://exemplo.com/partituras/tico-tico.pdf"
-                    },
-                    {
-                        titulo: "Naquele Tempo",
-                        artista: "Jacob do Bandolim",
-                        data: "2025-01-05",
-                        arquivo: "naquele-tempo.mp3",
-                        partitura: "https://exemplo.com/partituras/naquele-tempo.pdf"
-                    }
-                ];
-                
-                renderMusicList(musicas);
-            }, 1000);
-        }
-        
-        // Função para renderizar a lista de músicas
-        function renderMusicList(musicas) {
-            const musicListContainer = document.getElementById('musicList');
-            musicListContainer.innerHTML = '';
-            
-            if (musicas.length === 0) {
-                musicListContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #888;">Nenhuma música encontrada.</p>';
-                return;
-            }
-            
-            musicas.forEach(musica => {
-                const card = document.createElement('div');
-                card.className = 'music-card';
-                
-                // Formata a data
-                const date = new Date(musica.data);
-                const formattedDate = isNaN(date.getTime()) ? 'N/A' : date.toLocaleDateString('pt-BR');
-                
-                card.innerHTML = `
-                    <h3>${musica.titulo || 'Título Desconhecido'}</h3>
-                    <p>Artista: ${musica.artista || 'N/A'}</p>
-                    <p>Lançamento: ${formattedDate}</p>
-                    
-                    <audio controls class="audio-player" 
-                           data-src="#"
-                           controlsList="nodownload" 
-                           preload="none"
-                           crossorigin="anonymous"
-                           style="width: 100%; height: 40px; margin-top: 10px;">
-                        Seu navegador não suporta o elemento de áudio.
-                    </audio>
-                    
-                    <button class="add-to-playlist-btn" 
-                            data-musica-arquivo="${musica.arquivo}" 
-                            title="Adicionar à Lista" 
-                            style="display: block; width: 100%; margin-top: 12px; background-color: var(--primary-color) !important; color: var(--text-light) !important; border: none; padding: 10px 15px !important; border-radius: 6px !important; cursor: pointer; font-size: 0.9em !important; font-weight: 600;">
-                        + Adicionar à Lista 
-                    </button>
-                    
-                    ${musica.partitura && musica.partitura !== '' ? `
-                        <button class="open-sheet-btn" 
-                                title="Abrir Partitura" 
-                                style="display: block; width: 100%; margin-top: 8px; background-color: #4CAF50 !important; color: var(--text-light) !important; border: none; padding: 10px 15px !important; border-radius: 6px !important; cursor: pointer; font-size: 0.9em !important; font-weight: 600;">
-                            Ver Partitura 🎼 
-                        </button>` : ''}
-                `;
-                
-                musicListContainer.appendChild(card);
-            });
-        }
-        
-        // Carregar a lista de músicas quando a página carregar
-        document.addEventListener('DOMContentLoaded', function() {
-            loadMusicList();
-        });
-        
-        // Mostrar o modal de redirecionamento quando os botões forem clicados
-        document.addEventListener('click', function(e) {
-            // Verifica se o clique foi em um botão de ação
-            if (e.target.classList.contains('add-to-playlist-btn') || 
-                e.target.classList.contains('open-sheet-btn') ||
-                e.target.id === 'openPlayerListBtn') {
-                e.preventDefault();
-                document.getElementById('redirectModal').style.display = 'flex';
-            }
-        });
+        <div style="background: #eef2f7; display: inline-block; padding: 12px 24px; border-radius: 8px; margin-bottom: 24px; border: 1px solid #cbd5e1;">
+          <p style="margin: 0; font-size: 0.95rem; color: #475569;">
+            <strong>ℹ️ Como funciona:</strong> Neste site de teste você pode visualizar tudo, <br>
+            mas os <em>players de música e as Partituras estão desativados</em>.
+          </p>
+        </div>
 
-        // Fechar o modal de redirecionamento
-        document.getElementById('closeRedirectModal').addEventListener('click', function() {
-            document.getElementById('redirectModal').style.display = 'none';
-        });
+        <div>
+          <a class="btn btn--secondary" href="https://www.basesdechorinho.com.br/" target="_blank" rel="noopener noreferrer">
+            FAZER UM TOUR VISUAL AGORA
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="hero" aria-labelledby="promo-title">
+    <div class="container">
+      <div class="promo-badge" role="status" aria-live="polite">PROMOÇÃO RELÂMPAGO</div>
+      <h2 id="promo-title" style="color:#fff;margin:16px 0 8px; font-size:2.4rem;">A Maior Biblioteca de Playbacks de Choro do Brasil</h2>
 
-// Redirecionar para o WhatsApp
-document.getElementById('redirectToVenda').addEventListener('click', function() {
-    window.open('https://wa.me/5524988418135?text=Olá, Cristiano. Quero aproveitar a oferta da Base de Chorinho!', '_blank');
-});
+      <p class="original-price" aria-hidden="true">De: R$ 350 (primeiro mês) + R$ 100/mês</p>
+      <p class="promo-price"><span class="primeiro">Por apenas R$ 120 no primeiro mês</span><br><span style="font-size:1.2rem;color:#ffd700">e R$ 50 nos próximos!</span></p>
 
-        // Fechar modais ao clicar fora
-        document.getElementById('redirectModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.style.display = 'none';
-            }
-        });
-        
-        // Fechar modal de player ao clicar fora
-        document.getElementById('playerListModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.style.display = 'none';
-            }
-        });
-        
-        // Fechar modal de partitura ao clicar fora
-        document.getElementById('sheetModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.style.display = 'none';
-                document.getElementById('sheetViewer').src = '';
-            }
-        });
-        
-        // Botões de fechar modais
-        document.getElementById('closePlayerListModal').addEventListener('click', function() {
-            document.getElementById('playerListModal').style.display = 'none';
-        });
-        
-        document.getElementById('closeSheetModal').addEventListener('click', function() {
-            document.getElementById('sheetModal').style.display = 'none';
-            document.getElementById('sheetViewer').src = '';
-        });
-    </script>
+      <p class="promo-details">Acesso ilimitado + nova música toda semana. <strong>Oferta válida apenas até 31 de dezembro!</strong></p>
 
-    <!-- Mantém os scripts originais para funcionalidades básicas -->
-    <script type="module" src="./firebase-config.js"></script>
-    </body>
+      <div id="countdown" aria-live="polite" aria-atomic="true">Aguardando Contagem...</div>
+
+      <p>
+        <a class="btn btn--cta" href="https://wa.me/5524988418135?text=Ol%C3%A1%2C%20Cristiano.%20Quero%20aproveitar%20a%20oferta%20da%20Base%20de%20Chorinho!" target="_blank" rel="noopener noreferrer">
+          QUERO ESSA OFERTA AGORA
+        </a>
+      </p>
+
+      <a href="https://wa.me/5524988418135?text=Ol%C3%A1%2C%20Cristiano.%20Quero%20aproveitar%20a%20oferta%20da%20Base%20de%20Chorinho!" target="_blank" rel="noopener noreferrer" style="display: block; text-align: center;">
+        <img src="https://raw.githubusercontent.com/ting560/tv/main/IMG-20251116-WA0103.jpg" alt="Super Oferta Black Friday: Assine nosso plano e tenha acesso a mais de 350 playbacks com partituras e cifras!" class="black-friday-banner" style="margin-top: 20px;">
+      </a>
+    </div>
+  </section>
+
+  <section id="benefits" aria-labelledby="benefits-title">
+    <div class="container">
+      <h2 id="benefits-title">Por que assinar a Base de Chorinho?</h2>
+      <div class="benefits">
+        <div class="benefit-item">
+          <h3>Qualidade Profissional</h3>
+          <p>Gravações em estúdio com arranjos fiéis ao gênero, executadas por músicos experientes.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3>Atualização Semanal</h3>
+          <p>Toda segunda-feira, uma nova faixa é adicionada à biblioteca.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3>Player Embutido</h3>
+          <p>Ouça diretamente no site, sem necessidade de downloads.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3>Seleção de Playlists</h3>
+          <p>Monte sua própria seleção ou escolha entre curadorias temáticas.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3>Compatível com Todos os Instrumentos</h3>
+          <p>Violão 7 cordas, bandolim, cavaquinho, flauta, pandeiro e mais.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3>Partituras Inclusas</h3>
+          <p>PDF com cifras e partituras em todas as faixas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="samples" style="background:linear-gradient(135deg, #f0f2f5 0%, #e8ecf1 100%)" aria-labelledby="samples-title">
+    <div class="container">
+      <h2 id="samples-title">Ouça Amostras</h2>
+      <p style="text-align:center;margin-bottom:24px;"><em>Essas são apenas amostras. Assinantes têm acesso às versões completas em alta qualidade.</em></p>
+
+      <div class="players">
+        <div class="player-item">
+          <strong>1. Brasileirinho (Waldir Azevedo)</strong>
+          <audio controls preload="none">
+            <source src="images/BRASILEIRINHO.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+
+        <div class="player-item">
+          <strong>2. Delicado (Waldir Azevedo)</strong>
+          <audio controls preload="none">
+            <source src="images/DELICADO.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+
+        <div class="player-item">
+          <strong>3. Noites Cariocas (Jacob do Bandolim)</strong>
+          <audio controls preload="none">
+            <source src="images/NOITES%20CARIOCAS%20%28Jacob%20do%20Bandolim%29.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+
+        <div class="player-item">
+          <strong>4. O Mundo é um Moinho (Cartola)</strong>
+          <audio controls preload="none">
+            <source src="images/O%20MUNDO%20%C3%89%20UM%20MOINHO%20%28Cartola%29.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+
+        <div class="player-item">
+          <strong>5. Pedacinho do Céu (Waldir Azevedo)</strong>
+          <audio controls preload="none">
+            <source src="images/PEDACINHO%20DO%20CEU%20%28Waldir%20Azevedo%29.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+
+        <div class="player-item">
+          <strong>6. Sonoroso (K-Ximbinho)</strong>
+          <audio controls preload="none">
+            <source src="images/SONOROSO%20%28K-Ximbinho%29.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+
+        <div class="player-item">
+          <strong>7. Vibrações (Jacob do Bandolim)</strong>
+          <audio controls preload="none">
+            <source src="images/VIBRA%C3%87OES%20%28Jacob%20do%20Bandolim%29.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" aria-labelledby="features-title">
+    <div class="container">
+      <h2 id="features-title">Recursos em Destaque</h2>
+
+      <div class="feature-list" style="display:grid;gap:20px;">
+        <div style="background:linear-gradient(135deg, #fff 0%, #f8fafc 100%);padding:24px;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.08); border: 1px solid rgba(255,255,255,0.2);">
+          <h3>🎶 Seleção de Playlists</h3>
+          <p>Monte sua playlist para seus estudos ou apresentações direto no site.</p>
+        </div>
+
+        <div style="background:linear-gradient(135deg, #fff 0%, #f8fafc 100%);padding:24px;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.08); border: 1px solid rgba(255,255,255,0.2);">
+          <h3>🔊 Qualidade Profissional</h3>
+          <p>Gravações em estúdio com qualidade e arranjos fiéis ao original.</p>
+          <p><strong>Playbacks produzidos com instrumentos regionais como:</strong> Violão 7 cordas, harmonia de violão 6, cavaco e pandeiro de couro.</p>
+        </div>
+
+        <div style="background:linear-gradient(135deg, #fff 0%, #f8fafc 100%);padding:24px;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.08); border: 1px solid rgba(255,255,255,0.2);">
+          <h3>📄 Partituras Inclusas</h3>
+          <p>PDF com as cifras de harmonias e partituras de algumas faixas.</p>
+        </div>
+      </div>
+
+      <p style="text-align:center;margin-top:24px;">
+        <a class="btn" href="https://wa.me/5524988418135?text=Ol%C3%A1%2C%20Cristiano.%20Quero%20aproveitar%20a%20oferta%20da%20Base%20de%20Chorinho!" target="_blank" rel="noopener noreferrer">Explorar Conteúdo Completo</a>
+      </p>
+    </div>
+  </section>
+
+  <section id="testimonials" style="background:linear-gradient(135deg, #f0f2f5 0%, #e8ecf1 100%)" aria-labelledby="testimonials-title">
+    <div class="container">
+      <h2 id="testimonials-title">O que os Assinantes Dizem</h2>
+      <div class="testimonials">
+        <div class="testimonial">
+          <p>"Finalmente encontrei playbacks de choro com arranjos corretos e som limpo. A atualização semanal mantém minha prática sempre renovada."</p>
+          <cite>– Marcelo R., bandolinista (RJ)</cite>
+        </div>
+        <div class="testimonial">
+          <p>"Os players são práticos e as partituras ajudam muito nos ensaios. Vale cada real."</p>
+          <cite>– Ana Clara, flautista (SP)</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works" aria-labelledby="how-title">
+    <div class="container">
+      <h2 id="how-title">Como Funciona</h2>
+      <div class="steps">
+        <div class="step"><strong>1</strong><p>Assine com a oferta promocional.</p></div>
+        <div class="step"><strong>2</strong><p>Acesse imediatamente a biblioteca completa.</p></div>
+        <div class="step"><strong>3</strong><p>Receba nova música toda segunda-feira.</p></div>
+        <div class="step"><strong>4</strong><p>Pratique com partituras e playlists.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="checkout" style="background:linear-gradient(135deg, #f9fafb 0%, #eef2f7 100%)" aria-labelledby="checkout-title">
+    <div class="container">
+      <h2 id="checkout-title">Garanta a Oferta Antes que Acabe!</h2>
+
+      <div class="price" aria-hidden="true" style="margin-bottom:12px">
+        <span class="primeiro" style="color:#e53935">R$ 120 no 1º mês</span><br>
+        <span style="font-size:1.2rem;color:#3949ab">R$ 50 nos próximos</span>
+      </div>
+
+      <p style="text-align:center;margin-bottom:18px;"><em>Sem contrato de fidelidade • Cancele quando quiser</em></p>
+
+      <div class="checkout-wrap">
+        <div class="checkout-form" role="form" aria-label="Formulário de contato para assinatura">
+          <p style="font-weight:700;color:#1a237e;margin-bottom:16px">
+            Fale agora com <strong>Cristiano Ferreira</strong> para garantir sua vaga e finalizar a assinatura:
+          </p>
+
+          <a class="whatsapp-link" href="https://wa.me/5524988418135?text=Ol%C3%A1%2C%20Cristiano.%20Quero%20aproveitar%20a%20oferta%20da%20Base%20de%20Chorinho!" target="_blank" rel="noopener noreferrer">
+            💬 FALAR COM CRISTIANO AGORA
+          </a>
+        </div>
+
+        <p class="guarantee"><strong>Garantia:</strong> Se não estiver satisfeito nos primeiros 7 dias, devolva 100% do valor.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container" style="text-align: center;">
+    <a href="https://wa.me/5524988418135?text=Ol%C3%A1%2C%20Cristiano.%20Quero%20aproveitar%20a%20oferta%20da%20Base%20de%20Chorinho!" target="_blank" rel="noopener noreferrer">
+      <img src="https://raw.githubusercontent.com/ting560/tv/main/IMG-20251116-WA0103.jpg" alt="Super Oferta Black Friday: Assine nosso plano e tenha acesso a mais de 350 playbacks com partituras e cifras!" class="black-friday-banner">
+    </a>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p><strong>Base de Chorinho</strong> – Onde a tradição do choro encontra a praticidade digital.<br><em>Desenvolvido e curado por Cristiano Ferreira</em></p>
+      <p style="margin-top:16px;">
+        <a href="#" aria-label="Termos de Uso">Termos de Uso</a> |
+        <a href="#" aria-label="Política de Privacidade">Política de Privacidade</a> |
+        <a href="#" aria-label="Contato">Contato</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Contador até 31 de dezembro de 2025 23:59:59
+    const countdownEl = document.getElementById('countdown');
+    const countdownDate = new Date('2025-12-31T23:59:59').getTime();
+
+    function updateCountdown() {
+      const now = Date.now();
+      const distance = countdownDate - now;
+
+      if (distance <= 0) {
+        countdownEl.textContent = 'OFERTA ENCERRADA';
+        clearInterval(timer); 
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML =
+        `<div class="timer-unit">
+          <span class="number">${String(days).padStart(2,'0')}</span>
+          <span class="label">Dias</span>
+        </div>` +
+        `<div class="timer-unit">
+          <span class="number">${String(hours).padStart(2,'0')}</span>
+          <span class="label">Horas</span>
+        </div>` +
+        `<div class="timer-unit">
+          <span class="number">${String(minutes).padStart(2,'0')}</span>
+          <span class="label">Minutos</span>
+        </div>` +
+        `<div class="timer-unit">
+          <span class="number">${String(seconds).padStart(2,'0')}</span>
+          <span class="label">Segundos</span>
+        </div>`;
+    }
+
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+
+    if (Date.now() > countdownDate) {
+      clearInterval(timer);
+      countdownEl.textContent = 'OFERTA ENCERRADA';
+    }
+  </script>
+</body>
 </html>
