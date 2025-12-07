@@ -45,19 +45,34 @@ function loadUserPlaylist() {
         console.error('Erro ao carregar playlist do localStorage:', error);
         userPlaylist = [];
     }
+    updatePlaylistCount(); // Atualiza o contador ao carregar
 }
 
 // Salva a playlist no localStorage
 function saveUserPlaylist() {
     try {
         localStorage.setItem('userPlaylist', JSON.stringify(userPlaylist));
+        updatePlaylistCount(); // Atualiza o contador ao salvar
     } catch (error) {
         console.error('Erro ao salvar playlist no localStorage:', error);
     }
 }
 
+// Atualiza o contador de músicas na playlist
+function updatePlaylistCount() {
+    const playlistCountElement = document.getElementById('playlistCount');
+    if (playlistCountElement) {
+        playlistCountElement.textContent = userPlaylist.length;
+    }
+}
+
 // Carrega a playlist ao iniciar
 loadUserPlaylist();
+
+// Atualiza o contador ao carregar a página
+document.addEventListener('DOMContentLoaded', function() {
+    updatePlaylistCount();
+});
 
 // Controles do Modal Player
 const openPlayerListBtn = document.getElementById('openPlayerListBtn');
@@ -422,6 +437,9 @@ function toggleUserPlaylist(musica) {
     document.querySelectorAll(`[data-musica-arquivo="${musica.arquivo}"]`).forEach(btn => {
         updateButtonState(btn);
     });
+    
+    // Atualiza o contador de músicas na playlist
+    updatePlaylistCount();
 }
 
 
@@ -663,6 +681,9 @@ window.removeModalMusic = function(idx) {
     renderModalPlayer();
     renderModalMusicList();
     if (modalMusicas.length === 0) closePlayerListModalFn();
+    
+    // Atualiza o contador de músicas na playlist
+    updatePlaylistCount();
 };
 
 window.moveModalMusicUp = function(idx) {

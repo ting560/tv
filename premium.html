@@ -44,9 +44,13 @@
 
         <section class="music-list-section">
             <h2>Lançamentos e Clássicos</h2>
-                <div style="text-align:center; margin-bottom:16px;">
-                    <button id="openPlayerListBtn" style="padding:12px 24px; border-radius:8px; background:#222; color:#fff; font-size:1rem; border:none; cursor:pointer; font-weight:600;">Abrir Player Lista</button>
-                </div>
+            <div class="player-button-container">
+                <button id="openPlayerListBtn" class="floating-player-button">
+                    <span class="button-icon">▶️</span>
+                    <span class="button-text">Abrir Player Lista</span>
+                    <span id="playlistCount" class="playlist-count">0</span>
+                </button>
+            </div>
             <div class="music-controls" style="margin-bottom:24px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:center;">
                 <input type="text" id="searchInput" placeholder="Buscar música ou artista..." style="padding:10px; border-radius:6px; border:1px solid #ccc; min-width:220px;">
                 <select id="orderSelect" style="padding:10px; border-radius:6px; border:1px solid #ccc;">
@@ -87,6 +91,103 @@
 
     <style>
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* Estilos do botão flutuante de player */
+        .player-button-container {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        
+        .floating-player-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .floating-player-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        }
+        
+        .floating-player-button:active {
+            transform: translateY(0);
+        }
+        
+        .button-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+        
+        .floating-player-button:hover .button-icon {
+            transform: scale(1.1);
+        }
+        
+        .playlist-count {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        /* Estilos responsivos para o botão flutuante */
+        @media (max-width: 768px) {
+            .player-button-container {
+                position: sticky;
+                top: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .floating-player-button {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+                border-radius: 40px;
+            }
+            
+            .button-text {
+                display: none; /* Esconde o texto em telas menores */
+            }
+            
+            .floating-player-button::before {
+                content: "🎵";
+                margin-right: 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .player-button-container {
+                top: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .floating-player-button {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Estilos existentes */
         .modal-player-content { 
             background: var(--background-light); 
             padding: 30px; 
