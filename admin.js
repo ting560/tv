@@ -84,9 +84,148 @@ async function uploadPartitura(file) {
     }
 }
 
+// Sistema de notificações popup
+class NotificationManager {
+    constructor() {
+        this.container = document.getElementById('notificationContainer');
+        this.notificationCounter = 0;
+        if (!this.container) {
+            // Cria o container se não existir
+            this.container = document.createElement('div');
+            this.container.id = 'notificationContainer';
+            this.container.className = 'notification-container';
+            document.body.appendChild(this.container);
+        }
+    }
+    
+    show(message, type = 'info', title = null, duration = 5000) {
+        // Ícones para diferentes tipos de notificação
+        const icons = {
+            success: '✅',
+            error: '❌',
+            warning: '⚠️',
+            info: 'ℹ️'
+        };
+        
+        // Títulos padrão para diferentes tipos
+        const defaultTitles = {
+            success: 'Sucesso',
+            error: 'Erro',
+            warning: 'Aviso',
+            info: 'Informação'
+        };
+        
+        // Cria o elemento da notificação
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.id = `notification-${++this.notificationCounter}`;
+        
+        // Define o título
+        const notificationTitle = title || defaultTitles[type] || defaultTitles.info;
+        
+        // Conteúdo da notificação
+        notification.innerHTML = `
+            <div class="notification-header">
+                <div class="notification-title">
+                    <span class="notification-icon">${icons[type] || icons.info}</span>
+                    ${notificationTitle}
+                </div>
+                <button class="notification-close">&times;</button>
+            </div>
+            <div class="notification-message">${message}</div>
+        `;
+        
+        // Adiciona ao container
+        this.container.appendChild(notification);
+        
+        // Força o reflow para garantir a animação
+        notification.offsetHeight;
+        
+        // Mostra a notificação
+        notification.classList.add('show');
+        
+        // Adiciona evento para fechar ao clicar no botão
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => {
+            this.hide(notification);
+        });
+        
+        // Fecha automaticamente após o tempo especificado
+        let timeoutId = null;
+        if (duration > 0) {
+            timeoutId = setTimeout(() => {
+                this.hide(notification);
+            }, duration);
+        }
+        
+        // Adiciona evento para limpar o timeout se a notificação for fechada manualmente
+        notification.addEventListener('hide-notification', () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+        });
+        
+        return notification;
+    }
+    
+    hide(notification) {
+        // Dispara um evento personalizado antes de esconder
+        const hideEvent = new CustomEvent('hide-notification');
+        notification.dispatchEvent(hideEvent);
+        
+        notification.classList.remove('show');
+        // Remove o elemento após a animação
+        setTimeout(() => {
+            if (notification.parentNode === this.container) {
+                this.container.removeChild(notification);
+            }
+        }, 300);
+    }
+    
+    // Métodos convenientes para tipos específicos
+    success(message, title = null, duration = 5000) {
+        return this.show(message, 'success', title, duration);
+    }
+    
+    error(message, title = null, duration = 0) { // Erros não fecham automaticamente
+        return this.show(message, 'error', title, duration);
+    }
+    
+    warning(message, title = null, duration = 7000) {
+        return this.show(message, 'warning', title, duration);
+    }
+    
+    info(message, title = null, duration = 5000) {
+        return this.show(message, 'info', title, duration);
+    }
+    
+    // Método para limpar todas as notificações
+    clearAll() {
+        while (this.container.firstChild) {
+            this.container.removeChild(this.container.firstChild);
+        }
+    }
+}
+
+// Instância global do gerenciador de notificações
+const notificationManager = new NotificationManager();
+
 function showMessage(msg, type = 'success', persist = false) {
     // Mensagem sempre visível no login
     const isError = (type === 'error' || type === 'alert-error');
+    
+    // Usa o sistema de notificações popup
+    if (type.includes('success')) {
+        notificationManager.success(msg, null, persist ? 0 : 5000);
+    } else if (type.includes('error')) {
+        notificationManager.error(msg, null, persist ? 0 : 0); // Erros não fecham automaticamente
+    } else if (type.includes('warning')) {
+        notificationManager.warning(msg, null, persist ? 0 : 7000);
+    } else {
+        notificationManager.info(msg, null, persist ? 0 : 5000);
+    }
+    
+    // Mantém a mensagem antiga também para compatibilidade
     messageEl.innerHTML = `<div class="alert alert-${type}" style="margin-bottom:18px; font-size:1.1em;">${msg}</div>`;
     if (!isError && !persist) {
         setTimeout(() => { messageEl.innerHTML = ''; }, 5000);

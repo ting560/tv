@@ -268,9 +268,130 @@
             color: #666;
             font-size: 0.9em;
         }
+        
+        /* Estilos para notificações popup */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: 320px;
+            max-width: calc(100vw - 40px);
+        }
+        
+        .notification {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 16px;
+            margin-bottom: 12px;
+            transform: translateX(120%);
+            transition: transform 0.3s ease-out;
+            border-left: 4px solid #667eea;
+            position: relative;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            border-left-color: #4CAF50;
+        }
+        
+        .notification.error {
+            border-left-color: #ff6b6b;
+        }
+        
+        .notification.warning {
+            border-left-color: #FFC107;
+        }
+        
+        .notification.info {
+            border-left-color: #2196F3;
+        }
+        
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            font-size: 1.1em;
+            color: #333;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .notification-close:hover {
+            color: #666;
+        }
+        
+        .notification-message {
+            font-size: 0.95em;
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .notification-icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        /* Ajustes responsivos para notificações */
+        @media (max-width: 768px) {
+            .notification-container {
+                width: calc(100vw - 20px);
+                right: 10px;
+                top: 10px;
+            }
+            
+            .notification {
+                padding: 12px;
+                margin-bottom: 8px;
+            }
+            
+            .notification-title {
+                font-size: 1em;
+            }
+            
+            .notification-message {
+                font-size: 0.9em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .notification-container {
+                width: calc(100vw - 10px);
+                right: 5px;
+                top: 5px;
+            }
+            
+            .notification-header {
+                margin-bottom: 6px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Container para notificações popup -->
+    <div class="notification-container" id="notificationContainer"></div>
+    
     <header>
         <nav>
             <div class="logo">Painel Admin</div>
