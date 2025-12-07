@@ -394,8 +394,8 @@ function updateButtonState(buttonElement) {
 
     if (isInPlaylist) {
         buttonElement.classList.add('in-playlist');
-        buttonElement.textContent = "✔️ Selecionado";
-        buttonElement.disabled = true;
+        buttonElement.textContent = "✔️ Remover da Lista";
+        buttonElement.disabled = false; // Permitir clicar novamente para remover
     } else {
         buttonElement.classList.remove('in-playlist');
         buttonElement.textContent = "+ Adicionar à Lista";
@@ -403,15 +403,22 @@ function updateButtonState(buttonElement) {
     }
 }
 
-function addToUserPlaylist(musica) {
-    if (userPlaylist.some(m => m.arquivo === musica.arquivo)) {
-        showMessage('Esta música já está na sua lista!', 'error');
-        return;
-    }
-    userPlaylist.push(musica);
-    saveUserPlaylist(); // Salva a playlist no localStorage
-    showMessage('Música adicionada à sua lista!', 'success');
+function toggleUserPlaylist(musica) {
+    const index = userPlaylist.findIndex(m => m.arquivo === musica.arquivo);
     
+    if (index !== -1) {
+        // Se a música já está na playlist, remove-a
+        userPlaylist.splice(index, 1);
+        saveUserPlaylist(); // Salva a playlist no localStorage
+        showMessage('Música removida da sua lista!', 'success');
+    } else {
+        // Se a música não está na playlist, adiciona-a
+        userPlaylist.push(musica);
+        saveUserPlaylist(); // Salva a playlist no localStorage
+        showMessage('Música adicionada à sua lista!', 'success');
+    }
+    
+    // Atualiza o estado visual de todos os botões dessa música
     document.querySelectorAll(`[data-musica-arquivo="${musica.arquivo}"]`).forEach(btn => {
         updateButtonState(btn);
     });
@@ -1093,7 +1100,7 @@ function renderMusicList(musicas) {
         
         // Adiciona listener ao botão de adicionar à playlist
         const addBtn = card.querySelector('.add-to-playlist-btn');
-        addBtn.addEventListener('click', () => addToUserPlaylist(musica));
+        addBtn.addEventListener('click', () => toggleUserPlaylist(musica));
         
         // Atualiza o estado visual do botão ao renderizar
         updateButtonState(addBtn);
