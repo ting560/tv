@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bases de Chorinho – Playbacks Profissionais de Choro</title>
+  <meta name="description" content="Assinatura mensal de R$ 50 para acesso ilimitado a playbacks de chorinho com nova música toda semana. Curadoria de Cristiano Ferreira.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* === RESET E VARIÁVEIS === */
+    :root {
+      --primary-dark: #0f1a4a;
+      --primary: #1a237e;
+      --primary-light: #3949ab;
+      --accent-gold: #ffd700;
+      --accent-red: #e53935;
+      --accent-red-dark: #c62828;
+      --whatsapp: #25D366;
+      --whatsapp-dark: #128C7E;
+      --gray-bg: #f9fafb;
+      --gray-light: #f3f4f6;
+      --gray-medium: #9ca3af;
+      --text-dark: #1f2937;
+      --text-body: #374151;
+      --white: #ffffff;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      --border-radius: 1rem;
+      --border-radius-sm: 0.5rem;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text-body);
+      background: var(--gray-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* === TIPOGRAFIA === */
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--primary-dark);
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 0.75rem;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-red));
+      border-radius: 2px;
+    }
+
+    .text-center h2::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* === BOTÕES === */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent-gold), #ffb300);
+      color: var(--primary-dark);
+      box-shadow: var(--shadow-md);
+      font-size: 1rem;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      filter: brightness(1.05);
+    }
+
+    .btn--primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+    }
+
+    .btn--accent {
+      background: linear-gradient(135deg, var(--accent-red), #d81b60);
+      color: white;
+      box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3);
+    }
+
+    .btn--whatsapp {
+      background: linear-gradient(135deg, var(--whatsapp), var(--whatsapp-dark));
+      color: white;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    }
+
+    .btn--outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      box-shadow: none;
+    }
+
+    .btn--outline:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* === HEADER === */
+    header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><circle cx="25" cy="25" r="2" fill="white"/><circle cx="75" cy="75" r="2" fill="white"/><circle cx="50" cy="10" r="1.5" fill="white"/><circle cx="90" cy="40" r="1.5" fill="white"/></svg>');
+      pointer-events: none;
+    }
+
+    header h1 {
+      color: white;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .header-cta {
+      margin-top: 2rem;
+    }
+
+    /* === NOTIFICAÇÃO TOPO === */
+    .promo-notification {
+      background: linear-gradient(135deg, var(--accent-gold), #ffb300);
+      color: var(--primary-dark);
+      text-align: center;
+      padding: 1rem;
+      font-weight: 700;
+      border-bottom: 3px solid var(--accent-red);
+      animation: slideDown 0.8s ease-out;
+    }
+
+    @keyframes slideDown {
+      0% { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    /* === INTRO (VÍDEO + TEXTO) === */
+    #intro {
+      padding: 4rem 0;
+      background: linear-gradient(135deg, white, var(--gray-light));
+    }
+
+    .intro-grid {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .intro-video {
+      flex: 1 1 45%;
+      min-width: 300px;
+      text-align: center;
+    }
+
+    .intro-video img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s;
+    }
+
+    .intro-video img:hover {
+      transform: scale(1.02);
+    }
+
+    .intro-video iframe {
+      width: 100%;
+      max-width: 600px;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-xl);
+      border: none;
+    }
+
+    .intro-text {
+      flex: 1 1 45%;
+      min-width: 300px;
+    }
+
+    .intro-text h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .intro-text h2::after {
+      left: 0;
+      transform: none;
+    }
+
+    .intro-text p {
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+    }
+
+    /* === TOUR VIRTUAL === */
+    #tour-virtual {
+      background: white;
+      padding: 3rem 0;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .tour-box {
+      background: var(--gray-light);
+      border: 1px dashed var(--gray-medium);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .tour-box h2 {
+      margin-bottom: 1rem;
+    }
+
+    .tour-box .btn {
+      margin-top: 1rem;
+    }
+
+    /* === HERO PROMOCIONAL === */
+    #hero {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-light), #5c6bc0);
+      color: white;
+      text-align: center;
+      padding: 5rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero h2 {
+      color: white;
+    }
+
+    #hero h2::after {
+      background: linear-gradient(90deg, var(--accent-gold), white);
+    }
+
+    .promo-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent-red), #d81b60);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      animation: pulse 2s infinite;
+      box-shadow: var(--shadow-md);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 4px 15px rgba(229,57,53,0.3); }
+      50% { transform: scale(1.05); box-shadow: 0 6px 25px rgba(229,57,53,0.5); }
+      100% { transform: scale(1); box-shadow: 0 4px 15px rgba(229,57,53,0.3); }
+    }
+
+    .original-price {
+      opacity: 0.8;
+      text-decoration: line-through;
+      font-size: 1.1rem;
+      color: white;
+    }
+
+    .promo-price {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 800;
+      margin: 1rem 0;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      color: white;
+    }
+
+    .promo-price .primeiro {
+      color: var(--accent-gold);
+      display: block;
+    }
+
+    .promo-details {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.95);
+    }
+
+    .promo-details strong {
+      color: var(--accent-gold);
+    }
+
+    /* === COUNTDOWN === */
+    #countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .timer-unit {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      min-width: 90px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .timer-unit .number {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--accent-gold);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .timer-unit .label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.9;
+    }
+
+    /* === BENEFITS === */
+    #benefits {
+      padding: 4rem 0;
+      background: white;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .benefit-card {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s;
+      border: 1px solid #f0f0f0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-red));
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .benefit-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .benefit-card p {
+      color: var(--text-body);
+    }
+
+    /* === AMOSTRAS (AUDIO PLAYERS) === */
+    #samples {
+      padding: 4rem 0;
+      background: linear-gradient(135deg, var(--gray-light), #e8ecf1);
+    }
+
+    .players-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .player-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      transition: all 0.2s;
+    }
+
+    .player-card:hover {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .player-card strong {
+      display: block;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    audio {
+      width: 100%;
+      border-radius: 30px;
+      outline: none;
+    }
+
+    /* === FEATURES === */
+    .features-grid {
+      display: grid;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      border: 1px solid #f0f0f0;
+    }
+
+    .feature-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* === TESTIMONIALS === */
+    #testimonials {
+      padding: 4rem 0;
+      background: linear-gradient(135deg, var(--gray-light), #e8ecf1);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .testimonial-card {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 0.5rem;
+      left: 1rem;
+      font-size: 5rem;
+      color: rgba(26, 35, 126, 0.1);
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+    }
+
+    .testimonial-card p {
+      font-style: italic;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-card cite {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--primary);
+      display: block;
+      text-align: right;
+    }
+
+    /* === HOW IT WORKS === */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .step-card {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .step-card:hover {
+      transform: scale(1.03);
+    }
+
+    .step-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary-light);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    /* === CHECKOUT === */
+    #checkout {
+      padding: 4rem 0;
+      background: linear-gradient(135deg, white, var(--gray-light));
+    }
+
+    .checkout-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-xl);
+      text-align: center;
+    }
+
+    .price-highlight {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 1rem 0;
+    }
+
+    .price-highlight .primeiro {
+      color: var(--accent-red);
+    }
+
+    .guarantee {
+      margin-top: 1.5rem;
+      font-style: italic;
+      color: var(--gray-medium);
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+      color: white;
+      padding: 3rem 0 2rem;
+      text-align: center;
+    }
+
+    footer a {
+      color: #e8eaf6;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    /* === UTILITÁRIOS === */
+    .text-center {
+      text-align: center;
+    }
+
+    .muted {
+      color: var(--gray-medium);
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gray-medium), transparent);
+      margin: 2rem 0;
+    }
+
+    /* === RESPONSIVO === */
+    @media (max-width: 768px) {
+      .intro-grid {
+        flex-direction: column;
+      }
+      .intro-text h2 {
+        text-align: center;
+      }
+      .intro-text h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      #countdown {
+        gap: 0.8rem;
+      }
+      .timer-unit {
+        min-width: 70px;
+        padding: 0.75rem;
+      }
+      .timer-unit .number {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 1rem;
+      }
+      .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+      }
+      .benefit-card, .player-card, .testimonial-card, .step-card {
+        padding: 1.5rem;
+      }
+      .checkout-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="promo-notification">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+    <span style="font-size: 1.5rem;">🎉</span>
+    <span>🔥 PROMOÇÃO RELÂMPAGO: PRIMEIRO MÊS POR APENAS R$ 120! 🔥</span>
+    <span style="font-size: 1.5rem;">🎉</span>
+  </div>
+</div>
+
+<header>
+  <div class="container">
+    <h1>Bases de Chorinho</h1>
+    <p><strong>Com Cristiano Ferreira</strong><br>Playbacks profissionais de choro para músicos e entusiastas</p>
+    <div class="header-cta">
+      <a href="premium.html" class="btn">Área do Assinante</a>
+    </div>
+  </div>
+</header>
+
+<section id="intro">
+  <div class="container intro-grid">
+    <div class="intro-video">
+      <img src="fotosite.png" alt="Bases de Chorinho - Cristiano Ferreira">
+      <iframe width="560" height="315" 
+        src="https://www.youtube.com/embed/videoseries?list=PLIJu8jQ0eru-69CReaZfbY1e7oTFMA7Gs" 
+        title="Playlist de amostras" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>
+      </iframe>
+      <p class="muted" style="margin-top:1rem;"><em>Acesse algumas amostras do nosso trabalho.</em></p>
+    </div>
+    <div class="intro-text">
+      <h2>Bases de Chorinho por Cristiano Ferreira</h2>
+      <p>O canal Bases de Chorinho foi criado por Cristiano Ferreira em 2020 e de lá pra cá vem sugerindo bases de apoio para quem estuda música, trabalha com choro e ama esse gênero musical centenário.</p>
+      <p>O canal teve início às suas atividades em julho de 2020 e a proposta é auxiliar músicos solistas como bandolinistas, cavaquinistas, saxofonistas, flautistas, clarinetistas e cantores ideal para estudos e apresentações.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tour-virtual">
+  <div class="container">
+    <div class="tour-box">
+      <h2>Quer ver como a plataforma é por dentro? 👀</h2>
+      <p style="margin: 1rem auto; max-width: 600px;">
+        Queremos que você tenha certeza da sua compra. Por isso, liberamos um acesso de <strong>visitante</strong> para você navegar pelo site, ver todas as categorias e conhecer a organização do nosso acervo.
+      </p>
+      <div style="background: #eef2f7; display: inline-block; padding: 0.75rem 1.5rem; border-radius: 50px; margin: 1.5rem auto; border: 1px solid #cbd5e1;">
+        <p style="margin: 0; font-size: 0.95rem; color: #475569;">
+          <strong>ℹ️ Como funciona:</strong> Neste site de teste você pode visualizar tudo, mas os <em>players de música e as Partituras estão desativados</em>.
+        </p>
+      </div>
+      <a class="btn btn--outline" href="https://www.basesdechorinho.com.br/teste.html" target="_blank" rel="noopener noreferrer">
+        FAZER UM TOUR VISUAL AGORA
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="hero">
+  <div class="container">
+    <span class="promo-badge">PROMOÇÃO RELÂMPAGO</span>
+    <h2>A Maior Biblioteca de Playbacks de Choro do Brasil</h2>
+    <p class="original-price">De: R$ 350 (primeiro mês) + R$ 100/mês</p>
+    <p class="promo-price"><span class="primeiro">Por apenas R$ 120 no primeiro mês</span><br><span style="font-size:1.2rem;">e R$ 50 nos próximos!</span></p>
+    <p class="promo-details">Acesso ilimitado + nova música toda semana. <strong>Oferta válida apenas até 31 de dezembro!</strong></p>
+    <div id="countdown" aria-live="polite">Aguardando Contagem...</div>
+    <a class="btn btn--accent" href="https://wa.me/5524988418135?text=Ol%C3%A1%2C%20Cristiano.%20Quero%20aproveitar%20a%20oferta%20da%20Base%20de%20Chorinho!" target="_blank" rel="noopener noreferrer">
+      QUERO ESSA OFERTA AGORA
+    </a>
+  </div>
+</section>
+
+<section id="benefits">
+  <div class="container text-center">
+    <h2>Por que assinar a Bases de Chorinho?</h2>
+    <div class="benefits-grid">
+      <div class="benefit-card"><h3>🎵 Qualidade Profissional</h3><p>Gravações em estúdio com arranjos fiéis ao gênero, executadas por músicos experientes.</p></div>
+      <div class="benefit-card"><h3>📅 Atualização Semanal</h3><p>Toda segunda-feira, uma nova faixa é adicionada à biblioteca.</p></div>
+      <div class="benefit-card"><h3>▶️ Player Embutido</h3><p>Ouça diretamente no site, sem necessidade de downloads.</p></div>
+      <div class="benefit-card"><h3>📋 Seleção de Playlists</h3><p>Monte sua própria seleção ou escolha entre curadorias temáticas.</p></div>
+      <div class="benefit-card"><h3>🎸 Compatível com Todos os Instrumentos</h3><p>Violão 7 cordas, bandolim, cavaquinho, flauta, pandeiro e mais.</p></div>
+      <div class="benefit-card"><h3>📄 Partituras Inclusas</h3><p>PDF com cifras e partituras em todas as faixas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="samples">
+  <div class="container text-center">
+    <h2>Ouça Amostras</h2>
+    <p style="margin-bottom:2rem;"><em>Essas são apenas amostras. Assinantes têm acesso às versões completas em alta qualidade.</em></p>
+    <div class="players-grid">
+      <div class="player-card"><strong>1. Brasileirinho (Waldir Azevedo)</strong><audio controls preload="none"><source src="images/BRASILEIRINHO.mp3" type="audio/mpeg"></audio></div>
+      <div class="player-card"><strong>2. Delicado (Waldir Azevedo)</strong><audio controls preload="none"><source src="images/DELICADO.mp3" type="audio/mpeg"></audio></div>
+      <div class="player-card"><strong>3. Noites Cariocas (Jacob do Bandolim)</strong><audio controls preload="none"><source src="images/NOITES%20CARIOCAS%20%28Jacob%20do%20Bandolim%29.mp3" type="audio/mpeg"></audio></div>
+      <div class="player-card"><strong>4. O Mundo é um Moinho (Cartola)</strong><audio controls preload="none"><source src="images/O%20MUNDO%20%C3%89%20UM%20MOINHO%20%28Cartola%29.mp3" type="audio/mpeg"></audio></div>
+      <div class="player-card"><strong>5. Pedacinho do Céu (Waldir Azevedo)</strong><audio controls preload="none"><source src="images/PEDACINHO%20DO%20CEU%20%28Waldir%20Azevedo%29.mp3" type="audio/mpeg"></audio></div>
+      <div class="player-card"><strong>6. Sonoroso (K-Ximbinho)</strong><audio controls preload="none"><source src="images/SONOROSO%20%28K-Ximbinho%29.mp3" type="audio/mpeg"></audio></div>
+      <div class="player-card"><strong>7. Vibrações (Jacob do Bandolim)</strong><audio controls preload="none"><source src="images/VIBRA%C3%87OES%20%28Jacob%20do%20Bandolim%29.mp3" type="audio/mpeg"></audio></div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container text-center">
+    <h2>Recursos em Destaque</h2>
+    <div class="features-grid">
+      <div class="feature-card"><h3>🎶 Seleção de Playlists</h3><p>Monte sua playlist para seus estudos ou apresentações direto no site.</p></div>
+      <div class="feature-card"><h3>🔊 Qualidade Profissional</h3><p>Gravações em estúdio com qualidade e arranjos fiéis ao original. Playbacks produzidos com instrumentos regionais como: Violão 7 cordas, harmonia de violão 6, cavaco e pandeiro de couro.</p></div>
+      <div class="feature-card"><h3>📄 Partituras Inclusas</h3><p>PDF com as cifras de harmonias e partituras de algumas faixas.</p></div>
+    </div>
+    <a class="btn btn--primary" href="https://wa.me/5524988418135?text=Ol%C3%A1%2C%20Cristiano.%20Quero%20aproveitar%20a%20oferta%20da%20Base%20de%20Chorinho!" target="_blank" rel="noopener noreferrer">Explorar Conteúdo Completo</a>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="container text-center">
+    <h2>O que os Assinantes Dizem</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card"><p>"Finalmente encontrei playbacks de choro com arranjos corretos e som limpo. A atualização semanal mantém minha prática sempre renovada."</p><cite>– Marcelo R., bandolinista (RJ)</cite></div>
+      <div class="testimonial-card"><p>"Os players são práticos e as partituras ajudam muito nos ensaios. Vale cada real."</p><cite>– Ana Clara, flautista (SP)</cite></div>
+    </div>
+  </div>
+</section>
+
+<section id="how-it-works">
+  <div class="container text-center">
+    <h2>Como Funciona</h2>
+    <div class="steps-grid">
+      <div class="step-card"><span class="step-number">1</span><p>Assine com a oferta promocional.</p></div>
+      <div class="step-card"><span class="step-number">2</span><p>Acesse imediatamente a biblioteca completa.</p></div>
+      <div class="step-card"><span class="step-number">3</span><p>Receba nova música toda segunda-feira.</p></div>
+      <div class="step-card"><span class="step-number">4</span><p>Pratique com partituras e playlists.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="checkout">
+  <div class="container">
+    <h2 class="text-center">Garanta a Oferta Antes que Acabe!</h2>
+    <div class="checkout-card">
+      <div class="price-highlight">
+        <span class="primeiro">R$ 120 no 1º mês</span><br>
+        <span style="font-size:1.2rem;">R$ 50 nos próximos</span>
+      </div>
+      <p><em>Sem contrato de fidelidade • Cancele quando quiser</em></p>
+      <hr>
+      <p style="font-weight:700; color:var(--primary);">Fale agora com <strong>Cristiano Ferreira</strong> para garantir sua vaga e finalizar a assinatura:</p>
+      <a class="btn btn--whatsapp" href="https://wa.me/5524988418135?text=Ol%C3%A1%2C%20Cristiano.%20Quero%20aproveitar%20a%20oferta%20da%20Base%20de%20Chorinho!" target="_blank" rel="noopener noreferrer">
+        💬 FALAR COM CRISTIANO AGORA
+      </a>
+      <p class="guarantee"><strong>Garantia:</strong> Se não estiver satisfeito nos primeiros 7 dias, devolvemos 100% do valor.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p><strong>Bases de Chorinho</strong> – Onde a tradição do choro encontra a praticidade digital.<br><em>Desenvolvido e curado por Cristiano Ferreira</em></p>
+    <p style="margin-top:2rem;">
+      <a href="#">Termos de Uso</a> | <a href="#">Política de Privacidade</a> | <a href="#">Contato</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  const countdownEl = document.getElementById('countdown');
+  const countdownDate = new Date('2025-12-31T23:59:59').getTime();
+
+  function updateCountdown() {
+    const now = Date.now();
+    const distance = countdownDate - now;
+    if (distance <= 0) {
+      countdownEl.textContent = 'OFERTA ENCERRADA';
+      clearInterval(timer);
+      return;
+    }
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    countdownEl.innerHTML =
+      `<div class="timer-unit"><span class="number">${String(days).padStart(2,'0')}</span><span class="label">Dias</span></div>` +
+      `<div class="timer-unit"><span class="number">${String(hours).padStart(2,'0')}</span><span class="label">Horas</span></div>` +
+      `<div class="timer-unit"><span class="number">${String(minutes).padStart(2,'0')}</span><span class="label">Minutos</span></div>` +
+      `<div class="timer-unit"><span class="number">${String(seconds).padStart(2,'0')}</span><span class="label">Segundos</span></div>`;
+  }
+  updateCountdown();
+  const timer = setInterval(updateCountdown, 1000);
+  if (Date.now() > countdownDate) {
+    clearInterval(timer);
+    countdownEl.textContent = 'OFERTA ENCERRADA';
+  }
+</script>
+</body>
+</html>
