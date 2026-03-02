@@ -9,12 +9,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Reset e Variáveis de Design Instrumental */
+    /* Reset e Variáveis */
     :root {
       --primary: #1a237e;
       --accent: #ffd700;
       --text: #2c3e50;
-      --paper: #fdfbf7; /* Cor de papel de partitura antiga */
+      --paper: #fdfbf7;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     body{
@@ -22,53 +22,61 @@
       line-height:1.7;color:var(--text);background:var(--paper);
       -webkit-font-smoothing:antialiased;
     }
-    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px; position: relative;}
 
-    /* Estilo Artístico do Header */
-    header{
+    /* Header e Ajuste de Camadas (Resolve o erro do botão escondido) */
+    header {
       background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
-      color:#fff; padding:60px 0; text-align:center; position:relative;
+      color:#fff; padding:60px 0 140px 0;
+      text-align:center; position:relative;
       border-bottom: 5px solid var(--accent);
     }
+    
+    header .container {
+      z-index: 20; /* Garante que o conteúdo do header fique acima do card de captura */
+    }
+
     header::after {
       content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 50px;
       background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23fdfbf7" d="M0,160L80,176C160,192,320,224,480,213.3C640,203,800,149,960,133.3C1120,117,1280,139,1360,149.3L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg>');
       background-size: cover;
+      z-index: 1;
+      pointer-events: none; /* Evita que a imagem bloqueie cliques */
     }
+
     header h1{ font-family: 'Playfair Display', serif; font-size:3rem; margin-bottom:10px; }
     header p{ font-size:1.2rem; max-width:700px; margin:0 auto; font-style: italic; opacity: 0.9; }
 
-    /* Seções */
-    section{padding:80px 0;}
-    h2{ font-family: 'Playfair Display', serif; font-size:2.4rem; color:var(--primary); text-align:center; margin-bottom:40px; }
-    
-    /* Bloco de Captura de E-mail (NOVO) */
+    /* Bloco de Captura */
     .lead-capture {
       background: #fff; border: 2px solid var(--accent); padding: 40px; border-radius: 20px;
-      text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.05); margin-top: -100px;
-      position: relative; z-index: 10;
+      text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+      margin-top: -80px; 
+      position: relative; 
+      z-index: 10; 
     }
     .lead-capture h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 15px; }
     .email-group { display: flex; gap: 10px; max-width: 600px; margin: 20px auto 0; flex-wrap: wrap; }
-    .email-group input { 
-      flex: 1; padding: 15px 20px; border-radius: 10px; border: 1px solid #ddd; font-size: 1rem; min-width: 250px;
-    }
+    .email-group input { flex: 1; padding: 15px 20px; border-radius: 10px; border: 1px solid #ddd; font-size: 1rem; min-width: 250px; }
 
     /* Botões */
     .btn{
       display:inline-block; background: var(--accent); color:var(--primary);
       padding:15px 35px; border-radius:10px; font-weight:700; text-decoration:none;
       transition: 0.3s; border: none; cursor: pointer; font-size: 1.1rem;
+      position: relative; z-index: 30;
     }
     .btn:hover{ transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     .btn--cta{ background: #e53935; color: #fff; }
 
-    /* Intro Grid */
-    .intro-grid{ display: flex; gap: 40px; align-items: center; flex-wrap: wrap; margin-bottom: 40px;}
+    /* Seções e Grid */
+    section{padding:80px 0;}
+    h2{ font-family: 'Playfair Display', serif; font-size:2.4rem; color:var(--primary); text-align:center; margin-bottom:40px; }
+    
+    .intro-grid{ display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
     .intro-video, .intro-text { flex: 1; min-width: 320px; }
     .intro-video iframe { width: 100%; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); aspect-ratio: 16/9; }
 
-    /* Cards e Listas (Retomando TUDO) */
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
     .card { background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-bottom: 4px solid var(--accent); }
     
@@ -84,6 +92,7 @@
 
     /* Responsivo */
     @media (max-width: 768px) {
+      header { padding: 60px 0 100px 0; }
       header h1 { font-size: 2.2rem; }
       .lead-capture { margin-top: 20px; padding: 25px; }
       .email-group { flex-direction: column; }
@@ -106,8 +115,13 @@
     <div class="lead-capture">
       <h3>Receba as ofertas exclusivas por e-mail</h3>
       <p>Deixe seu contato para receber o link da oferta da vez e garantir o melhor preço nos nossos playbacks.</p>
-      <form class="email-group" action="#">
-        <input type="email" placeholder="Seu melhor e-mail aqui..." required>
+      <form class="email-group" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="cbe47913-f7fd-4aaa-8e87-f1ffc95c9e7c">
+        <input type="email" name="email" placeholder="Seu melhor e-mail aqui..." required>
+        
+        <input type="hidden" name="from_name" value="Site Bases de Chorinho">
+        <input type="hidden" name="subject" value="Novo Lead Interessado em Ofertas">
+        
         <button type="submit" class="btn btn--cta">QUERO AS OFERTAS</button>
       </form>
     </div>
