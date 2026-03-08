@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bases de Chorinho | 100 Playbacks Profissionais</title>
+  <meta name="description" content="Pacote com 100 playbacks de chorinho em alta qualidade + 15 downloads imediatos. Ideal para bandolinistas, cavaquinistas, flautistas e mais.">
+  <meta name="keywords" content="choro, playback, base musical, bandolim, cavaquinho, partituras, Cristiano Ferreira">
+  <meta name="author" content="Cristiano Ferreira">
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome para ícones extras -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
+    /* Animação do botão pulsante */
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(229,57,53,0.7); }
+      70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(229,57,53,0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(229,57,53,0); }
+    }
+    .pulse-button {
+      animation: pulse 2s infinite;
+    }
+    /* Transições suaves */
+    .transition-all { transition: all 0.3s ease; }
+    
+    /* Popup styles */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .popup-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .popup-content {
+      background: white;
+      max-width: 500px;
+      width: 90%;
+      border-radius: 2rem;
+      padding: 2rem;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      transform: scale(0.9);
+      transition: transform 0.4s ease;
+      position: relative;
+    }
+    .popup-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+      transition: color 0.2s;
+    }
+    .popup-close:hover {
+      color: #000;
+    }
+    /* Evitar scroll quando popup aberto */
+    body.popup-open {
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+  <!-- POPUP DE CAPTURA DE E-MAIL (animado) -->
+  <div id="emailPopup" class="popup-overlay">
+    <div class="popup-content">
+      <button class="popup-close" id="closePopup"><i class="fas fa-times"></i></button>
+      <div class="text-center mb-4">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center mx-auto mb-4 shadow-lg">
+          <i class="fas fa-envelope-open-text text-indigo-900 text-3xl"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-indigo-950 mb-2">Receba ofertas exclusivas!</h3>
+        <p class="text-gray-600">Deixe seu e-mail e seja o primeiro a saber das promoções e novidades.</p>
+      </div>
+      <form action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
+        <input type="hidden" name="access_key" value="449bf2f9-ca26-44af-b60e-4f9b53dae6d7">
+        <input type="hidden" name="subject" value="Lead do Popup - Bases de Chorinho">
+        <input type="hidden" name="from_name" value="Bases de Chorinho">
+        <div>
+          <label for="popup-email" class="block text-sm font-medium text-gray-700 mb-1">Seu melhor e-mail</label>
+          <input type="email" name="email" id="popup-email" required placeholder="seu@email.com" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-400 focus:outline-none transition">
+        </div>
+        <div>
+          <label for="popup-name" class="block text-sm font-medium text-gray-700 mb-1">Seu nome (opcional)</label>
+          <input type="text" name="name" id="popup-name" placeholder="Como gostaria de ser chamado" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-400 focus:outline-none transition">
+        </div>
+        <button type="submit" class="w-full bg-gradient-to-r from-indigo-800 to-indigo-900 text-white font-bold py-3 rounded-xl shadow-lg hover:from-indigo-700 hover:to-indigo-800 transition-all flex items-center justify-center gap-2 text-lg">
+          <i class="fas fa-bell"></i> QUERO RECEBER OFERTAS
+        </button>
+      </form>
+      <p class="text-xs text-gray-400 text-center mt-4">Prometemos não enviar spam. Você pode cancelar a qualquer momento.</p>
+    </div>
+  </div>
+
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-r from-indigo-950 via-indigo-800 to-indigo-950 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center shadow-lg">
+            <i class="fas fa-music text-indigo-900 text-xl"></i>
+          </div>
+          <div>
+            <h1 class="text-2xl md:text-3xl font-bold text-white">Bases de Chorinho</h1>
+            <p class="text-xs text-yellow-300">com Cristiano Ferreira</p>
+          </div>
+        </div>
+        <div class="text-center md:text-right">
+          <p class="text-sm text-gray-300 hidden md:block">Playbacks profissionais para músicos e entusiastas</p>
+<a href="https://www.basesdechorinho.com.br/premium.html" target="_blank" rel="noopener noreferrer" class="bg-gradient-to-r from-amber-400 to-yellow-500 text-indigo-900 font-semibold px-5 py-2 rounded-full shadow-lg hover:from-amber-300 hover:to-yellow-400 transition-all flex items-center gap-2 text-sm border-2 border-yellow-300">
+    <i class="fas fa-star text-amber-600"></i>
+    <span>Área do <span class="text-amber-700 font-bold">Assinante</span></span>
+    <span class="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full ml-1">VIP</span>
+</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO COM BACKGROUND IMAGE -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img src="https://www.basesdechorinho.com.br/fotosite.png" alt="Bases de Chorinho" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-b from-indigo-950/90 via-indigo-800/80 to-indigo-950/95"></div>
+    </div>
+    <div class="relative z-10 container mx-auto px-4 py-16 md:py-24 text-center text-white">
+      <div class="max-w-3xl mx-auto">
+        <span class="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white font-bold px-6 py-2 rounded-full text-sm uppercase tracking-wide shadow-lg mb-6">🔥 PROMOÇÃO RELÂMPAGO</span>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+          <span class="text-yellow-400">R$ 150</span> por 100 playbacks
+        </h2>
+        <p class="text-xl md:text-2xl font-semibold mb-2">Plataforma completa + 15 unidades para download imediato</p>
+        <p class="text-gray-300 text-lg mb-6">Mais de <span class="text-yellow-400 font-bold">354 playbacks</span> disponíveis no acervo total!</p>
+        <!-- CTA PRINCIPAL -->
+        <a href="https://wa.me/5524988418135?text=Ol%C3%A1%2C%20Cristiano!%20Quero%20garantir%20a%20oferta%20de%20R%24%20150%20com%20100%20playbacks." target="_blank" class="inline-block bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg px-10 py-4 rounded-full shadow-2xl hover:from-green-600 hover:to-green-700 transition-all pulse-button">
+          <i class="fab fa-whatsapp mr-2 text-xl"></i> GARANTIR OFERTA NO WHATSAPP
+        </a>
+        <p class="text-gray-400 text-sm mt-4">Acesso imediato • Atualização semanal • Partituras inclusas</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACERVO COM BUSCA E FILTROS -->
+  <section class="py-16 md:py-24 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-10">
+        <span class="inline-block bg-indigo-100 text-indigo-800 text-sm font-semibold px-4 py-1 rounded-full mb-4">📚 +354 BASES</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-indigo-950 mb-4">Conheça nosso <span class="text-indigo-600">acervo</span></h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">De clássicos de Pixinguinha a composições contemporâneas. Todas as bases são gravadas em estúdio com músicos profissionais.</p>
+      </div>
+
+      <!-- BARRA DE BUSCA E FILTROS -->
+      <div class="max-w-4xl mx-auto mb-8">
+        <div class="relative mb-4">
+          <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+          <input type="text" id="searchInput" placeholder="Buscar por música ou compositor..." class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:border-yellow-400 focus:outline-none shadow-sm">
+        </div>
+        <div class="flex flex-wrap justify-center gap-2" id="filterChips">
+          <button class="filter-chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm text-gray-600 hover:border-yellow-400 hover:text-indigo-700 transition-all" data-filter="todos">Todos</button>
+          <button class="filter-chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm text-gray-600 hover:border-yellow-400 hover:text-indigo-700 transition-all" data-filter="Pixinguinha">Pixinguinha</button>
+          <button class="filter-chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm text-gray-600 hover:border-yellow-400 hover:text-indigo-700 transition-all" data-filter="Jacob do Bandolim">Jacob do Bandolim</button>
+          <button class="filter-chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm text-gray-600 hover:border-yellow-400 hover:text-indigo-700 transition-all" data-filter="Waldir Azevedo">Waldir Azevedo</button>
+          <button class="filter-chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm text-gray-600 hover:border-yellow-400 hover:text-indigo-700 transition-all" data-filter="Ernesto Nazareth">Ernesto Nazareth</button>
+          <button class="filter-chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm text-gray-600 hover:border-yellow-400 hover:text-indigo-700 transition-all" data-filter="Cartola">Cartola</button>
+          <button class="filter-chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm text-gray-600 hover:border-yellow-400 hover:text-indigo-700 transition-all" data-filter="Garoto">Garoto</button>
+          <button class="filter-chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm text-gray-600 hover:border-yellow-400 hover:text-indigo-700 transition-all" data-filter="K-Ximbinho">K-Ximbinho</button>
+          <button class="filter-chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm text-gray-600 hover:border-yellow-400 hover:text-indigo-700 transition-all" data-filter="Tom Jobim">Tom Jobim</button>
+        </div>
+      </div>
+
+      <!-- LISTA DE PLAYBACKS -->
+      <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0" id="playbackList">
+          <!-- Itens preenchidos via JS -->
+        </div>
+      </div>
+      <div class="text-center mt-8">
+        <button id="loadMoreBtn" class="border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white font-semibold px-8 py-3 rounded-full transition-all">
+          <i class="fas fa-chevron-down mr-2"></i> Ver mais 20 playbacks
+        </button>
+      </div>
+      <p class="text-center text-gray-400 text-sm mt-6">* Lista atualizada em Março de 2026. Mostrando 20 de 354 playbacks disponíveis.</p>
+    </div>
+  </section>
+
+  <!-- SOBRE O PROJETO (VÍDEO + TEXTO) -->
+  <section class="py-16 bg-gradient-to-b from-gray-100 to-white">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col lg:flex-row items-center gap-12">
+        <div class="lg:w-1/2">
+          <h2 class="text-3xl md:text-4xl font-bold text-indigo-950 mb-4">Bases de Chorinho por Cristiano Ferreira</h2>
+          <p class="text-gray-700 mb-4 leading-relaxed">O canal Bases de Chorinho foi criado por Cristiano Ferreira em 2020 e de lá pra cá vem sugerindo bases de apoio para quem estuda música, trabalha com choro e ama esse gênero musical centenário.</p>
+          <p class="text-gray-700 leading-relaxed">O canal teve início às suas atividades em julho de 2020 e a proposta é auxiliar músicos solistas como bandolinistas, cavaquinistas, saxofonistas, flautistas, clarinetistas e cantores ideal para estudos e apresentações.</p>
+        </div>
+        <div class="lg:w-1/2">
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+            <img src="https://www.basesdechorinho.com.br/fotosite.png" alt="Cristiano Ferreira" class="w-full h-auto">
+          </div>
+          <p class="text-gray-500 text-sm text-center mt-3 italic">Cristiano Ferreira, criador do projeto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- PLAYLIST DO YOUTUBE EMBEDDED (NOVA SEÇÃO) -->
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl md:text-4xl font-bold text-indigo-950 mb-2">Acesse algumas amostras do nosso trabalho</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">Confira a playlist completa no YouTube e veja a qualidade das nossas bases.</p>
+    </div>
+    <div class="max-w-4xl mx-auto">
+      <div class="relative rounded-2xl overflow-hidden shadow-2xl aspect-video">
+        <iframe class="w-full h-full" 
+                src="https://www.youtube.com/embed/videoseries?list=PLIJu8jQ0eru-69CReaZfbY1e7oTFMA7Gs" 
+                title="Playlist Bases de Chorinho" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- BENEFÍCIOS -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-indigo-950 mb-4">Por que escolher <span class="text-indigo-600">Bases de Chorinho</span>?</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Benefícios exclusivos que fazem a diferença na sua prática musical.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border border-gray-100">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center mb-4 shadow-md">
+            <i class="fas fa-music text-indigo-900 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-indigo-950 mb-2">Qualidade Profissional</h3>
+          <p class="text-gray-600">Gravações em estúdio com músicos experientes e arranjos fiéis ao choro.</p>
+        </div>
+        <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border border-gray-100">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-800 to-indigo-900 flex items-center justify-center mb-4 shadow-md">
+            <i class="fas fa-sync-alt text-yellow-400 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-indigo-950 mb-2">Atualização Semanal</h3>
+          <p class="text-gray-600">Toda semana uma nova faixa é adicionada à biblioteca.</p>
+        </div>
+        <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border border-gray-100">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center mb-4 shadow-md">
+            <i class="fas fa-play text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-indigo-950 mb-2">Player Embutido</h3>
+          <p class="text-gray-600">Ouça diretamente no site, sem necessidade de downloads.</p>
+        </div>
+        <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border border-gray-100">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center mb-4 shadow-md">
+            <i class="fas fa-list-ul text-indigo-900 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-indigo-950 mb-2">Playlists Organizadas</h3>
+          <p class="text-gray-600">Organização por estilo, tom e dificuldade. Encontre o que precisa.</p>
+        </div>
+        <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border border-gray-100">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-800 to-indigo-900 flex items-center justify-center mb-4 shadow-md">
+            <i class="fas fa-guitar text-yellow-400 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-indigo-950 mb-2">Compatível com Instrumentos</h3>
+          <p class="text-gray-600">Ideal para bandolim, cavaquinho, violão, flauta, clarinete e mais.</p>
+        </div>
+        <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border border-gray-100">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center mb-4 shadow-md">
+            <i class="fas fa-file-alt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-indigo-950 mb-2">Partituras Inclusas</h3>
+          <p class="text-gray-600">PDF com cifras e partituras em diversas faixas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMOSTRAS DE ÁUDIO (PLAYERS FUNCIONAIS) -->
+  <section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold text-indigo-950 mb-4">Ouça amostras <span class="text-indigo-600">reais</span></h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Clique no play e sinta a qualidade das nossas bases.</p>
+      </div>
+      <div class="max-w-3xl mx-auto space-y-4">
+        <!-- Brasileirinho -->
+        <div class="bg-white p-4 rounded-xl shadow-md flex items-center gap-4">
+          <button class="play-btn w-12 h-12 rounded-full bg-gradient-to-br from-indigo-800 to-indigo-900 text-white flex items-center justify-center shadow-lg hover:scale-105 transition" data-audio="audio1">
+            <i class="fas fa-play text-xl"></i>
+          </button>
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <i class="fas fa-music text-yellow-500"></i>
+              <span class="font-bold text-indigo-900">Brasileirinho</span>
+            </div>
+            <p class="text-sm text-gray-500">Waldir Azevedo</p>
+          </div>
+          <span class="text-sm text-gray-400 font-mono">3:24</span>
+          <audio id="audio1" preload="none" src="images/BRASILEIRINHO.mp3"></audio>
+        </div>
+        <!-- Delicado -->
+        <div class="bg-white p-4 rounded-xl shadow-md flex items-center gap-4">
+          <button class="play-btn w-12 h-12 rounded-full bg-gradient-to-br from-indigo-800 to-indigo-900 text-white flex items-center justify-center shadow-lg hover:scale-105 transition" data-audio="audio2">
+            <i class="fas fa-play text-xl"></i>
+          </button>
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <i class="fas fa-music text-yellow-500"></i>
+              <span class="font-bold text-indigo-900">Delicado</span>
+            </div>
+            <p class="text-sm text-gray-500">Waldir Azevedo</p>
+          </div>
+          <span class="text-sm text-gray-400 font-mono">2:58</span>
+          <audio id="audio2" preload="none" src="images/DELICADO.mp3"></audio>
+        </div>
+        <!-- Noites Cariocas -->
+        <div class="bg-white p-4 rounded-xl shadow-md flex items-center gap-4">
+          <button class="play-btn w-12 h-12 rounded-full bg-gradient-to-br from-indigo-800 to-indigo-900 text-white flex items-center justify-center shadow-lg hover:scale-105 transition" data-audio="audio3">
+            <i class="fas fa-play text-xl"></i>
+          </button>
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <i class="fas fa-music text-yellow-500"></i>
+              <span class="font-bold text-indigo-900">Noites Cariocas</span>
+            </div>
+            <p class="text-sm text-gray-500">Jacob do Bandolim</p>
+          </div>
+          <span class="text-sm text-gray-400 font-mono">3:42</span>
+          <audio id="audio3" preload="none" src="images/NOITES%20CARIOCAS%20%28Jacob%20do%20Bandolim%29.mp3"></audio>
+        </div>
+        <!-- O Mundo é um Moinho -->
+        <div class="bg-white p-4 rounded-xl shadow-md flex items-center gap-4">
+          <button class="play-btn w-12 h-12 rounded-full bg-gradient-to-br from-indigo-800 to-indigo-900 text-white flex items-center justify-center shadow-lg hover:scale-105 transition" data-audio="audio4">
+            <i class="fas fa-play text-xl"></i>
+          </button>
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <i class="fas fa-music text-yellow-500"></i>
+              <span class="font-bold text-indigo-900">O Mundo é um Moinho</span>
+            </div>
+            <p class="text-sm text-gray-500">Cartola</p>
+          </div>
+          <span class="text-sm text-gray-400 font-mono">4:15</span>
+          <audio id="audio4" preload="none" src="images/O%20MUNDO%20%C3%89%20UM%20MOINHO%20%28Cartola%29.mp3"></audio>
+        </div>
+        <!-- Pedacinho do Céu -->
+        <div class="bg-white p-4 rounded-xl shadow-md flex items-center gap-4">
+          <button class="play-btn w-12 h-12 rounded-full bg-gradient-to-br from-indigo-800 to-indigo-900 text-white flex items-center justify-center shadow-lg hover:scale-105 transition" data-audio="audio5">
+            <i class="fas fa-play text-xl"></i>
+          </button>
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <i class="fas fa-music text-yellow-500"></i>
+              <span class="font-bold text-indigo-900">Pedacinho do Céu</span>
+            </div>
+            <p class="text-sm text-gray-500">Waldir Azevedo</p>
+          </div>
+          <span class="text-sm text-gray-400 font-mono">3:08</span>
+          <audio id="audio5" preload="none" src="images/PEDACINHO%20DO%20CEU%20%28Waldir%20Azevedo%29.mp3"></audio>
+        </div>
+      </div>
+      <p class="text-center text-gray-500 text-sm mt-6">* Amostras demonstrativas. Assine para acesso completo a todas as bases.</p>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-indigo-950 mb-4">O que dizem nossos <span class="text-indigo-600">assinantes</span></h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div class="bg-gray-50 p-6 rounded-2xl shadow-lg relative">
+          <i class="fas fa-quote-left absolute text-indigo-200 text-4xl top-4 left-4"></i>
+          <p class="text-gray-700 italic relative z-10 mb-4">“As bases são de altíssima qualidade! Finalmente um material que respeita a verdadeira linguagem do choro. Recomendo a todos.”</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-indigo-800 text-white flex items-center justify-center font-bold">RM</div>
+            <div>
+              <h4 class="font-bold text-indigo-900">Ricardo Mendes</h4>
+              <p class="text-xs text-gray-500">Bandolinista • Rio de Janeiro, RJ</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-2xl shadow-lg relative">
+          <i class="fas fa-quote-left absolute text-indigo-200 text-4xl top-4 left-4"></i>
+          <p class="text-gray-700 italic relative z-10 mb-4">“Uso as bases para estudar e também em apresentações. O público adora e eu me sinto seguro. Fora que as partituras ajudam demais!”</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-indigo-800 text-white flex items-center justify-center font-bold">AC</div>
+            <div>
+              <h4 class="font-bold text-indigo-900">Ana Carolina Silva</h4>
+              <p class="text-xs text-gray-500">Flautista • São Paulo, SP</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="py-16 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-indigo-950 mb-4">Como <span class="text-indigo-600">funciona</span></h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">Em 4 passos simples, você terá acesso a centenas de bases de choro.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-lg text-center relative">
+          <span class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 text-indigo-900 font-bold flex items-center justify-center shadow-md">1</span>
+          <div class="w-16 h-16 rounded-full bg-indigo-800 text-white flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-whatsapp text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-indigo-900 mb-2">Fale conosco</h3>
+          <p class="text-sm text-gray-600">Clique no botão do WhatsApp e inicie sua assinatura.</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-lg text-center relative">
+          <span class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 text-indigo-900 font-bold flex items-center justify-center shadow-md">2</span>
+          <div class="w-16 h-16 rounded-full bg-indigo-800 text-white flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-credit-card text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-indigo-900 mb-2">Pagamento</h3>
+          <p class="text-sm text-gray-600">Escolha o plano e faça o pagamento de forma segura.</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-lg text-center relative">
+          <span class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 text-indigo-900 font-bold flex items-center justify-center shadow-md">3</span>
+          <div class="w-16 h-16 rounded-full bg-indigo-800 text-white flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-music text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-indigo-900 mb-2">Acesso imediato</h3>
+          <p class="text-sm text-gray-600">Receba seus dados de acesso e explore todo o acervo.</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-lg text-center relative">
+          <span class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 text-indigo-900 font-bold flex items-center justify-center shadow-md">4</span>
+          <div class="w-16 h-16 rounded-full bg-indigo-800 text-white flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-chart-line text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-indigo-900 mb-2">Pratique e evolua</h3>
+          <p class="text-sm text-gray-600">Use as bases para estudar, gravar ou se apresentar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKOUT / OFERTA FINAL -->
+  <section class="py-16 bg-indigo-950">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-yellow-400">
+        <div class="bg-gradient-to-r from-yellow-400 to-yellow-500 py-4 px-6 text-center">
+          <span class="text-indigo-900 font-bold text-xl"><i class="fas fa-tag mr-2"></i> PROMOÇÃO RELÂMPAGO</span>
+        </div>
+        <div class="p-8 text-center">
+          <h3 class="text-2xl font-bold text-indigo-950 mb-2">Oferta especial</h3>
+          <div class="flex items-baseline justify-center gap-2 mb-4">
+            <span class="text-5xl font-bold text-indigo-800">R$ 150</span>
+          </div>
+          <p class="text-yellow-600 font-semibold text-lg mb-2">100 playbacks + 15 downloads</p>
+          <p class="text-gray-600 mb-6">Acesso à plataforma completa com mais de 354 bases e atualizações semanais.</p>
+          <div class="space-y-3 text-left max-w-sm mx-auto mb-8">
+            <div class="flex items-center gap-3">
+              <i class="fas fa-check-circle text-yellow-500 text-xl"></i>
+              <span class="text-gray-700">100 playbacks de choro</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i class="fas fa-check-circle text-yellow-500 text-xl"></i>
+              <span class="text-gray-700">15 faixas para download imediato</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i class="fas fa-check-circle text-yellow-500 text-xl"></i>
+              <span class="text-gray-700">Player online integrado</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i class="fas fa-check-circle text-yellow-500 text-xl"></i>
+              <span class="text-gray-700">Partituras inclusas em várias faixas</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i class="fas fa-check-circle text-yellow-500 text-xl"></i>
+              <span class="text-gray-700">Suporte via WhatsApp</span>
+            </div>
+          </div>
+          <a href="https://wa.me/5524988418135?text=Ol%C3%A1%2C%20Cristiano!%20Quero%20garantir%20a%20oferta%20de%20R%24%20150%20com%20100%20playbacks." target="_blank" class="inline-block w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg px-6 py-4 rounded-xl shadow-lg hover:from-green-600 hover:to-green-700 transition-all">
+            <i class="fab fa-whatsapp mr-2"></i> FALAR COM CRISTIANO AGORA
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ (PERGUNTAS FREQUENTES) -->
+  <section class="py-16 bg-white"> <div class="container mx-auto px-4 max-w-3xl"> <h2 class="text-3xl md:text-4xl font-bold text-indigo-950 text-center mb-8">Perguntas <span class="text-indigo-600">frequentes</span></h2> <div class="space-y-4">  <!-- Novas perguntas frequentes --> <details class="bg-gray-50 p-4 rounded-xl cursor-pointer"> <summary class="font-semibold text-indigo-900">Qual valor do pacote?</summary> <p class="mt-2 text-gray-700">R$ 150,00 até dia 29/3</p> </details> <details class="bg-gray-50 p-4 rounded-xl cursor-pointer"> <summary class="font-semibold text-indigo-900">O que eu recebo?</summary> <p class="mt-2 text-gray-700">15 playbacks para download + acesso a plataforma de playbacks com 100 plays + 100 partituras</p> </details> <details class="bg-gray-50 p-4 rounded-xl cursor-pointer"> <summary class="font-semibold text-indigo-900">Como eu recebo esse material?</summary> <p class="mt-2 text-gray-700">Você envia seu e-mail para cadastrar seu acesso e as 15 unidades são enviadas por aqui no formato wav (sem compressão).</p> </details> <details class="bg-gray-50 p-4 rounded-xl cursor-pointer"> <summary class="font-semibold text-indigo-900">Quanto tempo dura o acesso?</summary> <p class="mt-2 text-gray-700">12 meses</p> </details> <details class="bg-gray-50 p-4 rounded-xl cursor-pointer"> <summary class="font-semibold text-indigo-900">Qual a forma de pagamento?</summary> <p class="mt-2 text-gray-700">Pix, link Mercado Pago, PayPal, Binance e débito/depósito em conta</p> </details> <details class="bg-gray-50 p-4 rounded-xl cursor-pointer"> <summary class="font-semibold text-indigo-900">Como eu escolho os meus 15 preferidos?</summary> <p class="mt-2 text-gray-700"> Na lista que está no link abaixo: <a href="https://drive.google.com/u/0/uc?id=1_pWzwRykOLXc3BRmoNXpJlO-ormHAcpU&export=download" class="text-indigo-600 underline" target="_blank" rel="noopener noreferrer">Download da lista</a> </p> </details> </div> </div> </section>
+
+  <!-- SEÇÃO DE CAPTURA DE E-MAIL (WEB3FORMS) - estática -->
+  <section class="py-16 bg-gradient-to-br from-indigo-50 to-white">
+    <div class="container mx-auto px-4 max-w-2xl">
+      <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-10 border border-indigo-100">
+        <div class="text-center mb-6">
+          <h2 class="text-3xl md:text-4xl font-bold text-indigo-950 mb-2">Receba ofertas exclusivas por e-mail</h2>
+          <p class="text-gray-600">Deixe seu contato para receber o link da oferta da vez e garantir o melhor preço nos nossos playbacks.</p>
+        </div>
+        <form action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
+          <input type="hidden" name="access_key" value="449bf2f9-ca26-44af-b60e-4f9b53dae6d7">
+          <input type="hidden" name="subject" value="Novo lead - Bases de Chorinho">
+          <input type="hidden" name="from_name" value="Bases de Chorinho">
+          <div>
+            <label for="email-static" class="block text-sm font-medium text-gray-700 mb-1">Seu melhor e-mail</label>
+            <input type="email" name="email" id="email-static" required placeholder="seu@email.com" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-400 focus:outline-none transition">
+          </div>
+          <div>
+            <label for="name-static" class="block text-sm font-medium text-gray-700 mb-1">Seu nome (opcional)</label>
+            <input type="text" name="name" id="name-static" placeholder="Como gostaria de ser chamado" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-yellow-400 focus:outline-none transition">
+          </div>
+          <button type="submit" class="w-full bg-gradient-to-r from-indigo-800 to-indigo-900 text-white font-bold py-4 rounded-xl shadow-lg hover:from-indigo-700 hover:to-indigo-800 transition-all flex items-center justify-center gap-2 text-lg">
+            <i class="fas fa-envelope"></i> QUERO AS OFERTAS
+          </button>
+        </form>
+        <p class="text-xs text-gray-400 text-center mt-4">Seus dados estão seguros. Não enviamos spam.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gradient-to-r from-indigo-950 to-indigo-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center">
+              <i class="fas fa-music text-indigo-900"></i>
+            </div>
+            <span class="text-xl font-bold">Bases de Chorinho</span>
+          </div>
+          <p class="text-gray-300 text-sm">Playbacks profissionais de choro para músicos e entusiastas. Curadoria de Cristiano Ferreira.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-yellow-400 mb-4">Contato</h4>
+          <a href="https://wa.me/5524988418135" target="_blank" class="flex items-center gap-2 text-gray-300 hover:text-yellow-400 transition text-sm mb-2">
+            <i class="fab fa-whatsapp"></i> (24) 98841-8135
+          </a>
+          <p class="flex items-center gap-2 text-gray-300 text-sm">
+            <i class="fas fa-map-marker-alt"></i> Brasil
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold text-yellow-400 mb-4">Redes Sociais</h4>
+          <div class="flex gap-4">
+            <a href="https://www.youtube.com/@cristianoferreiramusico" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-yellow-400 hover:text-indigo-900 transition">
+              <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://www.instagram.com/cristianoferreira.musico" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-yellow-400 hover:text-indigo-900 transition">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/10 mt-8 pt-8 text-center text-gray-400 text-sm">
+        <p>© 2026 Bases de Chorinho. Todos os direitos reservados. Desenvolvido com ❤️ para músicos de choro.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Dados dos playbacks (20 primeiros)
+    const playbacks = [
+      { numero: 2, nome: "A DANÇA DO URSO", compositor: "Candinho", partitura: true },
+      { numero: 3, nome: "A NATUREZA", compositor: "Saraiva", partitura: true },
+      { numero: 4, nome: "ABELARDO", compositor: "Pixinguinha", partitura: true },
+      { numero: 5, nome: "ABIGAIL", compositor: "Candinho", partitura: true },
+      { numero: 6, nome: "ACADÊMICO", compositor: "Juventino Maciel", partitura: false },
+      { numero: 7, nome: "ACERTA O PASSO", compositor: "Pixinguinha", partitura: true },
+      { numero: 8, nome: "AEROPORTO DO GALEÃO", compositor: "Altamiro Carrilho", partitura: false },
+      { numero: 9, nome: "AGUENTA SEU FULGÊNCIO", compositor: "Lourenço Lamartine", partitura: true },
+      { numero: 10, nome: "AINDA ME RECORDO", compositor: "Pixinguinha", partitura: true },
+      { numero: 11, nome: "ALVORADA", compositor: "Jacob do Bandolim", partitura: true },
+      { numero: 12, nome: "AMOROSO", compositor: "Garoto", partitura: true },
+      { numero: 13, nome: "ANDRÉ DO SAPATO NOVO", compositor: "André V Correa", partitura: true },
+      { numero: 14, nome: "ANGELICAL", compositor: "Henrique Annes", partitura: true },
+      { numero: 15, nome: "ANSIEDADE", compositor: "Rossini Ferreira", partitura: true },
+      { numero: 16, nome: "AOS PÉS DA CRUZ", compositor: "Zé Da Zilda", partitura: true },
+      { numero: 17, nome: "APANHEI-TE CAVAQUINHO", compositor: "Ernesto Nazareth", partitura: true },
+      { numero: 18, nome: "AQUARELA DA QUINXABAS", compositor: "Hamilton de Holanda", partitura: true },
+      { numero: 19, nome: "AS ROSAS NÃO FALAM", compositor: "Cartola", partitura: true },
+      { numero: 20, nome: "ASSANHADO", compositor: "Jacob do Bandolim", partitura: true },
+      { numero: 21, nome: "AVE MARIA", compositor: "Gnoud", partitura: true },
+    ];
+
+    const listContainer = document.getElementById('playbackList');
+    const searchInput = document.getElementById('searchInput');
+    const filterChips = document.querySelectorAll('.filter-chip');
+    let currentFilter = 'todos';
+    let searchTerm = '';
+
+    function renderList() {
+      const filtered = playbacks.filter(item => {
+        const matchesFilter = currentFilter === 'todos' || item.compositor.includes(currentFilter);
+        const matchesSearch = item.nome.toLowerCase().includes(searchTerm) || item.compositor.toLowerCase().includes(searchTerm);
+        return matchesFilter && matchesSearch;
+      });
+      listContainer.innerHTML = filtered.map(item => `
+        <div class="flex items-center gap-3 p-4 border-b border-r border-gray-100 hover:bg-gray-50 transition">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center text-indigo-900 font-bold text-sm">${item.numero}</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-medium text-indigo-900 truncate text-sm">${item.nome}</p>
+            <p class="text-xs text-gray-500 truncate">${item.compositor}</p>
+          </div>
+          ${item.partitura ? '<span class="inline-flex items-center rounded-md border border-yellow-400 text-yellow-500 text-xs px-2 py-0.5">Part.</span>' : ''}
+        </div>
+      `).join('');
+    }
+
+    searchInput.addEventListener('input', (e) => {
+      searchTerm = e.target.value.toLowerCase();
+      renderList();
+    });
+
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        filterChips.forEach(c => c.classList.remove('bg-yellow-400', 'text-indigo-900', 'border-yellow-400'));
+        chip.classList.add('bg-yellow-400', 'text-indigo-900', 'border-yellow-400');
+        currentFilter = chip.getAttribute('data-filter');
+        renderList();
+      });
+    });
+
+    // Ativar "Todos" por padrão
+    document.querySelector('[data-filter="todos"]').classList.add('bg-yellow-400', 'text-indigo-900', 'border-yellow-400');
+    renderList();
+
+    // Botão "Ver mais" (simulação)
+    document.getElementById('loadMoreBtn').addEventListener('click', () => {
+      alert('Funcionalidade de demonstração. Na versão real, carregaria mais playbacks.');
+    });
+
+    // Player de áudio funcional
+    document.querySelectorAll('.play-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const audioId = this.getAttribute('data-audio');
+        const audio = document.getElementById(audioId);
+        const icon = this.querySelector('i');
+        if (audio.paused) {
+          audio.play();
+          icon.classList.remove('fa-play');
+          icon.classList.add('fa-pause');
+        } else {
+          audio.pause();
+          icon.classList.remove('fa-pause');
+          icon.classList.add('fa-play');
+        }
+        // Pausar outros audios quando um tocar
+        document.querySelectorAll('audio').forEach(a => {
+          if (a.id !== audioId) {
+            a.pause();
+            const otherBtn = document.querySelector(`[data-audio="${a.id}"] i`);
+            if (otherBtn) {
+              otherBtn.classList.remove('fa-pause');
+              otherBtn.classList.add('fa-play');
+            }
+          }
+        });
+      });
+    });
+
+    // POPUP ANIMADO
+    const popup = document.getElementById('emailPopup');
+    const closeBtn = document.getElementById('closePopup');
+    const body = document.body;
+
+    // Função para abrir popup
+    function openPopup() {
+      popup.classList.add('active');
+      body.classList.add('popup-open');
+    }
+
+    // Função para fechar popup
+    function closePopup() {
+      popup.classList.remove('active');
+      body.classList.remove('popup-open');
+      // Marcar que já viu o popup na sessão (para não mostrar de novo)
+      sessionStorage.setItem('popupShown', 'true');
+    }
+
+    // Fechar ao clicar no botão
+    closeBtn.addEventListener('click', closePopup);
+
+    // Fechar ao clicar fora do conteúdo
+    popup.addEventListener('click', function(e) {
+      if (e.target === popup) {
+        closePopup();
+      }
+    });
+
+    // Mostrar popup após 7 segundos, apenas se não foi mostrado na sessão
+    setTimeout(() => {
+      if (!sessionStorage.getItem('popupShown')) {
+        openPopup();
+      }
+    }, 7000); // 7 segundos
+  </script>
+</body>
+</html>
