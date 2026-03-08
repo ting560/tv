@@ -4,387 +4,292 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Admin - Chorinho Premium</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos de Admin específicos */
-        .admin-container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        .admin-container h2 {
-            color: #667eea;
-            margin-bottom: 25px;
-            text-align: center;
-            font-size: 1.8em;
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
+        
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #fbbf24;
         }
         
-        .admin-container h2 span {
-            font-size: 0.7em;
-            background: #667eea;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: #f9fafb;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%);
             color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            margin-left: 10px;
-            font-weight: normal;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
-        /* Estilos responsivos */
-        @media (max-width: 768px) {
-            .admin-container {
-                margin: 15px;
-                padding: 15px;
-            }
-            
-            .stats-resumo {
-                flex-direction: column;
-            }
-            
-            .musicas-table th, .musicas-table td {
-                padding: 8px 6px;
-                font-size: 0.85em;
-            }
-            
-            .acoes-cell {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .btn-acao {
-                width: 100%;
-                margin-bottom: 5px;
-            }
-            
-            /* Ajustes para campos de upload em dispositivos móveis */
-            .form-group input[type="file"] {
-                font-size: 14px;
-            }
-            
-            .form-group small {
-                font-size: 0.8em;
-            }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .login-screen, .upload-screen { padding: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; }
-        .form-group input:not([type="checkbox"]) { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; }
-        .form-group input[type="file"] { padding: 10px 0; border: none; }
         
-        /* Estilo para links de navegação */
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
         .nav-links a {
             color: white;
             text-decoration: none;
-            font-weight: 500;
-            padding: 8px 15px;
-            border-radius: 5px;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
             background: rgba(255, 255, 255, 0.15);
-            transition: background 0.3s;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .nav-links a:hover {
             background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
         }
         
-        /* Ajustes para o formulário em telas menores */
-        @media (max-width: 768px) {
-            .form-group input:not([type="checkbox"]) {
-                padding: 8px;
-                font-size: 16px; /* Previne zoom em iOS */
-            }
+        .admin-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
         
-        /* Estilos aprimorados para a tabela de músicas */
+        .admin-container h2 {
+            font-family: 'Playfair Display', serif;
+            color: #1e3a8a;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.75rem;
+        }
+        
+        .admin-container h2 span {
+            font-size: 0.7em;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e3a8a;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            margin-left: 0.75rem;
+            font-weight: normal;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .form-group input:not([type="checkbox"]) {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 1rem;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #fbbf24;
+        }
+        
+        .form-group input[type="file"] {
+            padding: 0.75rem 0;
+            border: none;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
+        }
+        
+        .stats-resumo {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            border-top: 4px solid #1e3a8a;
+        }
+        
+        .stat-card.novas { border-top-color: #fbbf24; }
+        .stat-card.partituras { border-top-color: #10b981; }
+        
+        .stat-card .numero {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-card.novas .numero { color: #fbbf24; }
+        .stat-card.partituras .numero { color: #10b981; }
+        
+        .stat-card .descricao {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+        
         .musicas-table-container {
             overflow-x: auto;
-            margin-top: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e0e0e0;
+            margin-top: 1.25rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
         }
         
         .musicas-table {
             width: 100%;
             border-collapse: collapse;
             background: white;
-            font-size: 0.95em;
+            font-size: 0.9375rem;
         }
         
         .musicas-table th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
             color: white;
             font-weight: 600;
             text-align: left;
-            padding: 14px 12px;
+            padding: 1rem;
             position: sticky;
             top: 0;
         }
         
         .musicas-table td {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
+            padding: 1rem;
+            border-bottom: 1px solid #f3f4f6;
             vertical-align: middle;
         }
         
-        .musicas-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        
-        .musicas-table tr:hover {
-            background-color: #f0f4ff;
-            transition: background-color 0.2s;
-        }
-        
-        .musicas-table .numero {
-            text-align: center;
-            font-weight: bold;
-            color: #667eea;
-            width: 50px;
-        }
-        
-        .musicas-table .titulo {
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .musicas-table .artista {
-            color: #666;
-        }
-        
-        .musicas-table .data {
-            color: #888;
-            font-size: 0.9em;
-            white-space: nowrap;
-        }
+        .musicas-table tr:nth-child(even) { background-color: #f9fafb; }
+        .musicas-table tr:hover { background-color: #eff6ff; }
         
         .acoes-cell {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 0.375rem;
             justify-content: flex-start;
         }
         
         .btn-acao {
-            padding: 6px 12px;
+            padding: 0.375rem 0.75rem;
             border: none;
-            border-radius: 4px;
-            font-size: 0.85em;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            min-width: 80px;
             text-align: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         }
         
-        .btn-editar {
-            background: #667eea;
-            color: white;
-        }
+        .btn-acao.btn-editar { background: #3b82f6; color: white; }
+        .btn-acao.btn-editar:hover { background: #2563eb; transform: translateY(-1px); }
         
-        .btn-editar:hover {
-            background: #5a6fdb;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-        }
+        .btn-acao.btn-remover { background: #ef4444; color: white; }
+        .btn-acao.btn-remover:hover { background: #dc2626; transform: translateY(-1px); }
         
-        .btn-remover {
-            background: #ff6b6b;
-            color: white;
-        }
+        .btn-acao.btn-partitura-existente { background: #10b981; color: white; }
+        .btn-acao.btn-partitura-existente:hover { background: #059669; transform: translateY(-1px); }
         
-        .btn-remover:hover {
-            background: #e55c5c;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-        }
+        .btn-acao.btn-partitura { background: #fbbf24; color: #1e3a8a; }
+        .btn-acao.btn-partitura:hover { background: #f59e0b; transform: translateY(-1px); }
         
-        .btn-partitura {
-            background: #4CAF50;
-            color: white;
-        }
-        
-        .btn-partitura:hover {
-            background: #45a049;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-        }
-        
-        .btn-partitura-existente {
-            background: #FFC107;
-            color: #000;
-        }
-        
-        .btn-partitura-existente:hover {
-            background: #e0a800;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-        }
-        
-        .stats-resumo {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            flex: 1;
-            min-width: 150px;
-            text-align: center;
-            border-top: 4px solid #667eea;
-        }
-        
-        .stat-card.novas {
-            border-top-color: #FFC107;
-        }
-        
-        .stat-card.partituras {
-            border-top-color: #4CAF50;
-        }
-        
-        .stat-card .numero {
-            font-size: 2em;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 5px;
-        }
-        
-        .stat-card.novas .numero {
-            color: #FFC107;
-        }
-        
-        .stat-card.partituras .numero {
-            color: #4CAF50;
-        }
-        
-        .stat-card .descricao {
-            color: #666;
-            font-size: 0.9em;
-        }
-        
-        /* Estilos para notificações popup */
         .notification-container {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 1.25rem;
+            right: 1.25rem;
             z-index: 9999;
             width: 320px;
-            max-width: calc(100vw - 40px);
+            max-width: calc(100vw - 2.5rem);
         }
         
         .notification {
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            padding: 16px;
-            margin-bottom: 12px;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            margin-bottom: 0.75rem;
             transform: translateX(120%);
             transition: transform 0.3s ease-out;
-            border-left: 4px solid #667eea;
-            position: relative;
+            border-left: 4px solid #3b82f6;
         }
         
-        .notification.show {
-            transform: translateX(0);
+        .notification.show { transform: translateX(0); }
+        .notification.success { border-left-color: #10b981; }
+        .notification.error { border-left-color: #ef4444; }
+        .notification.warning { border-left-color: #fbbf24; }
+        .notification.info { border-left-color: #3b82f6; }
+        
+        footer {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            font-size: 0.875rem;
+            border-radius: 0 0 1.5rem 1.5rem;
         }
         
-        .notification.success {
-            border-left-color: #4CAF50;
-        }
-        
-        .notification.error {
-            border-left-color: #ff6b6b;
-        }
-        
-        .notification.warning {
-            border-left-color: #FFC107;
-        }
-        
-        .notification.info {
-            border-left-color: #2196F3;
-        }
-        
-        .notification-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        
-        .notification-title {
-            font-weight: 600;
-            font-size: 1.1em;
-            color: #333;
-        }
-        
-        .notification-close {
-            background: none;
-            border: none;
-            font-size: 1.2em;
-            cursor: pointer;
-            color: #999;
-            padding: 0;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .notification-close:hover {
-            color: #666;
-        }
-        
-        .notification-message {
-            font-size: 0.95em;
-            color: #555;
-            line-height: 1.4;
-        }
-        
-        .notification-icon {
-            margin-right: 8px;
-            font-size: 1.2em;
-        }
-        
-        /* Ajustes responsivos para notificações */
         @media (max-width: 768px) {
-            .notification-container {
-                width: calc(100vw - 20px);
-                right: 10px;
-                top: 10px;
-            }
-            
-            .notification {
-                padding: 12px;
-                margin-bottom: 8px;
-            }
-            
-            .notification-title {
-                font-size: 1em;
-            }
-            
-            .notification-message {
-                font-size: 0.9em;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .notification-container {
-                width: calc(100vw - 10px);
-                right: 5px;
-                top: 5px;
-            }
-            
-            .notification-header {
-                margin-bottom: 6px;
-            }
+            .admin-container { margin: 1rem; padding: 1.25rem; }
+            .stats-resumo { flex-direction: column; }
+            .musicas-table th, .musicas-table td { padding: 0.5rem 0.375rem; font-size: 0.8125rem; }
+            .acoes-cell { flex-direction: column; align-items: flex-start; }
+            .btn-acao { width: 100%; margin-bottom: 0.25rem; }
         }
     </style>
 </head>
@@ -394,89 +299,112 @@
     
     <header>
         <nav>
-            <div class="logo">Painel Admin</div>
+            <div class="logo">
+                <i class="fas fa-shield-alt text-yellow-400"></i>
+                Painel Admin
+            </div>
             <div class="nav-links">
-                <a href="index.html">← Voltar para o Site</a>
+                <a href="index.html">
+                    <i class="fas fa-arrow-left"></i>
+                    Voltar para o Site
+                </a>
             </div>
         </nav>
     </header>
 
     <div class="admin-container">
-        <h2>Acesso Administrativo 🔒</h2>
+        <h2><i class="fas fa-lock mr-2"></i>Acesso Administrativo 🔒</h2>
         <div id="message"></div>
         
         <div class="login-screen" id="loginScreen">
-            <p>Insira a chave de segurança para acessar o painel de cadastro.</p>
+            <p class="text-center text-gray-600 mb-6">
+                <i class="fas fa-key mr-2 text-yellow-500"></i>
+                Insira a chave de segurança para acessar o painel de cadastro.
+            </p>
             <form id="keyForm">
                 <div class="form-group">
-                    <label for="adminKey">Chave de Acesso:</label>
+                    <label for="adminKey"><i class="fas fa-lock mr-2 text-blue-500"></i>Chave de Acesso:</label>
                     <input type="password" id="adminKey" required>
                 </div>
-                <button type="submit" class="btn-submit">Entrar</button>
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-sign-in-alt mr-2"></i>Entrar
+                </button>
             </form>
         </div>
 
         <div class="upload-screen" id="uploadScreen" style="display: none;">
-            <h2>Cadastro de Nova Música 📤</h2>
+            <h2><i class="fas fa-cloud-upload-alt mr-2"></i>Cadastro de Nova Música 📤</h2>
             <form id="uploadForm">
-                <p>⚠️ <b>Atenção:</b> O arquivo MP3 será apenas simulado. Após o cadastro, mova-o manualmente para a pasta <b>/musicas</b> no seu servidor.</p>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded">
+                    <p class="flex items-start">
+                        <i class="fas fa-exclamation-triangle mr-2 text-yellow-500 mt-0.5"></i> 
+                        <span><b>Atenção:</b> O arquivo MP3 será apenas simulado. Após o cadastro, mova-o manualmente para a pasta <b>/musicas</b> no seu servidor.</span>
+                    </p>
+                </div>
                 <div class="form-group">
-                    <label for="file">Arquivo MP3 (para nome):</label>
+                    <label for="file"><i class="fas fa-music mr-2 text-blue-500"></i>Arquivo MP3 (para nome):</label>
                     <input type="file" id="file" accept="audio/mp3"> 
                 </div>
                 <div class="form-group">
-                    <label for="dirInput">Importar Pasta (vários arquivos):</label>
+                    <label for="dirInput"><i class="fas fa-folder-open mr-2 text-green-500"></i>Importar Pasta (vários arquivos):</label>
                     <input type="file" id="dirInput" webkitdirectory directory multiple accept="audio/*">
-                    <small>Selecione a pasta que contém todos os MP3s (o navegador irá listar os arquivos). O sistema tentará extrair Título e Artista do nome do arquivo, ex: <code>MARCA (Autor).mp3</code>. Após selecionar, clique em "Cadastrar Todas as Músicas".</small>
+                    <small class="text-gray-600 block mt-1">
+                        <code class="bg-gray-100 px-2 py-1 rounded">MUSICA (Autor).mp3</code> - Selecione a pasta com todos os MP3s. O sistema extrai Título e Artista do nome.
+                    </small>
                 </div>
                 <div class="form-group">
                     <label>Progresso de Importação:</label>
-                    <div id="bulkProgress" style="font-size:0.9em; color:#666;">Aguardando seleção de pasta...</div>
-                    <button type="button" id="cadastrarEmMassaBtn" class="btn-submit" style="background:#4CAF50; margin-top:10px; display:none;">Cadastrar Todas as Músicas</button>
+                    <div id="bulkProgress" class="text-gray-600 text-sm">Aguardando seleção de pasta...</div>
+                    <button type="button" id="cadastrarEmMassaBtn" class="btn-submit" style="background:linear-gradient(135deg, #10b981 0%, #059669 100%); margin-top:0.625rem; display:none;">
+                        <i class="fas fa-plus-circle mr-2"></i>Cadastrar Todas as Músicas
+                    </button>
                 </div>
-                <hr style="margin: 20px 0;">
-
+                <hr class="my-6">
                 <div class="form-group">
-                    <label for="titulo">Título da Música:</label>
+                    <label for="titulo"><i class="fas fa-heading mr-2 text-purple-500"></i>Título da Música:</label>
                     <input type="text" id="titulo" required>
                 </div>
                 <div class="form-group">
-                    <label for="artista">Artista/Autor:</label>
+                    <label for="artista"><i class="fas fa-user mr-2 text-pink-500"></i>Artista/Autor:</label>
                     <input type="text" id="artista" required>
                 </div>
                 <div class="form-group">
-                    <label for="data">Data de Lançamento:</label>
+                    <label for="data"><i class="fas fa-calendar mr-2 text-orange-500"></i>Data de Lançamento:</label>
                     <input type="date" id="data" value="2025-01-01" required>
                 </div>
-                
                 <div class="form-group">
-                    <label for="partitura">Link da Partitura (opcional, PDF ou imagem):</label>
+                    <label for="partitura"><i class="fas fa-file-pdf mr-2 text-red-500"></i>Link da Partitura (opcional, PDF ou imagem):</label>
                     <input type="url" id="partitura" name="partitura" placeholder="Ex: https://link.para.partitura.pdf">
-                    <small id="partituraStatus"></small>
+                    <small id="partituraStatus" class="block mt-1"></small>
                 </div>
-                
                 <div class="form-group">
-                    <label for="partituraFile">Upload de Partitura (opcional, PDF ou imagem):</label>
+                    <label for="partituraFile"><i class="fas fa-upload mr-2 text-green-500"></i>Upload de Partitura (opcional, PDF ou imagem):</label>
                     <input type="file" id="partituraFile" accept=".pdf,.jpg,.jpeg,.png">
-                    <small id="partituraFileStatus"></small>
+                    <small id="partituraFileStatus" class="block mt-1"></small>
                 </div>
-
                 <div class="form-group">
-                    <button type="button" id="testarPartitura" style="background:#4b5fc2; margin-top:10px;">Testar Busca de Partitura</button>
+                    <button type="button" id="testarPartitura" class="btn-submit" style="background:linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); margin-top:0.625rem;">
+                        <i class="fas fa-search mr-2"></i>Testar Busca de Partitura
+                    </button>
                 </div>
-
                 <div class="form-group">
-                    <input type="checkbox" id="nova"><label for="nova" style="display: inline; margin-left: 10px; font-weight: normal;">Marcar como Novo Lançamento</label>
+                    <input type="checkbox" id="nova" class="inline-block w-auto">
+                    <label for="nova" class="inline-block ml-2 font-normal">
+                        <i class="fas fa-star mr-1 text-yellow-500"></i>Marcar como Novo Lançamento
+                    </label>
                 </div>
-                <button type="submit" class="btn-submit">Cadastrar Música</button>
-                <button type="button" class="btn-submit" onclick="novaMusica()" style="background:#4b5fc2; margin-top:10px;">Novo/Limpar</button>
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-plus-circle mr-2"></i>Cadastrar Música
+                </button>
+                <button type="button" onclick="novaMusica()" class="btn-submit" style="background:linear-gradient(135deg, #10b981 0%, #059669 100%); margin-top:0.625rem;">
+                    <i class="fas fa-plus mr-2"></i>Novo/Limpar
+                </button>
             </form>
             
-            <hr style="margin: 30px 0;">
+            <hr class="my-8">
             
-            <h2>Gerenciar Músicas Cadastradas <span id="totalMusicasHeader">(0 músicas)</span></h2>
+            <h2><i class="fas fa-cog mr-2"></i>Gerenciar Músicas Cadastradas <span id="totalMusicasHeader" class="inline-block">(0 músicas)</span></h2>
             
-            <!-- Resumo de estatísticas -->
             <div class="stats-resumo" id="statsResumo">
                 <div class="stat-card">
                     <div class="numero" id="totalMusicas">0</div>
@@ -492,7 +420,6 @@
                 </div>
             </div>
             
-            <!-- Tabela de músicas -->
             <div class="musicas-table-container">
                 <table class="musicas-table" id="musicasTable">
                     <thead>
@@ -511,124 +438,33 @@
                     </tbody>
                 </table>
             </div>
-            <style>
-            /* Estilos mantidos para compatibilidade */
-            #musicasAdminList table { 
-                width: 100%; 
-                border-collapse: collapse; 
-                margin-top: 8px; 
-                background: #fff; 
-                font-size: 1em; 
-                box-shadow: 0 2px 8px rgba(0,0,0,0.04); 
-            }
-            #musicasAdminList th, #musicasAdminList td {
-                padding: 10px;
-                border: 1px solid #eee;
-                text-align: left;
-                word-break: break-word;
-            }
-            #musicasAdminList th {
-                background: #f4f7f6;
-                font-weight: 700;
-                color: #667eea;
-                font-size: 1.05em;
-            }
-            #musicasAdminList tr:nth-child(even) {
-                background: #fafbfc;
-            }
-            #musicasAdminList tr:hover {
-                background: #eef2ff;
-            }
-            .btn-edit, .btn-remove {
-                padding: 6px 14px;
-                border: none;
-                border-radius: 5px;
-                font-size: 0.97em;
-                font-weight: 600;
-                cursor: pointer;
-                margin-bottom: 2px;
-                transition: background 0.2s;
-            }
-            .btn-edit {
-                background: #667eea;
-                color: #fff;
-                margin-right: 6px;
-            }
-            .btn-edit:hover {
-                background: #4b5fc2;
-            }
-            .btn-remove {
-                background: #ff6b6b;
-                color: #fff;
-            }
-            .btn-remove:hover {
-                background: #d43c3c;
-            }
             
-            .btn-partitura-exists {
-                padding: 6px 14px;
-                border: none;
-                border-radius: 5px;
-                font-size: 0.97em;
-                font-weight: 600;
-                cursor: pointer;
-                margin-bottom: 2px;
-                transition: background 0.2s;
-                background: #FFC107;
-                color: #000;
-                margin-left: 6px;
-            }
-            
-            .btn-partitura-exists:hover {
-                background: #e0a800;
-            }
-            
-            .btn-partitura-none {
-                padding: 6px 14px;
-                border: none;
-                border-radius: 5px;
-                font-size: 0.97em;
-                font-weight: 600;
-                cursor: pointer;
-                margin-bottom: 2px;
-                transition: background 0.2s;
-                background: #4CAF50;
-                color: #fff;
-                margin-left: 6px;
-            }
-            
-            .btn-partitura-none:hover {
-                background: #45a049;
-            }
-            </style>
-            
-            <hr style="margin: 30px 0;">
+            <hr class="my-8">
 
-            <h2>Cadastro de Novo Usuário</h2>
-            <p>Utilize esta seção para criar contas para seus clientes.</p>
+            <h2 class="mt-8"><i class="fas fa-user-plus mr-2"></i>Cadastro de Novo Usuário</h2>
+            <p class="mb-4 text-gray-600">
+                <i class="fas fa-info-circle mr-2 text-blue-500"></i>
+                Utilize esta seção para criar contas para seus clientes.
+            </p>
             <form id="registerUserForm">
-                <div class="form-group"><label for="register-email">E-mail do Cliente:</label><input type="email" id="register-email" required></div>
-                <div class="form-group"><label for="register-password">Senha Provisória:</label><input type="password" id="register-password" required></div>
-                <button type="submit" class="btn-submit" style="background: var(--success-color);">Criar Conta</button>
+                <div class="form-group">
+                    <label for="register-email"><i class="fas fa-envelope mr-2 text-purple-500"></i>E-mail do Cliente:</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password"><i class="fas fa-lock mr-2 text-pink-500"></i>Senha Provisória:</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <button type="submit" class="btn-submit" style="background:linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    <i class="fas fa-check-circle mr-2"></i>Criar Conta
+                </button>
             </form>
-            </div>
+        </div>
     </div>
 
     <footer>
-        <p>&copy; 2025 Chorinho Premium by Cristiano Ferreira | Música de qualidade.</p>
+        <p><i class="fas fa-heart mr-2 text-yellow-400"></i>© 2025 Chorinho Premium by Cristiano Ferreira | Música de qualidade.</p>
     </footer>
-    
-    <style>
-        footer {
-            text-align: center;
-            padding: 20px 10px;
-            margin-top: 30px;
-            background-color: #2c3e50;
-            color: #aaa;
-            font-size: 0.9em;
-            border-radius: 0 0 15px 15px;
-        }
-    </style>
 
     <script type="module" src="./firebase-config.js"></script>
     <script type="module" src="./admin.js"></script>
