@@ -1,14 +1,4 @@
 #EXTM3U
-#EXTM3U x-tvg-url="http://m3u4u.com/epg/5z3end3eejfpr68eyqpk"
-
-#EXTINF:-1 tvg-id="AdultSwim(src05).br(m3u4u)" tvg-logo="https://mondrian.claro.com.br/channels/default/adult-swim.png",Adult Swim
-http://200.115.114.133/AdultSWIN/index.m3u8?token=pxOoB_OK0yBMU1
-
-#EXTINF:-1 tvg-id="AgroCanal.br(m3u4u)" tvg-logo="https://mondrian.claro.com.br/channels/default/agrocanal.png",Agro Canal
-http://200.115.114.133/AGROCANAL/index.m3u8?token=pxOoB_OK0yBMU1
-
-#EXTINF:-1 tvg-id="Arte1.br(m3u4u)" tvg-logo="https://mondrian.claro.com.br/channels/default/arte1.png",Arte 1
-http://200.115.114.133/ARTE1/index.m3u8?token=pxOoB_OK0yBMU1
 
 #EXTINF:-1 tvg-id="Band(SaoPaulo).br(m3u4u)" tvg-logo="https://mondrian.claro.com.br/channels/default/band.png",Band HD
 http://200.115.114.133/BAND_HD/index.m3u8?token=pxOoB_OK0yBMU1
@@ -40,9 +30,6 @@ http://200.115.114.133/ESPN4/index.m3u8?token=pxOoB_OK0yBMU1
 #EXTINF:-1 tvg-id="ESPN5.br(m3u4u)" tvg-logo="https://mondrian.claro.com.br/channels/default/espn5.png",ESPN 5
 http://200.115.114.133/ESPN5/index.m3u8?token=pxOoB_OK0yBMU1
 
-#EXTINF:-1 tvg-id="ESPN6.br(m3u4u)" tvg-logo="https://mondrian.claro.com.br/channels/default/espn6.png",ESPN 6
-http://200.115.114.133/ESPN6/index.m3u8?token=pxOoB_OK0yBMU1
-
 #EXTINF:-1 tvg-id="FishTV.br(m3u4u)" tvg-logo="https://mondrian.claro.com.br/channels/default/fish-tv.png",Fish TV
 http://200.115.114.133/FISHTV/index.m3u8?token=pxOoB_OK0yBMU1
 
@@ -67,14 +54,8 @@ http://200.115.114.133/HBOMUNDIHD/index.m3u8?token=pxOoB_OK0yBMU1
 #EXTINF:-1 tvg-id="HBOPop(Portuguese).br(m3u4u)" tvg-logo="https://mondrian.claro.com.br/channels/default/hbo-pop.png",HBO Pop
 http://200.115.114.133/HBOPOPHD/index.m3u8?token=pxOoB_OK0yBMU1
 
-#EXTINF:-1 tvg-id="ModoViagem.br(m3u4u)" tvg-logo="https://mondrian.claro.com.br/channels/default/modo-viagem.png",Modo Viagem
-http://200.115.114.133/ModoViagem/index.m3u8?token=pxOoB_OK0yBMU1
-
 #EXTINF:-1 tvg-id="Multishow.br(m3u4u)" tvg-logo="https://mondrian.claro.com.br/channels/default/multishow.png",Multishow
 http://200.115.114.133/MULTISHOW/index.m3u8?token=pxOoB_OK0yBMU1
-
-#EXTINF:-1 tvg-id="NSports.br(m3u4u)" tvg-logo="https://mondrian.claro.com.br/channels/default/nsports.png",NSports
-http://200.115.114.133/NSPORTS/index.m3u8?token=pxOoB_OK0yBMU1
 
 #EXTINF:-1 tvg-id="Off.br(m3u4u)" tvg-logo="https://mondrian.claro.com.br/channels/default/off.png",Off
 http://200.115.114.133/OFF/index.m3u8?token=pxOoB_OK0yBMU1
